@@ -1,0 +1,1 @@
+suckless-tools: setuid-binary usr/bin/slock 4755 root/root

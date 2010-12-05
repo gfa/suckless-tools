@@ -1,0 +1,19 @@
+ssid - simple setsid
+====================
+ssid is an extremly simple setsid replacement.
+
+
+Installation
+------------
+Edit config.mk to match your local setup. ssid is installed into
+/usr/local by default.
+
+Afterwards enter the following command to build and install ssid
+(if necessary as root):
+
+    $ make clean install
+
+
+Running ssid
+------------
+Simply invoke the 'ssid' command with the required arguments.

@@ -1,0 +1,35 @@
+#!/usr/bin/make -f
+
+SHELL := sh -e
+
+D := $(CURDIR)/debian/suckless-tools
+
+TOOLS = $(shell ls | sed -e 's|debian||')
+
+%:
+	dh ${@}
+
+override_dh_auto_clean:
+	dh_auto_clean
+
+	for TOOL in $(TOOLS); \
+	do \
+		make -C $${TOOL} clean; \
+	done
+
+override_dh_auto_build:
+	find . -name config.mk | xargs sed -i 's,-s ${LIBS},${LIBS},'
+	for TOOL in $(TOOLS); \
+	do \
+		CFLAGS="$(CFLAGS)" $(MAKE) -C $${TOOL} PREFIX=/usr; \
+	done
+
+override_dh_auto_install:
+	for TOOL in $(TOOLS); \
+	do \
+		$(MAKE) -C $${TOOL} DESTDIR=$(D) TERMINFO=$(D)/usr/share/terminfo PREFIX=/usr install; \
+	done
+	dh_installman debian/manpages/*
+
+override_dh_fixperms:
+	dh_fixperms -Xusr/bin/slock

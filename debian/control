@@ -1,0 +1,30 @@
+Source: suckless-tools
+Section: x11
+Priority: optional
+Maintainer: Kai Hendry <hendry@iki.fi>
+Build-Depends: debhelper (>= 8), libx11-dev, libxinerama-dev, ncurses-bin (>= 5.7+20081213)
+Standards-Version: 3.9.1
+Homepage: http://www.suckless.org
+Vcs-Browser: http://git.webconverger.org/?p=suckless-tools
+Vcs-Git: git://webconverger.org/git/public/suckless-tools
+
+Package: suckless-tools
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Suggests: dwm
+Provides: dmenu, lsw, slock, sselp, ssid, swarp, tabbed, wmname, st
+Description: simple commands for minimalistic window managers
+ This package provides simple commands designed to be used with a minimalistic
+ window manager like dwm but they can be useful in scripts regardless of the
+ window manager used.
+ .
+  * dmenu: dynamic menu is a generic menu for X.
+  * lsw: Lists the titles of all running X windows to stdout, similar to ls(1).
+  * slock: Simple X display locker that locks the X session.
+  * st: Simple terminal implementation for X.
+  * sselp: Simple X selection printer that prints the X selection to stdout.
+  * ssid: Simple setsid replacement.
+  * swarp: Simple X warping tool to warp the mouse pointer to a given position.
+  * tabbed: Simple generic tabbed fronted to xembed aware applications.
+  * wmname: wmname prints/sets the window manager name property of the root
+    window similar to how hostname(1) behaves.
