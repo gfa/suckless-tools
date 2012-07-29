@@ -41,8 +41,10 @@ suckless-tools (39-1) unstable; urgency=low
      (03_transparent-makefiles.patch).
     + Added patch to escape '-' symbol in manpage for tabbed
      (04_tabbed-manpage-hyphe-fix.patch).
+  * debian/copyright:
+    + Copyright file now adheres to Debian copyright-format 1.0
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>  Sun, 29 Jul 2012 19:23:20 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Sun, 29 Jul 2012 22:18:03 +0530
 
 suckless-tools (38-1) unstable; urgency=low
 
