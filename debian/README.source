@@ -1,0 +1,19 @@
+Debianisation of suckless-tools
+================================
+
+This package contains a set of tools from suckless community as
+single package. To build the package you need to create source
+tarballs of individual tool component involved. This can be done
+by running following command from suckless-tools folder
+
+ fakeroot debian/rules get-orig-source
+
+This package can not utilize git-buildpackage as it can't handle
+multiple source tarballs in a single package. As of now it is using
+git repository just to maintain packaging history.
+
+To get new version of each tool you need to change corresponding _VERSION
+string for the tool in debian/rules and also CURRET_VERSION and run
+above command to get source tarballs for new version prepared.
+
+ -- Vasudev Kamath <kamathvasudev@gmail.com>, Sun, 29 Jul 2012 20:17:14 +0530
