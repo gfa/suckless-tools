@@ -1,0 +1,24 @@
+Description: Remove setsid bit on slock binary
+ Upstream Makefile was installing slock with setsid bit
+ on. This patch make slock to belong shadow group and sets
+ sgid bit
+Author: Michael Stummvoll <michael@stummi.org>, Vasudev Kamath <kamathvasudev@gmail.com>
+Last-Update: 2012-07-25
+--- a/slock/Makefile
++++ b/slock/Makefile
+@@ -38,10 +38,11 @@
+ 
+ install: all
+ 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
+-	@mkdir -p ${DESTDIR}${PREFIX}/bin
+-	@cp -f slock ${DESTDIR}${PREFIX}/bin
+-	@chmod 755 ${DESTDIR}${PREFIX}/bin/slock
+-	@chmod u+s ${DESTDIR}${PREFIX}/bin/slock
++	mkdir -p ${DESTDIR}${PREFIX}/bin
++	cp -f slock ${DESTDIR}${PREFIX}/bin
++	chmod 755 ${DESTDIR}${PREFIX}/bin/slock
++	chgrp shadow ${DESTDIR}${PREFIX}/bin/slock
++	chmod g+s ${DESTDIR}${PREFIX}/bin/slock
+ 
+ uninstall:
+ 	@echo removing executable file from ${DESTDIR}${PREFIX}/bin

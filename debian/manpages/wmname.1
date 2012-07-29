@@ -1,0 +1,35 @@
+.TH WMNAME 1 "2008-08-03" "0.1" "suckless-tools"
+
+.SH NAME
+wmname \- prints/sets window manager name
+
+.SH SYNOPSIS
+.B wmname
+.RI "[\-v] [ " WM_NAME " ]"
+
+.SH DESCRIPTION
+.B wmname
+prints or sets the window manager name property of the root window,
+somewhat similar to how \fBhostname\fR(1) acts for network identities.
+Without argument the EWMH name is recovered and printed.
+.PP
+.B wmname
+is a nice utility to fix problems with JDK versions and other broken
+programs, which are assuming a reparenting window manager.
+
+.SH OPTIONS
+.B wmname
+prints its version when fed with \fB\-v\fR.
+
+.SH ENVIRONMENT
+.B wmname
+uses DISPLAY to determine which display to act on.
+
+.SH SEE ALSO
+.B Homepage
+<\fIhttp://www.suckless.org/\fR>
+
+.SH AUTHOR
+wmname was written by Anselm R. Garbe <\fIgarbeam@gmail.com\fR>.
+.PP
+This manual page was written by Daniel Baumann <\fIdaniel@debian.org\fR>, for the Debian project (but may be used by others).

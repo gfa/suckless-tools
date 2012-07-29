@@ -1,0 +1,35 @@
+Description: Escapes "-" symbol in manpage
+ Manpage for tabbed was using "-" symbol without escape which will
+ be considered by groff as hyphen. This patch escapes the "-" in man-
+ pages
+ .
+Author: Vasudev Kamath <kamathvasudev@gmail.com>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Last-Update: 2012-07-29
+--- a/tabbed/tabbed.1
++++ b/tabbed/tabbed.1
+@@ -13,7 +13,7 @@
+ is a simple tabbed container for applications which support XEmbed. Tabbed
+ will then run the provides command with the xid of tabbed as appended
+ argument. (See EXAMPLES.) The automatic spawning of the command can be
+-disabled by providing the -s parameter. If no command is provided
++disabled by providing the \-s parameter. If no command is provided
+ tabbed will just print its xid and run no command.
+ .SH OPTIONS
+ .TP
+@@ -48,11 +48,11 @@
+ .B Ctrl\-[0..9]
+ jumps to nth tab
+ .SH EXAMPLES
+-$ tabbed surf -e
++$ tabbed surf \-e
+ .TP
+-$ tabbed urxvt -embed
++$ tabbed urxvt \-embed
+ .TP
+-$ tabbed xterm -into
++$ tabbed xterm \-into
+ .TP
+-$ $(tabbed -d >/tmp/tabbed.xid); urxvt -embed $(</tmp/tabbed.xid);
++$ $(tabbed \-d >/tmp/tabbed.xid); urxvt \-embed $(</tmp/tabbed.xid);
+ 

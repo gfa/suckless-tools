@@ -1,0 +1,10 @@
+slock is a very simple screen locker. After locking the screen you have to
+type your password (without any feedback), hit enter and the screen will be
+unlocked.
+
+Please Note:
+Slock checks the password against shadow, so it needs at least read 
+permissions for the /etc/shadow file.
+On Debian this is done by setgid slock to shadow. After getting the password
+entry, slock drops rights. However, assuming that there is any security issue
+with slock, an attacker maybe could read the shadow-file.
