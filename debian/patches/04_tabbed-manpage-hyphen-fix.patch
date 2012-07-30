@@ -1,10 +1,12 @@
-Description: Escapes "-" symbol in manpage
+Description: Escapes "-" symbol in manpage and use temp file in secure way
  Manpage for tabbed was using "-" symbol without escape which will
  be considered by groff as hyphen. This patch escapes the "-" in man-
- pages
+ pages. This patch also replaces existing example given by upstream to embed
+ an app into tabbed with a version which uses the secure temp files using
+ mktemp.
  .
 Author: Vasudev Kamath <kamathvasudev@gmail.com>
-Forwarded: <no|not-needed|url proving that it has been forwarded>
+Forwarded: no
 Last-Update: 2012-07-29
 --- a/tabbed/tabbed.1
 +++ b/tabbed/tabbed.1
@@ -17,7 +19,7 @@ Last-Update: 2012-07-29
  tabbed will just print its xid and run no command.
  .SH OPTIONS
  .TP
-@@ -48,11 +48,11 @@
+@@ -48,11 +48,10 @@
  .B Ctrl\-[0..9]
  jumps to nth tab
  .SH EXAMPLES
@@ -31,5 +33,5 @@ Last-Update: 2012-07-29
 +$ tabbed xterm \-into
  .TP
 -$ $(tabbed -d >/tmp/tabbed.xid); urxvt -embed $(</tmp/tabbed.xid);
-+$ $(tabbed \-d >/tmp/tabbed.xid); urxvt \-embed $(</tmp/tabbed.xid);
- 
+-
++$ TMPFILE=$(mktemp \-\-tmpdir tabbedxid.XXX);$(tabbed \-d > ${TMPFILE});urxvt \-embed $(<${TMPFILE})

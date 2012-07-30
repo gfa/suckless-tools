@@ -1,7 +1,6 @@
-suckless-tools (39-1) unstable; urgency=low
+suckless-tools (39-1) experimental; urgency=low
 
   [ Michael Stummvoll ]
-  * New Maintainer (Closes: #647090) 
   * Updated lsw (Closes: #650573) 
   * Updated dmenu (Closes: #650574) 
   * Added sprop and lsx (Closes: #627662)
@@ -17,14 +16,17 @@ suckless-tools (39-1) unstable; urgency=low
   * Added some docs
 
   [ Vasudev Kamath ]
-  * Imported new version of slock (Closes: #667796)
+  * Imported new version of slock. This resolves CVE-2012-1620
+    (Closes: #667796)
   * Imported new version of tabbed
   * debian/control:
     + Increased minimum debhelper required to 9
     + Bumped Standards-Version to 3.9.3. This did not require any change
       to package.
     + Added myself as maintainer and Michael Stummvoll as Uploader
-    + Added dependency on dpkg-dev >= 1.16.1.1
+      (Closes: #647090).
+    + Added dependency on dpkg-dev >= 1.16.1.1 to introduce hardening flags
+      using dpkg-buildflags.
   * Set debian/compat to 9
   * Merge new version 39
   * debian/rules:
@@ -39,12 +41,12 @@ suckless-tools (39-1) unstable; urgency=low
      (02_dpkg-buildflags.patch).
     + Added patch to make command execution visible in Makefiles
      (03_transparent-makefiles.patch).
-    + Added patch to escape '-' symbol in manpage for tabbed
-     (04_tabbed-manpage-hyphe-fix.patch).
+    + Added patch to escape '-' symbol in manpage for tabbed and use temp files
+      in secure way (04_tabbed-manpage-hyphe-fix.patch).
   * debian/copyright:
     + Copyright file now adheres to Debian copyright-format 1.0
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>  Sun, 29 Jul 2012 22:18:03 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Mon, 30 Jul 2012 21:45:50 +0530
 
 suckless-tools (38-1) unstable; urgency=low
 

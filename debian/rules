@@ -51,6 +51,7 @@ override_dh_installdocs:
 override_dh_fixperms:
 	dh_fixperms -Xusr/bin/slock
 
+get-orig-source: TMPDIR :=$(shell (mktemp --tmpdir -d suckless-tools.XXXX))
 get-orig-source:
 	@echo Downloading dmenu-$(dmenu_VERSION)...
 	@wget -q http://dl.suckless.org/tools/dmenu-$(dmenu_VERSION).tar.gz -O ../suckless-tools_$(CURRENT_VERSION).orig-dmenu.tar.gz
@@ -83,10 +84,10 @@ get-orig-source:
 	@wget -q http://hg.suckless.org/sprop/archive/tip.tar.gz -O ../suckless-tools_$(CURRENT_VERSION).orig-sprop.tar.gz
 
 	@echo Creating empty suckless-tools_$(CURRENT_VERSION).orig.tar.gz
-	@mkdir -p /tmp/suckless-tools_$(CURRENT_VERSION)
-	@cd /tmp
+	@mkdir -p $(TMPDIR)/suckless-tools_$(CURRENT_VERSION)
+	@cd $(TMPDIR)
 	@tar -cvf - suckless-tools_$(CURRENT_VERSION) 2> /dev/null | gzip -9 > ../suckless-tools_$(CURRENT_VERSION).orig.tar.gz
-	@rm -rf /tmp/suckless-tools_$(CURRENT_VERSION)
+	@rm -rf $(TMPDIR)
 
 	@echo Source tarballs are ready
 
