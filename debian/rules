@@ -5,18 +5,6 @@ SHELL := sh -e
 D := $(CURDIR)/debian/suckless-tools
 TOOLS = $(shell ls | sed -e 's|debian||')
 
-dmenu_VERSION	= 4.5
-lsx_VERSION	= 0.1
-lsw_VERSION	= 0.2
-slock_VERSION	= 1.0
-sselp_VERSION	= 0.2
-swarp_VERSION	= 0.1
-ssid_VERSION	= 0.1
-tabbed_VERSION	= 0.4
-wmname_VERSION	= 0.1
-
-CURRENT_VERSION	= 39
-
 %:
 	dh $@
 
@@ -51,43 +39,7 @@ override_dh_installdocs:
 override_dh_fixperms:
 	dh_fixperms -Xusr/bin/slock
 
-get-orig-source: TMPDIR :=$(shell (mktemp --tmpdir -d suckless-tools.XXXX))
 get-orig-source:
-	@echo Downloading dmenu-$(dmenu_VERSION)...
-	@wget -q http://dl.suckless.org/tools/dmenu-$(dmenu_VERSION).tar.gz -O ../suckless-tools_$(CURRENT_VERSION).orig-dmenu.tar.gz
+	$(dir $(firstword $(MAKEFILE_LIST)))create_orig_source
 
-	@echo Downloading lsw-$(lsw_VERSION)...
-	@wget -q http://dl.suckless.org/tools/lsw-$(lsw_VERSION).tar.gz -O  ../suckless-tools_$(CURRENT_VERSION).orig-lsw.tar.gz
-
-	@echo Downloading lsx-$(lsx_VERSION)...
-	@wget -q http://dl.suckless.org/tools/lsx-$(lsx_VERSION).tar.gz -O ../suckless-tools_$(CURRENT_VERSION).orig-lsx.tar.gz
-
-	@echo Downloading slock-$(slock_VERSION)...
-	@wget -q http://dl.suckless.org/tools/slock-$(slock_VERSION).tar.gz -O ../suckless-tools_$(CURRENT_VERSION).orig-slock.tar.gz
-
-	@echo Downloading sselp-$(sselp_VERSION)...
-	@wget -q http://dl.suckless.org/tools/sselp-$(sselp_VERSION).tar.gz -O ../suckless-tools_$(CURRENT_VERSION).orig-sselp.tar.gz
-
-	@echo Downloading ssid-$(ssid_VERSION)...
-	@wget -q http://dl.suckless.org/tools/ssid-$(ssid_VERSION).tar.gz -O ../suckless-tools_$(CURRENT_VERSION).orig-ssid.tar.gz
-
-	@echo Downloading swarp-$(swarp_VERSION)...
-	@wget -q http://dl.suckless.org/tools/swarp-$(swarp_VERSION).tar.gz -O ../suckless-tools_$(CURRENT_VERSION).orig-swarp.tar.gz
-
-	@echo Downloading tabbed-$(tabbed_VERSION)...
-	@wget -q http://dl.suckless.org/tools/tabbed-$(tabbed_VERSION).tar.gz -O ../suckless-tools_$(CURRENT_VERSION).orig-tabbed.tar.gz
-
-	@echo Downloading wmname-$(wmname_VERSION)...
-	@wget -q http://dl.suckless.org/tools/wmname-$(wmname_VERSION).tar.gz -O ../suckless-tools_$(CURRENT_VERSION).orig-wmname.tar.gz
-
-	@echo Downloading sprop from hg repository tip
-	@wget -q http://hg.suckless.org/sprop/archive/tip.tar.gz -O ../suckless-tools_$(CURRENT_VERSION).orig-sprop.tar.gz
-
-	@echo Creating empty suckless-tools_$(CURRENT_VERSION).orig.tar.gz
-	@mkdir -p $(TMPDIR)/suckless-tools_$(CURRENT_VERSION)
-	@cd $(TMPDIR)
-	@tar -cvf - suckless-tools_$(CURRENT_VERSION) 2> /dev/null | gzip -9 > ../suckless-tools_$(CURRENT_VERSION).orig.tar.gz
-	@rm -rf $(TMPDIR)
-
-	@echo Source tarballs are ready
 

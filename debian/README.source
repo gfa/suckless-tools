@@ -13,7 +13,8 @@ multiple source tarballs in a single package. As of now it is using
 git repository just to maintain packaging history.
 
 To get new version of each tool you need to change corresponding _VERSION
-string for the tool in debian/rules and also CURRET_VERSION and run
-above command to get source tarballs for new version prepared.
+string for the tool in debian/create_orig_source shell script and also
+CURRET_VERSION and run above command to get source tarballs for new version
+prepared.
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>, Mon, 30 Jul 2012 19:48:56 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>, Wed, 22 Aug 2012 21:49:09 +0530
