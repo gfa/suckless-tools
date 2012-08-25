@@ -13,7 +13,7 @@ wmname_VERSION=0.1
 CURRENT_VERSION=39
 
 
-TMPDIR=$(mktemp --tmpdir -d suckless-tools.XXXX)
+TMPDIR=$(mktemp --tmpdir=.. -d suckless-tools.XXXX)
 echo Downloading dmenu-$dmenu_VERSION...
 wget -q http://dl.suckless.org/tools/dmenu-$dmenu_VERSION.tar.gz -O ../suckless-tools_$CURRENT_VERSION.orig-dmenu.tar.gz
 

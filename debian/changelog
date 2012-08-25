@@ -45,8 +45,13 @@ suckless-tools (39-1) experimental; urgency=low
       in secure way (04_tabbed-manpage-hyphe-fix.patch).
   * debian/copyright:
     + Copyright file now adheres to Debian copyright-format 1.0
+    + Source field now points to download location of tools involved in the package
+      (Closes: #685611), thanks to Jakub Wilk
+  * debian/README.source:
+    + Updated this file with proper instruction on how to recreate the original source
+      tarballs required for package building
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>  Mon, 30 Jul 2012 21:45:50 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Sat, 25 Aug 2012 12:19:22 +0530
 
 suckless-tools (38-1) unstable; urgency=low
 
