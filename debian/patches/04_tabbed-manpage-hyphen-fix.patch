@@ -34,4 +34,4 @@ Last-Update: 2012-07-29
  .TP
 -$ $(tabbed -d >/tmp/tabbed.xid); urxvt -embed $(</tmp/tabbed.xid);
 -
-+$ xid=$(tabbed -d);urxvt \-embed $xid
++$ xid=$(tabbed \-d);urxvt \-embed $xid
