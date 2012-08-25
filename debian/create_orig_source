@@ -47,7 +47,7 @@ wget -q http://hg.suckless.org/sprop/archive/tip.tar.gz -O ../suckless-tools_$CU
 echo Creating empty suckless-tools_$CURRENT_VERSION.orig.tar.gz
 mkdir -p $TMPDIR/suckless-tools_$CURRENT_VERSION
 cd $TMPDIR
-tar -cvf - suckless-tools_$CURRENT_VERSION 2> /dev/null | gzip -9 > ../suckless-tools_$CURRENT_VERSION.orig.tar.gz
+tar -cvf --owner root --group root --mode a+rX - suckless-tools_$CURRENT_VERSION | gzip -9 > ../suckless-tools_$CURRENT_VERSION.orig.tar.gz
 rm -rf $TMPDIR
 
 echo Source tarballs are ready
