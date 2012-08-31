@@ -14,40 +14,42 @@ CURRENT_VERSION=39
 
 
 TMPDIR=$(mktemp --tmpdir=.. -d suckless-tools.XXXX)
+CURDIR=$(pwd)
+
 echo Downloading dmenu-$dmenu_VERSION...
-wget -q http://dl.suckless.org/tools/dmenu-$dmenu_VERSION.tar.gz -O ../suckless-tools_$CURRENT_VERSION.orig-dmenu.tar.gz
+wget -q http://dl.suckless.org/tools/dmenu-$dmenu_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-dmenu.tar.gz
 
 echo Downloading lsw-$lsw_VERSION...
-wget -q http://dl.suckless.org/tools/lsw-$lsw_VERSION.tar.gz -O  ../suckless-tools_$CURRENT_VERSION.orig-lsw.tar.gz
+wget -q http://dl.suckless.org/tools/lsw-$lsw_VERSION.tar.gz -O  $CURDIR/suckless-tools_$CURRENT_VERSION.orig-lsw.tar.gz
 
 echo Downloading lsx-$lsx_VERSION...
-wget -q http://dl.suckless.org/tools/lsx-$lsx_VERSION.tar.gz -O ../suckless-tools_$CURRENT_VERSION.orig-lsx.tar.gz
+wget -q http://dl.suckless.org/tools/lsx-$lsx_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-lsx.tar.gz
 
 echo Downloading slock-$slock_VERSION...
-wget -q http://dl.suckless.org/tools/slock-$slock_VERSION.tar.gz -O ../suckless-tools_$CURRENT_VERSION.orig-slock.tar.gz
+wget -q http://dl.suckless.org/tools/slock-$slock_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-slock.tar.gz
 
 echo Downloading sselp-$sselp_VERSION...
-wget -q http://dl.suckless.org/tools/sselp-$sselp_VERSION.tar.gz -O ../suckless-tools_$CURRENT_VERSION.orig-sselp.tar.gz
+wget -q http://dl.suckless.org/tools/sselp-$sselp_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-sselp.tar.gz
 
 echo Downloading ssid-$ssid_VERSION...
-wget -q http://dl.suckless.org/tools/ssid-$ssid_VERSION.tar.gz -O ../suckless-tools_$CURRENT_VERSION.orig-ssid.tar.gz
+wget -q http://dl.suckless.org/tools/ssid-$ssid_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-ssid.tar.gz
 
 echo Downloading swarp-$swarp_VERSION...
-wget -q http://dl.suckless.org/tools/swarp-$swarp_VERSION.tar.gz -O ../suckless-tools_$CURRENT_VERSION.orig-swarp.tar.gz
+wget -q http://dl.suckless.org/tools/swarp-$swarp_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-swarp.tar.gz
 
 echo Downloading tabbed-$tabbed_VERSION...
-wget -q http://dl.suckless.org/tools/tabbed-$tabbed_VERSION.tar.gz -O ../suckless-tools_$CURRENT_VERSION.orig-tabbed.tar.gz
+wget -q http://dl.suckless.org/tools/tabbed-$tabbed_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-tabbed.tar.gz
 
 echo Downloading wmname-$wmname_VERSION...
-wget -q http://dl.suckless.org/tools/wmname-$wmname_VERSION.tar.gz -O ../suckless-tools_$CURRENT_VERSION.orig-wmname.tar.gz
+wget -q http://dl.suckless.org/tools/wmname-$wmname_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-wmname.tar.gz
 
 echo Downloading sprop from hg repository tip
-wget -q http://hg.suckless.org/sprop/archive/tip.tar.gz -O ../suckless-tools_$CURRENT_VERSION.orig-sprop.tar.gz
+wget -q http://hg.suckless.org/sprop/archive/tip.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-sprop.tar.gz
 
 echo Creating empty suckless-tools_$CURRENT_VERSION.orig.tar.gz
 mkdir -p $TMPDIR/suckless-tools_$CURRENT_VERSION
 cd $TMPDIR
-tar --owner root --group root --mode a+rX -cvf - suckless-tools_$CURRENT_VERSION | gzip -9 > ../suckless-tools_$CURRENT_VERSION.orig.tar.gz
+tar --owner root --group root --mode a+rX -cvf - suckless-tools_$CURRENT_VERSION | gzip -9 > $CURDIR/suckless-tools_$CURRENT_VERSION.orig.tar.gz
 rm -rf $TMPDIR
 
 echo Source tarballs are ready
