@@ -1,3 +1,17 @@
+suckless-tools (38-2) unstable; urgency=low
+
+  * debian/control:
+    + Added myself as maintainer. (Closes: #647090)
+    + Vcs-* fields now points to repository on collab-maint
+  * debian/copyright:
+    + Added copyright-format 1.0 header fields (Closes: #685611)
+    + Fixed the license of st, it was mentioned as MIT but in reality
+      it was 3-Clause BSD license.
+    + Removed commas between file names in Files: section for lsw,swarp
+      and sselp
+
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Sun, 14 Oct 2012 16:04:43 +0530
+
 suckless-tools (38-1) unstable; urgency=low
 
   * Fix "FTBFS: /home/buildd/.terminfo: permission denied (errno 2)"

@@ -1,12 +1,13 @@
 Source: suckless-tools
 Section: x11
 Priority: optional
-Maintainer: Kai Hendry <hendry@iki.fi>
+Maintainer: Vasudev Kamath <kamathvasudev@gmail.com>
 Build-Depends: debhelper (>= 8), libx11-dev, libxinerama-dev, ncurses-bin (>= 5.7+20081213)
 Standards-Version: 3.9.1
 Homepage: http://www.suckless.org
-Vcs-Browser: http://git.webconverger.org/?p=suckless-tools
-Vcs-Git: git://webconverger.org/git/public/suckless-tools
+Vcs-Git: git://git.debian.org/collab-maint/suckless-tools.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/suckless-tools.git;a=summary
+
 
 Package: suckless-tools
 Architecture: any
