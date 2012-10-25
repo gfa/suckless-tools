@@ -43,7 +43,6 @@ suckless-tools (39-1) experimental; urgency=low
     + Added patch to escape '-' symbol in manpage for tabbed and use temp files
       in secure way (04_tabbed-manpage-hyphe-fix.patch).
   * debian/copyright:
-    + Copyright file now adheres to Debian copyright-format 1.0
     + Source field now specifies download location for sprop which is different
       compared to other tools involved.
   * debian/README.source:
