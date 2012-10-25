@@ -2,7 +2,7 @@ suckless-tools (39-1) experimental; urgency=low
 
   [ Michael Stummvoll ]
   * Updated lsw (Closes: #650573) 
-  * Updated dmenu (Closes: #650574) 
+  * Updated dmenu (Closes: #650574, #658386)
   * Added sprop and lsx (Closes: #627662)
   * Added manpage for dmenu_run (Closes: #610478)
   * Updated manpages for slock, ssidd, swarp and wmname (Closes: #636030)
@@ -21,10 +21,9 @@ suckless-tools (39-1) experimental; urgency=low
   * Imported new version of tabbed
   * debian/control:
     + Increased minimum debhelper required to 9
-    + Bumped Standards-Version to 3.9.3. This did not require any change
+    + Bumped Standards-Version to 3.9.4. This did not require any change
       to package.
-    + Added myself as maintainer and Michael Stummvoll as Uploader
-      (Closes: #647090).
+    + Added Michael Stummvoll as Uploader
     + Added dependency on dpkg-dev >= 1.16.1.1 to introduce hardening flags
       using dpkg-buildflags.
   * Set debian/compat to 9
@@ -45,14 +44,30 @@ suckless-tools (39-1) experimental; urgency=low
       in secure way (04_tabbed-manpage-hyphe-fix.patch).
   * debian/copyright:
     + Copyright file now adheres to Debian copyright-format 1.0
-    + Source field now points to download location of tools involved in the
-      package (Closes: #685611), thanks to Jakub Wilk
+    + Source field now specifies download location for sprop which is different
+      compared to other tools involved.
   * debian/README.source:
     + Updated this file with proper instruction on how to recreate the original
-      source tarballs required for package building
+      source tarballs required for package building.
+  * debian/create_orig_source shell script is added which will be invoked when
+    get-orig-source target in debian/rules is invoked
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>  Sat, 25 Aug 2012 12:25:47 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Thu, 25 Oct 2012 11:43:45 +0530
 
+suckless-tools (38-2) unstable; urgency=low
+
+  * debian/control:
+    + Added myself as maintainer. (Closes: #647090)
+    + Vcs-* fields now points to repository on collab-maint
+  * debian/copyright:
+    + Added copyright-format 1.0 header fields (Closes: #685611)
+    + Fixed the license of st, it was mentioned as MIT but in reality
+      it was 3-Clause BSD license.
+    + Removed commas between file names in Files: section for lsw,swarp
+      and sselp
+
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Sun, 14 Oct 2012 16:04:43 +0530
+ 
 suckless-tools (38-1) unstable; urgency=low
 
   * Fix "FTBFS: /home/buildd/.terminfo: permission denied (errno 2)"

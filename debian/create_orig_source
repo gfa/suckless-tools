@@ -44,7 +44,7 @@ echo Downloading wmname-$wmname_VERSION...
 wget -q http://dl.suckless.org/tools/wmname-$wmname_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-wmname.tar.gz
 
 echo Downloading sprop from hg repository tip
-wget -q http://hg.suckless.org/sprop/archive/tip.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-sprop.tar.gz
+wget -q http://hg.suckless.org/sprop/archive/ecfe2752b310.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-sprop.tar.gz
 
 echo Creating empty suckless-tools_$CURRENT_VERSION.orig.tar.gz
 mkdir -p $TMPDIR/suckless-tools_$CURRENT_VERSION
