@@ -6,8 +6,8 @@ Description: Patch to allow injection of hardening flags
 Author: Vasudev Kamath <kamathvasudev@gmail.com>
 Last-Update: 2012-07-29
 
---- suckless-tools-39.1.orig/lsw/config.mk
-+++ suckless-tools-39.1/lsw/config.mk
+--- a/lsw/config.mk
++++ b/lsw/config.mk
 @@ -13,9 +13,9 @@ INCS = -I${X11INC}
  LIBS = -L${X11LIB} -lX11
  
@@ -21,34 +21,34 @@ Last-Update: 2012-07-29
  
  # compiler and linker
  CC = cc
---- suckless-tools-39.1.orig/swarp/config.mk
-+++ suckless-tools-39.1/swarp/config.mk
+--- a/swarp/config.mk
++++ b/swarp/config.mk
 @@ -15,8 +15,8 @@ INCS = -I. -I/usr/include -I${X11INC}
  LIBS = -L/usr/lib -lc -L${X11LIB} -lX11
  
  # flags
 -CFLAGS = -Os ${INCS} -DVERSION=\"${VERSION}\"
 -LDFLAGS = ${LIBS}
-+CFLAGS += ${INCS} -DVERSION=\"${VERSION}\"
++CFLAGS += ${INCS} -DVERSION=\"${VERSION}\" ${CPPFLAGS}
 +LDFLAGS += ${LIBS}
  #CFLAGS = -g -Wall -O2 ${INCS} -DVERSION=\"${VERSION}\"
  #LDFLAGS = -g ${LIBS}
  
---- suckless-tools-39.1.orig/lsx/config.mk
-+++ suckless-tools-39.1/lsx/config.mk
+--- a/lsx/config.mk
++++ b/lsx/config.mk
 @@ -12,8 +12,8 @@ INCS = -I/usr/lib
  LIBS = -L/usr/lib -lc
  
  # flags
 -CFLAGS = -Os ${INCS} -DVERSION=\"${VERSION}\"
 -LDFLAGS = ${LIBS}
-+CFLAGS += ${INCS} -DVERSION=\"${VERSION}\"
++CFLAGS += ${INCS} -DVERSION=\"${VERSION}\" ${CPPFLAGS}
 +LDFLAGS += ${LIBS}
  #CFLAGS = -g -Wall -O2 ${INCS} -DVERSION=\"${VERSION}\"
  #LDFLAGS = -g ${LIBS}
  
---- suckless-tools-39.1.orig/tabbed/config.mk
-+++ suckless-tools-39.1/tabbed/config.mk
+--- a/tabbed/config.mk
++++ b/tabbed/config.mk
 @@ -12,9 +12,9 @@ INCS = -I. -I/usr/include
  LIBS = -L/usr/lib -lc -lX11
  
@@ -62,8 +62,8 @@ Last-Update: 2012-07-29
  
  # Solaris
  #CFLAGS = -fast ${INCS} -DVERSION=\"${VERSION}\"
---- suckless-tools-39.1.orig/sprop/config.mk
-+++ suckless-tools-39.1/sprop/config.mk
+--- a/sprop/config.mk
++++ b/sprop/config.mk
 @@ -15,9 +15,9 @@ INCS = -I. -I/usr/include -I${X11INC}
  LIBS = -L/usr/lib -lc -L${X11LIB} -lX11
  
@@ -77,21 +77,21 @@ Last-Update: 2012-07-29
  
  # compiler and linker
  CC = cc
---- suckless-tools-39.1.orig/ssid/config.mk
-+++ suckless-tools-39.1/ssid/config.mk
+--- a/ssid/config.mk
++++ b/ssid/config.mk
 @@ -11,8 +11,8 @@ INCS = -I. -I/usr/include
  LIBS = -L/usr/lib -lc
  
  # flags
 -CFLAGS = -Os ${INCS} -DVERSION=\"${VERSION}\"
 -LDFLAGS = ${LIBS}
-+CFLAGS += ${INCS} -DVERSION=\"${VERSION}\"
++CFLAGS += ${INCS} -DVERSION=\"${VERSION}\" ${CPPFLAGS}
 +LDFLAGS += ${LIBS}
  #CFLAGS = -g -Wall -O2 ${INCS} -DVERSION=\"${VERSION}\"
  #LDFLAGS = -g ${LIBS}
  
---- suckless-tools-39.1.orig/dmenu/config.mk
-+++ suckless-tools-39.1/dmenu/config.mk
+--- a/dmenu/config.mk
++++ b/dmenu/config.mk
 @@ -17,10 +17,10 @@ INCS = -I${X11INC}
  LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS}
  
@@ -106,8 +106,8 @@ Last-Update: 2012-07-29
  
  # compiler and linker
  CC = cc
---- suckless-tools-39.1.orig/slock/config.mk
-+++ suckless-tools-39.1/slock/config.mk
+--- a/slock/config.mk
++++ b/slock/config.mk
 @@ -14,9 +14,9 @@ INCS = -I. -I/usr/include -I${X11INC}
  LIBS = -L/usr/lib -lc -lcrypt -L${X11LIB} -lX11 -lXext
  
@@ -121,8 +121,8 @@ Last-Update: 2012-07-29
  
  # On *BSD remove -DHAVE_SHADOW_H from CPPFLAGS and add -DHAVE_BSD_AUTH
  # On OpenBSD and Darwin remove -lcrypt from LIBS
---- suckless-tools-39.1.orig/wmname/config.mk
-+++ suckless-tools-39.1/wmname/config.mk
+--- a/wmname/config.mk
++++ b/wmname/config.mk
 @@ -15,9 +15,9 @@ INCS = -I. -I/usr/include -I${X11INC}
  LIBS = -L/usr/lib -lc -L${X11LIB} -lX11
  
@@ -136,8 +136,8 @@ Last-Update: 2012-07-29
  
  # compiler and linker
  CC = cc
---- suckless-tools-39.1.orig/sselp/config.mk
-+++ suckless-tools-39.1/sselp/config.mk
+--- a/sselp/config.mk
++++ b/sselp/config.mk
 @@ -15,9 +15,9 @@ INCS = -I. -I/usr/include -I${X11INC}
  LIBS = -L/usr/lib -lc -L${X11LIB} -lX11
  
