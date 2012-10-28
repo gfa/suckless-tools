@@ -1,3 +1,4 @@
+
 /* See LICENSE file for license details. */
 #define _XOPEN_SOURCE 500
 #if HAVE_SHADOW_H
@@ -26,6 +27,7 @@ typedef struct {
 	int screen;
 	Window root, win;
 	Pixmap pmap;
+	unsigned long colors[2];
 } Lock;
 
 static Lock **locks;
@@ -55,7 +57,7 @@ getpw(void) { /* only run as root */
 	rval =  pw->pw_passwd;
 
 #if HAVE_SHADOW_H
-	{
+	if (strlen(rval) >= 1) { /* kludge, assumes pw placeholder entry has len >= 1 */
 		struct spwd *sp;
 		sp = getspnam(getenv("USER"));
 		if(!sp)
@@ -81,11 +83,11 @@ readpw(Display *dpy, const char *pws)
 {
 	char buf[32], passwd[256];
 	int num, screen;
-	unsigned int len;
+	unsigned int len, llen;
 	KeySym ksym;
 	XEvent ev;
 
-	len = 0;
+	len = llen = 0;
 	running = True;
 
 	/* As "slock" stands for "Simple X display locker", the DPMS settings
@@ -132,6 +134,18 @@ readpw(Display *dpy, const char *pws)
 				}
 				break;
 			}
+			if(llen == 0 && len != 0) {
+				for(screen = 0; screen < nscreens; screen++) {
+					XSetWindowBackground(dpy, locks[screen]->win, locks[screen]->colors[1]);
+					XClearWindow(dpy, locks[screen]->win);
+				}
+			} else if(llen != 0 && len == 0) {
+				for(screen = 0; screen < nscreens; screen++) {
+					XSetWindowBackground(dpy, locks[screen]->win, locks[screen]->colors[0]);
+					XClearWindow(dpy, locks[screen]->win);
+				}
+			}
+			llen = len;
 		}
 		else for(screen = 0; screen < nscreens; screen++)
 			XRaiseWindow(dpy, locks[screen]->win);
@@ -144,6 +158,7 @@ unlockscreen(Display *dpy, Lock *lock) {
 		return;
 
 	XUngrabPointer(dpy, CurrentTime);
+	XFreeColors(dpy, DefaultColormap(dpy, lock->screen), lock->colors, 2, 0);
 	XFreePixmap(dpy, lock->pmap);
 	XDestroyWindow(dpy, lock->win);
 
@@ -155,7 +170,7 @@ lockscreen(Display *dpy, int screen) {
 	char curs[] = {0, 0, 0, 0, 0, 0, 0, 0};
 	unsigned int len;
 	Lock *lock;
-	XColor black, dummy;
+	XColor color, dummy;
 	XSetWindowAttributes wa;
 	Cursor invisible;
 
@@ -176,9 +191,12 @@ lockscreen(Display *dpy, int screen) {
 	lock->win = XCreateWindow(dpy, lock->root, 0, 0, DisplayWidth(dpy, lock->screen), DisplayHeight(dpy, lock->screen),
 			0, DefaultDepth(dpy, lock->screen), CopyFromParent,
 			DefaultVisual(dpy, lock->screen), CWOverrideRedirect | CWBackPixel, &wa);
-	XAllocNamedColor(dpy, DefaultColormap(dpy, lock->screen), "black", &black, &dummy);
+	XAllocNamedColor(dpy, DefaultColormap(dpy, lock->screen), COLOR2, &color, &dummy);
+	lock->colors[1] = color.pixel;
+	XAllocNamedColor(dpy, DefaultColormap(dpy, lock->screen), COLOR1, &color, &dummy);
+	lock->colors[0] = color.pixel;
 	lock->pmap = XCreateBitmapFromData(dpy, lock->win, curs, 8, 8);
-	invisible = XCreatePixmapCursor(dpy, lock->pmap, lock->pmap, &black, &black, 0, 0);
+	invisible = XCreatePixmapCursor(dpy, lock->pmap, lock->pmap, &color, &color, 0, 0);
 	XDefineCursor(dpy, lock->win, invisible);
 	XMapRaised(dpy, lock->win);
 	for(len = 1000; len; len--) {
@@ -194,9 +212,9 @@ lockscreen(Display *dpy, int screen) {
 				break;
 			usleep(1000);
 		}
-		running = (len > 0);
 	}
 
+	running &= (len > 0);
 	if(!running) {
 		unlockscreen(dpy, lock);
 		lock = NULL;
@@ -240,9 +258,19 @@ main(int argc, char **argv) {
 	locks = malloc(sizeof(Lock *) * nscreens);
 	if(locks == NULL)
 		die("slock: malloc: %s", strerror(errno));
-	for(screen = 0; screen < nscreens; screen++)
-		locks[screen] = lockscreen(dpy, screen);
+	int nlocks = 0;
+	for(screen = 0; screen < nscreens; screen++) {
+		if ( (locks[screen] = lockscreen(dpy, screen)) != NULL)
+			nlocks++;
+	}
 	XSync(dpy, False);
+
+	/* Did we actually manage to lock something? */
+	if (nlocks == 0) { // nothing to protect
+		free(locks);
+		XCloseDisplay(dpy);
+		return 1;
+	}
 
 	/* Everything is now blank. Now wait for the correct password. */
 #ifdef HAVE_BSD_AUTH
