@@ -42,16 +42,13 @@ suckless-tools (39-1) experimental; urgency=low
      (03_transparent-makefiles.patch).
     + Added patch to escape '-' symbol in manpage for tabbed and use temp files
       in secure way (04_tabbed-manpage-hyphe-fix.patch).
-  * debian/copyright:
-    + Source field now specifies download location for sprop which is different
-      compared to other tools involved.
   * debian/README.source:
     + Updated this file with proper instruction on how to recreate the original
       source tarballs required for package building.
   * debian/create_orig_source shell script is added which will be invoked when
     get-orig-source target in debian/rules is invoked
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>  Thu, 25 Oct 2012 11:43:45 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Sun, 28 Oct 2012 22:54:52 +0530
 
 suckless-tools (38-2) unstable; urgency=low
 

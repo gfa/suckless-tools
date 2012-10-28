@@ -9,7 +9,7 @@ swarp_VERSION=0.1
 ssid_VERSION=0.1
 tabbed_VERSION=0.4
 wmname_VERSION=0.1
-sprop_REVISION=ecfe2752b310
+sprop_VERSION=0.1
 
 CURRENT_VERSION=39
 
@@ -44,8 +44,8 @@ wget -q http://dl.suckless.org/tools/tabbed-$tabbed_VERSION.tar.gz -O $CURDIR/su
 echo Downloading wmname-$wmname_VERSION...
 wget -q http://dl.suckless.org/tools/wmname-$wmname_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-wmname.tar.gz
 
-echo Downloading sprop from hg repository, revision $sprop_REVISION
-wget -q http://hg.suckless.org/sprop/archive/$sprop_REVISION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-sprop.tar.gz
+echo Downloading sprop-$sprop_VERSION...
+wget -q http://dl.suckless.org/tools/sprop-$sprop_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-sprop.tar.gz
 
 echo Creating empty suckless-tools_$CURRENT_VERSION.orig.tar.gz
 mkdir -p $TMPDIR/suckless-tools_$CURRENT_VERSION
