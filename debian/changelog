@@ -46,7 +46,8 @@ suckless-tools (39-1) experimental; urgency=low
   * debian/create_orig_source shell script is added which will be invoked when
     get-orig-source target in debian/rules is invoked
   * debian/watch:
-    + Empty watch file added with only version=3 string in it to avoid lintian warning
+    + Empty watch file added with only version=3 string in it to avoid lintian
+      warning
   * debian/README.slock.Debian:
     + This file is added giving instruction on how to use the slock command.
 
