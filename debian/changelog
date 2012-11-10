@@ -1,14 +1,9 @@
 suckless-tools (39-1) experimental; urgency=low
 
   [ Michael Stummvoll ]
-  * Updated lsw (Closes: #650573) 
-  * Updated dmenu (Closes: #650574, #658386)
-  * Added sprop and lsx (Closes: #627662)
   * Added manpage for dmenu_run (Closes: #610478)
-  * Updated manpages for slock, ssidd, swarp and wmname (Closes: #636030)
+  * Updated manpages for slock, ssid, swarp and wmname (Closes: #636030)
   * Updated manpage for sselp (Closes: #378175)
-  * Vcs-Git and Vcs-Browser now points to collab-maint repository
-    (Closes: #636012)
   * Removed st from the package. Suggests stterm now. Since st is
     no longer part of this package it doesn't install st.256color.
     (Closes: #642307,#665884)
@@ -16,9 +11,6 @@ suckless-tools (39-1) experimental; urgency=low
   * Added some docs
 
   [ Vasudev Kamath ]
-  * Imported new version of slock. This resolves CVE-2012-1620
-    (Closes: #667796)
-  * Imported new version of tabbed
   * debian/control:
     + Increased minimum debhelper required to 9
     + Bumped Standards-Version to 3.9.4. This did not require any change
@@ -27,7 +19,13 @@ suckless-tools (39-1) experimental; urgency=low
     + Added dependency on dpkg-dev >= 1.16.1.1 to introduce hardening flags
       using dpkg-buildflags.
   * Set debian/compat to 9
-  * Merge new version 39
+  * Created new version 39
+    + Imported new version of lsw (Closes: #650573)
+    + Updated dmenu (Closes: #650574, #658386)
+    + Added sprop and lsx (Closes: #627662)
+    + Imported new version of slock. This resolves CVE-2012-1620
+      (Closes: #667796, #692737)
+    + Imported new version of tabbed    
   * debian/rules:
     + Added hardening flags options
     + Added get-orig-source target to get upstream source tarball for included
@@ -47,8 +45,12 @@ suckless-tools (39-1) experimental; urgency=low
       source tarballs required for package building.
   * debian/create_orig_source shell script is added which will be invoked when
     get-orig-source target in debian/rules is invoked
+  * debian/watch:
+    + Empty watch file added with only version=3 string in it to avoid lintian warning
+  * debian/README.slock.Debian:
+    + This file is added giving instruction on how to use the slock command.
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>  Sun, 28 Oct 2012 22:54:52 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Sat, 10 Nov 2012 10:51:36 +0530
 
 suckless-tools (38-2) unstable; urgency=low
 

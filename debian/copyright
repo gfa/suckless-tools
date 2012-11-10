@@ -4,33 +4,51 @@ Source: http://dl.suckless.org/tools
 
 Files: dmenu/*
 Copyright:
- (C) 2010 Connor Lane Smith <cls@lubutu.com>
- (C) 2006-2010 Anselm R Garbe <anselm@garbe.us>
+ (C) 2010-2012 Connor Lane Smith <cls@lubutu.com>
+ (C) 2006-2012 Anselm R Garbe <anselm@garbe.us>
  (C) 2009 Gottox <gottox@s01.de>
  (C) 2009 Markus Schnalke <meillo@marmaro.de>
  (C) 2009 Evan Gates <evan.gates@gmail.com>
- (C) 2006-2008 Sander van Dijk <a.h.vandijk@gmail.com>
- (C) 2006-2007 Michał Janeczek <janeczek@gmail.com>
-License: MIT
+ (C) 2006-2008 Sander van Dijk <a dot h dot vandijk at gmail dot com>
+ (C) 2006-2007 Michał Janeczek <janeczek at gmail dot com>
+License: MIT/X Consortium License
+
+Files: tabbed/*
+Copyright:
+ (C) 2009-2010 Enno Boland <g@s01.de>
+ (C) 2011 Connor Lane Smith <cls@lubutu.com>
+ (C) 2012 Christoph Lohmann <20h@r-36.net>
+License: MIT/X Consortium License
+
+Files: lsw/*
+Copyright:
+ (C) 2011 Connor Lane Smith <cls@lubutu.com>
+ (C) 2006-2011 Anselm R Garbe <anselm@garbe.us>
+License: MIT/X Consortium License
 
 Files: sprop/*
 Copyright:
  (C) 2010 Connor Lane Smith <cls@lubutu.com>
-License: MIT
+License: MIT/X Consortium License
 
-Files: lsw/* sselp/* swarp/* lsx/*
+File: sselp/*
+Copyright:
+ (C) 2006-2008 Anselm R Garbe <garbeam at gmail dot com>
+License: MIT/X Consortium License
+
+Files: swarp/* lsx/*
 Copyright:
  (C) 2006-2008 Anselm R. Garbe <garbeam@gmail.com>
  (C) 2006-2008 Sander van Dijk <a.h.vandijk@gmail.com>
-License: MIT
+License: MIT/X Consortium License
 
-Files: slock/* ssid/* wmname/*
+Files: ssid/* wmname/*
 Copyright: (C) 2005-2008 Anselm R. Garbe <garbeam@gmail.com>
-License: MIT
+License: MIT/X Consortium License
 
-Files: tabbed/*
-Copyright: (C) 2009-2010 Enno Boland <g@s01.de>
-License: MIT
+Files: slock/*
+Copyright: (C) 2006-2012 Anselm R. Garbe <anselm@garbe.us>
+License: MIT/X Consortium License
 
 Files: debian/*
 Copyright:
@@ -38,9 +56,9 @@ Copyright:
   (C) 2010 Kai Hendry <hendry@iki.fi>
   (C) 2012 Michael Stummvoll <michael@stummi.org>
   (C) 2012 Vasudev Kamath <kamathvasudev@gmail.com>
-License: MIT
+License: MIT/X Consortium License
 
-License: MIT
+License: MIT/X Consortium License
  Permission is hereby granted, free of charge, to any person obtaining a
  copy of this software and associated documentation files (the "Software"),
  to deal in the Software without restriction, including without limitation
@@ -53,7 +71,7 @@ License: MIT
  .
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
