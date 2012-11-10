@@ -50,8 +50,11 @@ suckless-tools (39-1) experimental; urgency=low
       warning
   * debian/README.slock.Debian:
     + This file is added giving instruction on how to use the slock command.
+  * debian/copyright:
+    + Fixed the Copyright fields for lsw, dmenu, tabbed.
+    + Changed License to MIT/X Consortium License
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>  Sat, 10 Nov 2012 10:51:36 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Sat, 10 Nov 2012 11:32:24 +0530
 
 suckless-tools (38-2) unstable; urgency=low
 
