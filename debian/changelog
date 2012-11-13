@@ -27,7 +27,6 @@ suckless-tools (39-1) experimental; urgency=low
       (Closes: #667796, #692737)
     + Imported new version of tabbed    
   * debian/rules:
-    + Added hardening flags options
     + Added get-orig-source target to get upstream source tarball for included
       package
   * debian/patches:
