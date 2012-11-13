@@ -37,7 +37,7 @@ suckless-tools (39-1) experimental; urgency=low
     + Added patch to make command execution visible in Makefiles
      (03_transparent-makefiles.patch).
     + Added patch to escape '-' symbol in manpage for tabbed and use temp files
-      in secure way (04_tabbed-manpage-hyphe-fix.patch).
+      in secure way (04_tabbed-manpage-hyphen-fix.patch).
   * debian/README.source:
     + Updated this file with proper instruction on how to recreate the original
       source tarballs required for package building.
@@ -52,8 +52,9 @@ suckless-tools (39-1) experimental; urgency=low
     + Fixed the Copyright fields for lsw, dmenu, tabbed.
     + Changed License to Expat instead of MIT/X Consortium License as DEP-5
       doesn't allow spaces in License name.
+  * Switched to soruce format 3.0(quilt)
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>  Tue, 13 Nov 2012 19:23:24 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Tue, 13 Nov 2012 19:52:04 +0530
 
 suckless-tools (38-2) unstable; urgency=low
 
