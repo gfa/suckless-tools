@@ -51,9 +51,9 @@ suckless-tools (39-1) experimental; urgency=low
   * debian/copyright:
     + Fixed the Copyright fields for lsw, dmenu, tabbed.
     + Changed short license name from MIT to Expat.
-  * Switched to soruce format 3.0(quilt)
+  * Switched to source format 3.0 (quilt)
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>  Tue, 13 Nov 2012 19:52:04 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Thu, 15 Nov 2012 12:28:34 +0530
 
 suckless-tools (38-2) unstable; urgency=low
 
