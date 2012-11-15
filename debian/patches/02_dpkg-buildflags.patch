@@ -17,7 +17,7 @@ Last-Update: 2012-07-29
 -LDFLAGS  = -s ${LIBS}
 +CPPFLAGS += -DVERSION=\"${VERSION}\"
 +CFLAGS   += -ansi -pedantic -Wall ${INCS} ${CPPFLAGS}
-+LDFLAGS  += -s ${LIBS}
++LDFLAGS  += ${LIBS}
  
  # compiler and linker
  CC = cc
@@ -58,7 +58,7 @@ Last-Update: 2012-07-29
 -LDFLAGS = -s ${LIBS}
 +CPPFLAGS += -DVERSION=\"${VERSION}\"
 +CFLAGS += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+LDFLAGS += -s ${LIBS}
++LDFLAGS += ${LIBS}
  
  # Solaris
  #CFLAGS = -fast ${INCS} -DVERSION=\"${VERSION}\"
@@ -73,7 +73,7 @@ Last-Update: 2012-07-29
 -LDFLAGS = -s ${LIBS}
 +CPPFLAGS += -DVERSION=\"${VERSION}\"
 +CFLAGS += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+LDFLAGS += -s ${LIBS}
++LDFLAGS += ${LIBS}
  
  # compiler and linker
  CC = cc
@@ -102,7 +102,7 @@ Last-Update: 2012-07-29
 -CFLAGS   = -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
 -LDFLAGS  = -s ${LIBS}
 +CFLAGS   += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+LDFLAGS  += -s ${LIBS}
++LDFLAGS  += ${LIBS}
  
  # compiler and linker
  CC = cc
@@ -117,7 +117,7 @@ Last-Update: 2012-07-29
 -LDFLAGS = -s ${LIBS}
 +CPPFLAGS += -DVERSION=\"${VERSION}\" -DHAVE_SHADOW_H -DCOLOR1=\"black\" -DCOLOR2=\"\#005577\"
 +CFLAGS += -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
-+LDFLAGS += -s ${LIBS}
++LDFLAGS += ${LIBS}
  
  # On *BSD remove -DHAVE_SHADOW_H from CPPFLAGS and add -DHAVE_BSD_AUTH
  # On OpenBSD and Darwin remove -lcrypt from LIBS
@@ -132,7 +132,7 @@ Last-Update: 2012-07-29
 -LDFLAGS = -s ${LIBS}
 +CPPFLAGS += -DVERSION=\"${VERSION}\"
 +CFLAGS += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+LDFLAGS += -s ${LIBS}
++LDFLAGS += ${LIBS}
  
  # compiler and linker
  CC = cc
@@ -147,7 +147,7 @@ Last-Update: 2012-07-29
 -LDFLAGS = -s ${LIBS}
 +CPPFLAGS += -DVERSION=\"${VERSION}\"
 +CFLAGS += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+LDFLAGS += -s ${LIBS}
++LDFLAGS += ${LIBS}
  
  # compiler and linker
  CC = cc
