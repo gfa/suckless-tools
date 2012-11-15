@@ -50,8 +50,7 @@ suckless-tools (39-1) experimental; urgency=low
     + This file is added giving instruction on how to use the slock command.
   * debian/copyright:
     + Fixed the Copyright fields for lsw, dmenu, tabbed.
-    + Changed License to Expat instead of MIT/X Consortium License as DEP-5
-      doesn't allow spaces in License name.
+    + Changed short license name from MIT to Expat.
   * Switched to soruce format 3.0(quilt)
 
  -- Vasudev Kamath <kamathvasudev@gmail.com>  Tue, 13 Nov 2012 19:52:04 +0530
