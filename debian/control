@@ -13,7 +13,7 @@ Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/suckless-tools.git
 Package: suckless-tools
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Suggests: dwm, stterm
+Suggests: dwm, stterm, surf
 Provides: dmenu, lsw, lsx, slock, sprop, sselp, ssid, swarp, tabbed, wmname
 Description: simple commands for minimalistic window managers
  This package provides simple commands designed to be used with a minimalistic
