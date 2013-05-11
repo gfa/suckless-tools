@@ -1,4 +1,3 @@
-01_fix_setuid_slock.patch
 02_dpkg-buildflags.patch
 03_transparent-makefiles.patch
 04_tabbed-manpage-hyphen-fix.patch

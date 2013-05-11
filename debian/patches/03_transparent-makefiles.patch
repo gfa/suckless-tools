@@ -7,7 +7,7 @@ Author: Vasudev Kamath <kamathvasudev@gmail.com>
 Last-Update: 2012-07-29
 --- a/lsw/Makefile
 +++ b/lsw/Makefile
-@@ -15,38 +15,36 @@
+@@ -15,38 +15,36 @@ options:
  	@echo "CC       = ${CC}"
  
  .c.o:
@@ -64,7 +64,7 @@ Last-Update: 2012-07-29
  .PHONY: all options clean dist install uninstall
 --- a/swarp/Makefile
 +++ b/swarp/Makefile
-@@ -16,36 +16,34 @@
+@@ -16,36 +16,34 @@ options:
  	@echo "LD       = ${LD}"
  
  .c.o:
@@ -116,7 +116,7 @@ Last-Update: 2012-07-29
  .PHONY: all options clean dist install uninstall
 --- a/lsx/Makefile
 +++ b/lsx/Makefile
-@@ -16,34 +16,32 @@
+@@ -16,34 +16,32 @@ options:
  	@echo "CC       = ${CC}"
  
  .c.o:
@@ -166,7 +166,7 @@ Last-Update: 2012-07-29
  .PHONY: all options clean dist install uninstall
 --- a/tabbed/Makefile
 +++ b/tabbed/Makefile
-@@ -15,46 +15,44 @@
+@@ -15,46 +15,44 @@ options:
  	@echo "CC       = ${CC}"
  
  .c.o:
@@ -234,7 +234,7 @@ Last-Update: 2012-07-29
  .PHONY: all options clean dist install uninstall
 --- a/sprop/Makefile
 +++ b/sprop/Makefile
-@@ -14,41 +14,39 @@
+@@ -14,41 +14,39 @@ options:
  	@echo "CC       = ${CC}"
  
  .c.o:
@@ -295,7 +295,7 @@ Last-Update: 2012-07-29
  .PHONY: all options clean dist install uninstall
 --- a/ssid/Makefile
 +++ b/ssid/Makefile
-@@ -16,36 +16,34 @@
+@@ -16,36 +16,34 @@ options:
  	@echo "LD       = ${LD}"
  
  .c.o:
@@ -347,7 +347,7 @@ Last-Update: 2012-07-29
  .PHONY: all options clean dist install uninstall
 --- a/dmenu/Makefile
 +++ b/dmenu/Makefile
-@@ -15,52 +15,49 @@
+@@ -15,52 +15,49 @@ options:
  	@echo "CC       = ${CC}"
  
  .c.o:
@@ -426,7 +426,7 @@ Last-Update: 2012-07-29
  .PHONY: all options clean dist install uninstall
 --- a/slock/Makefile
 +++ b/slock/Makefile
-@@ -15,26 +15,24 @@
+@@ -15,26 +15,24 @@ options:
  	@echo "CC       = ${CC}"
  
  .c.o:
@@ -461,7 +461,7 @@ Last-Update: 2012-07-29
  
  install: all
  	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
-@@ -46,6 +44,6 @@
+@@ -45,6 +43,6 @@ install: all
  
  uninstall:
  	@echo removing executable file from ${DESTDIR}${PREFIX}/bin
@@ -471,7 +471,7 @@ Last-Update: 2012-07-29
  .PHONY: all options clean dist install uninstall
 --- a/wmname/Makefile
 +++ b/wmname/Makefile
-@@ -15,36 +15,34 @@
+@@ -15,36 +15,34 @@ options:
  	@echo "LD       = ${LD}"
  
  .c.o:
@@ -523,7 +523,7 @@ Last-Update: 2012-07-29
  .PHONY: all options clean dist install uninstall
 --- a/sselp/Makefile
 +++ b/sselp/Makefile
-@@ -14,35 +14,33 @@
+@@ -14,35 +14,33 @@ options:
  	@echo "CC       = ${CC}"
  
  .c.o:
