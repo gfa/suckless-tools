@@ -7,11 +7,12 @@ slock_VERSION=1.1
 sselp_VERSION=0.2
 swarp_VERSION=0.1
 ssid_VERSION=0.1
-tabbed_VERSION=0.4
+tabbed_VERSION=0.5
 wmname_VERSION=0.1
 sprop_VERSION=0.1
+xssstate_VERSION=1.1
 
-CURRENT_VERSION=39
+CURRENT_VERSION=40
 
 
 TMPDIR=$(mktemp --tmpdir=.. -d suckless-tools.XXXX)
@@ -46,6 +47,9 @@ wget -q http://dl.suckless.org/tools/wmname-$wmname_VERSION.tar.gz -O $CURDIR/su
 
 echo Downloading sprop-$sprop_VERSION...
 wget -q http://dl.suckless.org/tools/sprop-$sprop_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-sprop.tar.gz
+
+echo Downloading xssstate-$xssstate_VERSION...
+wget -q http://dl.suckless.org/tools/xssstate-$xssstate_VERSION.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-xssstate.tar.gz
 
 echo Creating empty suckless-tools_$CURRENT_VERSION.orig.tar.gz
 mkdir -p $TMPDIR/suckless-tools_$CURRENT_VERSION
