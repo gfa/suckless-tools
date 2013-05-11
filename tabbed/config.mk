@@ -1,5 +1,5 @@
 # tabbed version
-VERSION = 0.4
+VERSION = 0.5
 
 # Customize below to fit your system
 
@@ -12,9 +12,9 @@ INCS = -I. -I/usr/include
 LIBS = -L/usr/lib -lc -lX11
 
 # flags
-CPPFLAGS = -DVERSION=\"${VERSION}\"
-CFLAGS = -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
-LDFLAGS = -s ${LIBS}
+CPPFLAGS = -DVERSION=\"${VERSION}\" -D_BSD_SOURCE
+CFLAGS = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
+LDFLAGS = -g ${LIBS}
 
 # Solaris
 #CFLAGS = -fast ${INCS} -DVERSION=\"${VERSION}\"
@@ -22,3 +22,4 @@ LDFLAGS = -s ${LIBS}
 
 # compiler and linker
 CC = cc
+
