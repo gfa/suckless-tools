@@ -153,3 +153,18 @@ Last-Update: 2012-11-15
  
  # compiler and linker
  CC = cc
+--- a/xssstate/config.mk
++++ b/xssstate/config.mk
+@@ -12,9 +12,9 @@ INCS = -I. -I/usr/include
+ LIBS = -L/usr/lib -lc -lX11 -lXss
+ 
+ # flags
+-CPPFLAGS = -DVERSION=\"${VERSION}\"
+-CFLAGS = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
+-LDFLAGS = -g ${LIBS}
++CPPFLAGS += -DVERSION=\"${VERSION}\"
++CFLAGS += -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
++LDFLAGS += -g ${LIBS}
+ 
+ # Solaris
+ #CFLAGS = -fast ${INCS} -DVERSION=\"${VERSION}\"
