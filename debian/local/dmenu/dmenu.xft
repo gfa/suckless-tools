@@ -1,100 +1,12 @@
-diff --git a/dmenu/Makefile b/dmenu/Makefile
-index c127f6a..4eb947f 100644
---- a/dmenu/Makefile
-+++ b/dmenu/Makefile
-@@ -6,7 +6,7 @@ include config.mk
- SRC = dmenu.c draw.c stest.c
- OBJ = ${SRC:.c=.o}
- 
--all: options dmenu stest
-+all: options dmenu.xft
- 
- options:
- 	@echo dmenu build options:
-@@ -15,52 +15,45 @@ options:
- 	@echo "CC       = ${CC}"
- 
- .c.o:
--	@echo CC -c $<
--	@${CC} -c $< ${CFLAGS}
-+	${CC} -c $< ${CFLAGS}
- 
- ${OBJ}: config.mk draw.h
- 
--dmenu: dmenu.o draw.o
--	@echo CC -o $@
--	@${CC} -o $@ dmenu.o draw.o ${LDFLAGS}
-+dmenu.xft: dmenu.o draw.o
-+	${CC} -o $@ dmenu.o draw.o ${LDFLAGS}
- 
- stest: stest.o
--	@echo CC -o $@
--	@${CC} -o $@ stest.o ${LDFLAGS}
-+	${CC} -o $@ stest.o ${LDFLAGS}
- 
- clean:
- 	@echo cleaning
--	@rm -f dmenu stest ${OBJ} dmenu-${VERSION}.tar.gz
-+	rm -f dmenu.xft stest ${OBJ} dmenu-${VERSION}.tar.gz
- 
- dist: clean
- 	@echo creating dist tarball
--	@mkdir -p dmenu-${VERSION}
--	@cp LICENSE Makefile README config.mk dmenu.1 draw.h dmenu_run stest.1 ${SRC} dmenu-${VERSION}
--	@tar -cf dmenu-${VERSION}.tar dmenu-${VERSION}
--	@gzip dmenu-${VERSION}.tar
--	@rm -rf dmenu-${VERSION}
-+	mkdir -p dmenu-${VERSION}
-+	cp LICENSE Makefile README config.mk dmenu.1 draw.h dmenu_run stest.1 ${SRC} dmenu-${VERSION}
-+	tar -cf dmenu-${VERSION}.tar dmenu-${VERSION}
-+	gzip dmenu-${VERSION}.tar
-+	rm -rf dmenu-${VERSION}
- 
- install: all
- 	@echo installing executables to ${DESTDIR}${PREFIX}/bin
--	@mkdir -p ${DESTDIR}${PREFIX}/bin
--	@cp -f dmenu dmenu_run stest ${DESTDIR}${PREFIX}/bin
--	@chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu
--	@chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu_run
--	@chmod 755 ${DESTDIR}${PREFIX}/bin/stest
-+	mkdir -p ${DESTDIR}${PREFIX}/bin
-+	cp -f dmenu.xft ${DESTDIR}${PREFIX}/bin
-+	chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu.xft
- 	@echo installing manual pages to ${DESTDIR}${MANPREFIX}/man1
--	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
--	@sed "s/VERSION/${VERSION}/g" < dmenu.1 > ${DESTDIR}${MANPREFIX}/man1/dmenu.1
--	@sed "s/VERSION/${VERSION}/g" < stest.1 > ${DESTDIR}${MANPREFIX}/man1/stest.1
--	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/dmenu.1
--	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/stest.1
-+	mkdir -p ${DESTDIR}${MANPREFIX}/man1
-+	sed "s/VERSION/${VERSION}/g" < dmenu.1 > ${DESTDIR}${MANPREFIX}/man1/dmenu.xft.1
-+	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dmenu.xft.1
- 
- uninstall:
- 	@echo removing executables from ${DESTDIR}${PREFIX}/bin
--	@rm -f ${DESTDIR}${PREFIX}/bin/dmenu
--	@rm -f ${DESTDIR}${PREFIX}/bin/dmenu_run
--	@rm -f ${DESTDIR}${PREFIX}/bin/stest
-+	rm -f ${DESTDIR}${PREFIX}/bin/dmenu
-+	rm -f ${DESTDIR}${PREFIX}/bin/dmenu_run
-+	rm -f ${DESTDIR}${PREFIX}/bin/stest
- 	@echo removing manual page from ${DESTDIR}${MANPREFIX}/man1
--	@rm -f ${DESTDIR}${MANPREFIX}/man1/dmenu.1
--	@rm -f ${DESTDIR}${MANPREFIX}/man1/stest.1
-+	rm -f ${DESTDIR}${MANPREFIX}/man1/dmenu.1
-+	rm -f ${DESTDIR}${MANPREFIX}/man1/stest.1
- 
- .PHONY: all options clean dist install uninstall
-diff --git a/dmenu/config.mk b/dmenu/config.mk
-index 92a5e63..d3a367d 100644
---- a/dmenu/config.mk
-+++ b/dmenu/config.mk
-@@ -12,15 +12,19 @@ X11LIB = /usr/X11R6/lib
+diff -upr a/config.mk b/config.mk
+--- a/config.mk	2012-01-10 19:03:22.000000000 +0200
++++ b/config.mk	2012-01-10 19:03:38.000000000 +0200
+@@ -12,9 +12,13 @@ X11LIB = /usr/X11R6/lib
  XINERAMALIBS  = -lXinerama
  XINERAMAFLAGS = -DXINERAMA
  
 +# Xft, comment if you don't want it
-+XFTINC = -I/usr/local/include/freetype2
++XFTINC = -I/usr/include/freetype2
 +XFTLIBS  = -lXft -lXrender -lfreetype -lz -lfontconfig
 +
  # includes and libs
@@ -104,21 +16,11 @@ index 92a5e63..d3a367d 100644
 +LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${XFTLIBS}
  
  # flags
--CPPFLAGS = -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
-+CPPFLAGS += -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
- #CFLAGS   = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
--CFLAGS   = -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
--LDFLAGS  = -s ${LIBS}
-+CFLAGS   += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+LDFLAGS  += ${LIBS}
- 
- # compiler and linker
- CC = cc
-diff --git a/dmenu/dmenu.1 b/dmenu/dmenu.1
-index 0784cd9..f29ca36 100644
---- a/dmenu/dmenu.1
-+++ b/dmenu/dmenu.1
-@@ -53,7 +53,7 @@ dmenu lists items vertically, with the given number of lines.
+ CPPFLAGS = -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
+diff -upr a/dmenu.1 b/dmenu.1
+--- a/dmenu.1	2012-01-10 19:14:19.000000000 +0200
++++ b/dmenu.1	2012-01-10 19:14:23.000000000 +0200
+@@ -53,7 +53,7 @@ dmenu lists items vertically, with the g
  defines the prompt to be displayed to the left of the input field.
  .TP
  .BI \-fn " font"
@@ -127,10 +29,9 @@ index 0784cd9..f29ca36 100644
  .TP
  .BI \-nb " color"
  defines the normal background color.
-diff --git a/dmenu/dmenu.c b/dmenu/dmenu.c
-index 4ea95f8..72c1c97 100644
---- a/dmenu/dmenu.c
-+++ b/dmenu/dmenu.c
+diff -upr a/dmenu.c b/dmenu.c
+--- a/dmenu.c	2012-01-10 19:14:19.000000000 +0200
++++ b/dmenu.c	2012-01-10 19:24:39.000000000 +0200
 @@ -17,6 +17,7 @@
                               * MAX(0, MIN((y)+(h),(r).y_org+(r).height) - MAX((y),(r).y_org)))
  #define MIN(a,b)              ((a) < (b) ? (a) : (b))
@@ -147,7 +48,7 @@ index 4ea95f8..72c1c97 100644
  static char *cistrstr(const char *s, const char *sub);
  static void drawmenu(void);
  static void grabkeyboard(void);
-@@ -50,10 +52,12 @@ static const char *normfgcolor = "#bbbbbb";
+@@ -50,10 +52,12 @@ static const char *normfgcolor = "#bbbbb
  static const char *selbgcolor  = "#005577";
  static const char *selfgcolor  = "#eeeeee";
  static unsigned int lines = 0;
@@ -183,7 +84,7 @@ index 4ea95f8..72c1c97 100644
  }
  
  void
-@@ -160,6 +167,15 @@ cistrstr(const char *s, const char *sub) {
+@@ -160,6 +167,15 @@ cistrstr(const char *s, const char *sub)
  }
  
  void
@@ -267,10 +168,9 @@ index 4ea95f8..72c1c97 100644
  	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask;
  	win = XCreateWindow(dc->dpy, root, x, y, mw, mh, 0,
  	                    DefaultDepth(dc->dpy, screen), CopyFromParent,
-diff --git a/dmenu/draw.c b/dmenu/draw.c
-index 76f0c54..a36d19a 100644
---- a/dmenu/draw.c
-+++ b/dmenu/draw.c
+diff -upr a/draw.c b/draw.c
+--- a/draw.c	2012-01-10 19:14:19.000000000 +0200
++++ b/draw.c	2012-01-10 19:14:23.000000000 +0200
 @@ -9,9 +9,6 @@
  
  #define MAX(a, b)  ((a) > (b) ? (a) : (b))
@@ -281,7 +181,7 @@ index 76f0c54..a36d19a 100644
  
  void
  drawrect(DC *dc, int x, int y, unsigned int w, unsigned int h, Bool fill, unsigned long color) {
-@@ -23,7 +20,7 @@ drawrect(DC *dc, int x, int y, unsigned int w, unsigned int h, Bool fill, unsign
+@@ -23,7 +20,7 @@ drawrect(DC *dc, int x, int y, unsigned 
  }
  
  void
@@ -290,7 +190,7 @@ index 76f0c54..a36d19a 100644
  	char buf[BUFSIZ];
  	size_t mn, n = strlen(text);
  
-@@ -35,19 +32,24 @@ drawtext(DC *dc, const char *text, unsigned long col[ColLast]) {
+@@ -35,19 +32,24 @@ drawtext(DC *dc, const char *text, unsig
  	if(mn < n)
  		for(n = MAX(mn-3, 0); n < mn; buf[n++] = '.');
  
@@ -434,7 +334,7 @@ index 76f0c54..a36d19a 100644
  }
  
  void
-@@ -151,20 +178,29 @@ mapdc(DC *dc, Window win, unsigned int w, unsigned int h) {
+@@ -151,20 +178,29 @@ mapdc(DC *dc, Window win, unsigned int w
  
  void
  resizedc(DC *dc, unsigned int w, unsigned int h) {
@@ -467,10 +367,9 @@ index 76f0c54..a36d19a 100644
  		XmbTextExtents(dc->font.set, text, len, NULL, &r);
  		return r.width;
  	}
-diff --git a/dmenu/draw.h b/dmenu/draw.h
-index 43a57bf..1b4f21a 100644
---- a/dmenu/draw.h
-+++ b/dmenu/draw.h
+diff -upr a/draw.h b/draw.h
+--- a/draw.h	2012-01-10 19:14:19.000000000 +0200
++++ b/draw.h	2012-01-10 19:14:23.000000000 +0200
 @@ -1,9 +1,6 @@
  /* See LICENSE file for copyright and license details. */
  

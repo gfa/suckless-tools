@@ -4,6 +4,7 @@ SHELL := sh -e
 
 D := $(CURDIR)/debian/suckless-tools
 TOOLS = $(shell ls | sed -e 's|debian||')
+ALTERNATIVES = $(shell ls debian/local)
 
 %:
 	dh $@
@@ -27,7 +28,17 @@ override_dh_auto_install:
 	do \
 		$(MAKE) -C $${TOOL} DESTDIR=$(D) TERMINFO=$(D)/usr/share/terminfo PREFIX=/usr install; \
 	done
-	dh_installman debian/manpages/*
+
+	for ALTERNATIVE in $(ALTERNATIVES); \
+	do \
+		for patch in $(shell ls debian/local/$${ALTERNATIVE}/*); \
+		do \
+			patch -p1 < debian/local/$${ALTERNATIVE}/$${patch} -d $${ALTERNATIVE}; \
+			make -C $${ALTERNATIVE};\
+			cp -f $${ALTERNATIVE}/$${ALTERNATIVE} $(D)/$${patch}; \
+			cp -f $${ALTERNATIVE}/$${ALTERNATIVE}.1 $(D)/usr/share/man/man1/$${patch}.1; \
+		done \
+	done
 
 override_dh_installdocs:
 	dh_installdocs
