@@ -1,3 +1,28 @@
+suckless-tools (40-1) unstable; urgency=low
+
+  * Suggest surf which can be used with tabbed.
+    Closes: bug#703028.
+  * Included the xssstate utility, thanks to Alessandro
+    Ghedini.
+    Closes: bug#707617.
+  * Imported new version of tabbed (0.5).
+  * New build-dependency for xssstate on libxss-dev (xscreensaver) is
+    added.
+  * Updated Provides and long description in debian/control to reflect
+    inclussion of xssstate utility.
+  * Updated debian/copyright file to include copyright statement for
+    xssstate utility.    
+  * Added Xft alternative for dmenu, thanks to Javier P.L.
+    Closes: bug#696703.
+  * New build-dependency on libxft-dev, libfreetype6-dev is added for
+    allowing dmenu.xft alternative.    
+  * Provided meta key alternative for tabbed, thanks to Vincent Lefevre.
+    Closes: bug#703027.
+  * Removed TERMINFO environment setting during building of tools, we are
+    no longer shipping st as part of this package which needed this.
+
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Mon, 13 May 2013 13:16:52 +0530
+
 suckless-tools (39-1) experimental; urgency=low
 
   [ Michael Stummvoll ]
