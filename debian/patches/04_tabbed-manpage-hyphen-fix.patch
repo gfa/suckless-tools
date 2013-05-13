@@ -10,7 +10,7 @@ Forwarded: no
 Last-Update: 2012-07-29
 --- a/tabbed/tabbed.1
 +++ b/tabbed/tabbed.1
-@@ -20,7 +20,7 @@ tabbed \- generic tabbed interface
+@@ -20,19 +20,19 @@ tabbed \- generic tabbed interface
  is a simple tabbed container for applications which support XEmbed. Tabbed
  will then run the provided command with the xid of tabbed as appended
  argument. (See EXAMPLES.) The automatic spawning of the command can be
@@ -19,7 +19,30 @@ Last-Update: 2012-07-29
  tabbed will just print its xid and run no command.
  .SH OPTIONS
  .TP
-@@ -92,13 +92,13 @@ jumps to nth tab
+ .B \-c
+-close tabbed when the last tab is closed. Mutually exclusive with -f.
++close tabbed when the last tab is closed. Mutually exclusive with \-f.
+ .TP
+ .B \-d
+ detaches tabbed from the terminal and prints its XID to stdout.
+ .TP
+ .B \-f
+ fill up tabbed again by spawning the provided command, when the last tab is
+-closed. Mutually exclusive with -c.
++closed. Mutually exclusive with \-c.
+ .TP
+ .B \-h
+ will print the usage of tabbed.
+@@ -45,7 +45,7 @@ will set the WM_CLASS attribute to
+ will set the absolute or relative position of where to start a new tab. When
+ .I pos
+ is is given without 's' in front it is an absolute position. Then negative
+-numbers will be the position from the last tab, where -1 is the last tab.
++numbers will be the position from the last tab, where \-1 is the last tab.
+ If 's' is given, then
+ .I pos
+ is a relative position to the current selected tab. If this reaches the limits
+@@ -92,15 +92,15 @@ jumps to nth tab
  .B F11
  Toggle fullscreen mode.
  .SH EXAMPLES
@@ -35,5 +58,8 @@ Last-Update: 2012-07-29
 -$ $(tabbed -d >/tmp/tabbed.xid); urxvt -embed $(</tmp/tabbed.xid);
 +$ xid=$(tabbed \-d);urxvt \-embed $xid
  .TP
- $ tabbed -r 2 st -w '' -e tmux
+-$ tabbed -r 2 st -w '' -e tmux
++$ tabbed \-r 2 st \-w '' \-e tmux
  .SH CUSTOMIZATION
+ .B tabbed
+ can be customized by creating a custom config.h and (re)compiling the source
