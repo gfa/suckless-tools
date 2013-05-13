@@ -1,10 +1,10 @@
 #!/usr/bin/make -f
 
-SHELL := sh -e
+SHELL := sh -ex
 
 D := $(CURDIR)/debian/suckless-tools
-TOOLS = $(shell ls | sed -e 's|debian||')
-ALTERNATIVES = $(shell ls debian/local)
+TOOLS := $(filter-out debian, $(wildcard *))
+ALTERNATIVES := $(wildcard debian/local/*)
 
 %:
 	dh $@
@@ -31,13 +31,14 @@ override_dh_auto_install:
 
 	for ALTERNATIVE in $(ALTERNATIVES); \
 	do \
-		for patch in $(shell ls debian/local/$${ALTERNATIVE}/*); \
-		do \
-			patch -p1 < debian/local/$${ALTERNATIVE}/$${patch} -d $${ALTERNATIVE}; \
-			make -C $${ALTERNATIVE};\
-			cp -f $${ALTERNATIVE}/$${ALTERNATIVE} $(D)/$${patch}; \
-			cp -f $${ALTERNATIVE}/$${ALTERNATIVE}.1 $(D)/usr/share/man/man1/$${patch}.1; \
-		done \
+		tool=`basename $${ALTERNATIVE} | perl -pe "s/.*\K\..*//g"`;\
+		cp -r $${tool} $${tool}.orig; \
+		patch -p1 < $${ALTERNATIVE} -d $${tool}; \
+		make -C $${tool};\
+		cp -f $${tool}/$${tool} $(D)/$$(basename $${ALTERNATIVE}); \
+		cp -f $${tool}/$${tool}.1 $(D)/usr/share/man/man1/$$(basename $${ALTERNATIVE}).1; \
+		rm -rf $${tool};\
+		mv $${tool}.orig $${tool}; \
 	done
 
 override_dh_installdocs:
