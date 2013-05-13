@@ -50,6 +50,11 @@ Files: slock/*
 Copyright: (C) 2006-2012 Anselm R. Garbe <anselm@garbe.us>
 License: Expat
 
+Files: xssstate/*
+Copyright: (C) 2008, Kai Hendry <hendry@webconverger.com>
+ (C) 2012, Christoph Lohmann <20h@r-36.net>
+License: Expat
+
 Files: debian/*
 Copyright:
   (C) 2006-2010 Daniel Baumann <daniel@debian.org>
