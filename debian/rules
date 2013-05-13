@@ -35,8 +35,10 @@ override_dh_auto_install:
 		cp -r $${tool} $${tool}.orig; \
 		patch -p1 < $${ALTERNATIVE} -d $${tool}; \
 		make -C $${tool};\
-		cp -f $${tool}/$${tool} $(D)/$$(basename $${ALTERNATIVE}); \
+		cp -f $${tool}/$${tool} $(D)/usr/bin/$$(basename $${ALTERNATIVE}); \
+		chmod 0755 $(D)/usr/bin/$$(basename $${ALTERNATIVE}); \
 		cp -f $${tool}/$${tool}.1 $(D)/usr/share/man/man1/$$(basename $${ALTERNATIVE}).1; \
+		chmod 0644 $(D)/usr/share/man/man1/$$(basename $${ALTERNATIVE});\
 		rm -rf $${tool};\
 		mv $${tool}.orig $${tool}; \
 	done
