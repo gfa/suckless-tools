@@ -20,7 +20,7 @@ Package: suckless-tools
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Suggests: dwm, stterm, surf
-Provides: dmenu, lsw, lsx, slock, sprop, sselp, ssid, swarp, tabbed, wmname
+Provides: dmenu, lsw, lsx, slock, sprop, sselp, ssid, swarp, tabbed, wmname, xssstate
 Description: simple commands for minimalistic window managers
  This package provides simple commands designed to be used with a minimalistic
  window manager like dwm but they can be useful in scripts regardless of the
@@ -37,3 +37,4 @@ Description: simple commands for minimalistic window managers
   * tabbed: Simple generic tabbed fronted to xembed aware applications.
   * wmname: wmname prints/sets the window manager name property of the root
     window similar to how hostname(1) behaves.
+  * xssstate: xssstate is a suckless solution for retriving X screensaver state.
