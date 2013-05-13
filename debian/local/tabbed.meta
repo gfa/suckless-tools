@@ -1,7 +1,6 @@
-diff --git a/tabbed/config.def.h b/tabbed/config.def.h
-index ca4b8d6..cc123e5 100644
---- a/tabbed/config.def.h
-+++ b/tabbed/config.def.h
+diff --git a/config.def.h b/config.def.h
+--- a/config.def.h
++++ b/config.def.h
 @@ -19,7 +19,7 @@ static const Bool foreground    = True;
  static int  newposition   = 0;
  static Bool npisrelative  = False;
