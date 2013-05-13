@@ -20,8 +20,10 @@ suckless-tools (40-1) unstable; urgency=low
     Closes: bug#703027.
   * Removed TERMINFO environment setting during building of tools, we are
     no longer shipping st as part of this package which needed this.
+  * Use canonical URL anonscm.d.o for Vcs-Git field.
+  * Upload to unstable.
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>  Mon, 13 May 2013 13:16:52 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Mon, 13 May 2013 13:49:19 +0530
 
 suckless-tools (39-1) experimental; urgency=low
 
