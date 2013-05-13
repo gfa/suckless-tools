@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-SHELL := sh -ex
+SHELL := sh -e
 
 D := $(CURDIR)/debian/suckless-tools
 TOOLS := $(filter-out debian, $(wildcard *))
