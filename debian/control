@@ -37,4 +37,4 @@ Description: simple commands for minimalistic window managers
   * tabbed: Simple generic tabbed fronted to xembed aware applications.
   * wmname: wmname prints/sets the window manager name property of the root
     window similar to how hostname(1) behaves.
-  * xssstate: xssstate is a suckless solution for retriving X screensaver state.
+  * xssstate: retrieves the state of X screensaver.
