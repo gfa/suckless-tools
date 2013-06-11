@@ -1,10 +1,10 @@
 Debianisation of suckless-tools
 ================================
 
-This package contains a set of tools from suckless community as
-single package. To build the package you need to create source
-tarballs of individual tool component involved. This can be done
-by running following command from suckless-tools folder
+This package contains a set of tools from suckless community as single
+package. To build the package you need to create source tarballs of
+individual tool component involved. This can be done by running
+following command from suckless-tools folder
 
  debian/rules get-orig-source
 
@@ -12,15 +12,16 @@ This package can not utilize git-buildpackage as it can't handle
 multiple source tarballs in a single package. As of now it is using
 git repository just to maintain packaging history.
 
-To get new version of each tool you need to change corresponding _VERSION
-string for the tool in debian/create_orig_source shell script and also
-CURRET_VERSION and run above command to get source tarballs for new version
-prepared.
+To get new version of each tool you need to change corresponding
+_VERSION string for the tool in debian/create_orig_source shell script
+and also CURRENT_VERSION and run above command to get source tarballs
+for new version prepared.
 
-Note that the script used to get the original source file assumes that you
-execute the same command given above from the package root directory and
-downloads the sources to out side the package directory. If you executed the
-command from wrong directory you need to move the downloaded orig tarballs to
-outside the package root directory.
+Note that the script used to get the original source file assumes that
+you execute the same command given above from the package root
+directory and downloads the sources to outside the package
+directory. If you executed the command from wrong directory you need
+to move the downloaded orig tarballs to outside the package root
+directory.
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>, Sat, 25 Aug 2012 12:17:10 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>, Tue, 11 Jun 2013 22:29:23 +0530
