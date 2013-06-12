@@ -2,21 +2,21 @@
 set -e
 
 case "${1}" in
-	remove|deconfigure)
-		update-alternatives --quiet --remove dmenu /usr/bin/dmenu.default
-                update-alternatives --quiet --remove dmenu /usr/bin/dmenu.xft
-                update-alternatives --quiet --remove tabbed /usr/bin/tabbed.default
-                update-alternatives --quiet --remove tabbed /usr/bin/tabbed.meta
-		;;
+    remove|deconfigure)
+        update-alternatives --quiet --remove dmenu /usr/bin/dmenu.default
+        update-alternatives --quiet --remove dmenu /usr/bin/dmenu.xft
+        update-alternatives --quiet --remove tabbed /usr/bin/tabbed.default
+        update-alternatives --quiet --remove tabbed /usr/bin/tabbed.meta
+        ;;
 
-	upgrade|failed-upgrade)
+    upgrade|failed-upgrade)
 
-		;;
+        ;;
 
-	*)
-		echo "prerm called with unknown argument \`${1}'" >&2
-		exit 1
-		;;
+    *)
+        echo "prerm called with unknown argument \`${1}'" >&2
+        exit 1
+        ;;
 esac
 
 #DEBHELPER#
