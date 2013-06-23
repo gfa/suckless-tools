@@ -1,21 +1,10 @@
-#!/bin/sh -e
-
-dmenu_VERSION=4.5
-lsx_VERSION=0.1
-lsw_VERSION=0.2
-slock_VERSION=1.1
-sselp_VERSION=0.2
-swarp_VERSION=0.1
-ssid_VERSION=0.1
-tabbed_VERSION=0.5
-wmname_VERSION=0.1
-sprop_VERSION=0.1
-xssstate_VERSION=1.1
-
-CURRENT_VERSION=40
+#!/bin/sh
+set -eu
 
 TMPDIR=$(mktemp --tmpdir=.. -d suckless-tools.XXXX)
 CURDIR=$(pwd)
+
+. ${CURDIR}/debian/version_data
 
 download_tarball(){
     tool=$1
