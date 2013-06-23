@@ -26,7 +26,7 @@ Description: simple commands for minimalistic window managers
  window manager like dwm but they can be useful in scripts regardless of the
  window manager used.
  .
-  * dmenu: dynamic menu is a generic menu for X.
+  * dmenu: Dynamic menu is a generic menu for X.
   * lsw: Lists the titles of all running X windows to stdout, similar to ls(1).
   * lsx: Lists executables in a directory.
   * slock: Simple X display locker that locks the X session.
@@ -35,6 +35,6 @@ Description: simple commands for minimalistic window managers
   * ssid: Simple setsid replacement.
   * swarp: Simple X warping tool to warp the mouse pointer to a given position.
   * tabbed: Simple generic tabbed fronted to xembed aware applications.
-  * wmname: wmname prints/sets the window manager name property of the root
-    window similar to how hostname(1) behaves.
-  * xssstate: retrieves the state of X screensaver.
+  * wmname: Prints/sets the window manager name property of the root
+    window imilar to how hostname(1) behaves.
+  * xssstate: Retrieves the state of X screensaver.
