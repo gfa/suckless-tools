@@ -1,16 +1,16 @@
 #!/bin/sh
 set -e
 
-export dmenu_VERSION=4.5
-export lsx_VERSION=0.1
-export lsw_VERSION=0.2
-export slock_VERSION=1.1
-export sselp_VERSION=0.2
-export swarp_VERSION=0.1
-export ssid_VERSION=0.1
-export tabbed_VERSION=0.5
-export wmname_VERSION=0.1
-export sprop_VERSION=0.1
-export xssstate_VERSION=1.1
-export  
-export CURRENT_VERSION=40
+dmenu_VERSION=4.5
+lsx_VERSION=0.1
+lsw_VERSION=0.2
+slock_VERSION=1.1
+sselp_VERSION=0.2
+swarp_VERSION=0.1
+ssid_VERSION=0.1
+tabbed_VERSION=0.5
+wmname_VERSION=0.1
+sprop_VERSION=0.1
+xssstate_VERSION=1.1
+ 
+CURRENT_VERSION=40
