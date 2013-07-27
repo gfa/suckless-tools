@@ -5,7 +5,7 @@ set -e
 case "${1}" in
     configure)
         update-alternatives --quiet --install /usr/bin/dmenu dmenu /usr/bin/dmenu.default 100
-        update-alternatives --quiet --install /usr/bin/dmenu dmenu /usr/bin/dwm.xft 50
+        update-alternatives --quiet --install /usr/bin/dmenu dmenu /usr/bin/dmenu.xft 50
         update-alternatives --quiet --install /usr/bin/tabbed tabbed /usr/bin/tabbed.default 100
         update-alternatives --quiet --install /usr/bin/tabbed tabbed /usr/bin/tabbed.meta 50
         ;;
