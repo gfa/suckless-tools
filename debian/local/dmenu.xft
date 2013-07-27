@@ -1,7 +1,7 @@
-diff -upr a/config.mk b/config.mk
---- a/config.mk	2012-01-10 19:03:22.000000000 +0200
-+++ b/config.mk	2012-01-10 19:03:38.000000000 +0200
-@@ -12,9 +12,13 @@ X11LIB = /usr/X11R6/lib
+diff -u dmenu/config.mk dmenu.xft/config.mk
+--- dmenu/config.mk	2013-07-27 20:23:08.117705869 +0530
++++ dmenu.xft/config.mk	2013-07-27 20:23:14.301709425 +0530
+@@ -12,9 +12,13 @@
  XINERAMALIBS  = -lXinerama
  XINERAMAFLAGS = -DXINERAMA
  
@@ -16,11 +16,11 @@ diff -upr a/config.mk b/config.mk
 +LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${XFTLIBS}
  
  # flags
- CPPFLAGS = -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
-diff -upr a/dmenu.1 b/dmenu.1
---- a/dmenu.1	2012-01-10 19:14:19.000000000 +0200
-+++ b/dmenu.1	2012-01-10 19:14:23.000000000 +0200
-@@ -53,7 +53,7 @@ dmenu lists items vertically, with the g
+ CPPFLAGS += -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
+diff -u dmenu/dmenu.1 dmenu.xft/dmenu.1
+--- dmenu/dmenu.1	2013-05-11 19:27:24.015065763 +0530
++++ dmenu.xft/dmenu.1	2013-07-27 20:23:14.301709425 +0530
+@@ -53,7 +53,7 @@
  defines the prompt to be displayed to the left of the input field.
  .TP
  .BI \-fn " font"
@@ -29,9 +29,9 @@ diff -upr a/dmenu.1 b/dmenu.1
  .TP
  .BI \-nb " color"
  defines the normal background color.
-diff -upr a/dmenu.c b/dmenu.c
---- a/dmenu.c	2012-01-10 19:14:19.000000000 +0200
-+++ b/dmenu.c	2012-01-10 19:24:39.000000000 +0200
+diff -u dmenu/dmenu.c dmenu.xft/dmenu.c
+--- dmenu/dmenu.c	2013-05-11 19:27:24.015065763 +0530
++++ dmenu.xft/dmenu.c	2013-07-27 20:23:14.301709425 +0530
 @@ -17,6 +17,7 @@
                               * MAX(0, MIN((y)+(h),(r).y_org+(r).height) - MAX((y),(r).y_org)))
  #define MIN(a,b)              ((a) < (b) ? (a) : (b))
@@ -40,7 +40,7 @@ diff -upr a/dmenu.c b/dmenu.c
  
  typedef struct Item Item;
  struct Item {
-@@ -26,6 +27,7 @@ struct Item {
+@@ -26,6 +27,7 @@
  
  static void appenditem(Item *item, Item **list, Item **last);
  static void calcoffsets(void);
@@ -48,7 +48,7 @@ diff -upr a/dmenu.c b/dmenu.c
  static char *cistrstr(const char *s, const char *sub);
  static void drawmenu(void);
  static void grabkeyboard(void);
-@@ -50,10 +52,12 @@ static const char *normfgcolor = "#bbbbb
+@@ -50,10 +52,12 @@
  static const char *selbgcolor  = "#005577";
  static const char *selfgcolor  = "#eeeeee";
  static unsigned int lines = 0;
@@ -63,7 +63,7 @@ diff -upr a/dmenu.c b/dmenu.c
  static DC *dc;
  static Item *items = NULL;
  static Item *matches, *matchend;
-@@ -104,7 +108,9 @@ main(int argc, char *argv[]) {
+@@ -104,7 +108,9 @@
  			usage();
  
  	dc = initdc();
@@ -74,7 +74,7 @@ diff -upr a/dmenu.c b/dmenu.c
  
  	if(fast) {
  		grabkeyboard();
-@@ -117,7 +123,8 @@ main(int argc, char *argv[]) {
+@@ -117,7 +123,8 @@
  	setup();
  	run();
  
@@ -84,7 +84,7 @@ diff -upr a/dmenu.c b/dmenu.c
  }
  
  void
-@@ -160,6 +167,15 @@ cistrstr(const char *s, const char *sub)
+@@ -160,6 +167,15 @@
  }
  
  void
@@ -100,7 +100,7 @@ diff -upr a/dmenu.c b/dmenu.c
  drawmenu(void) {
  	int curpos;
  	Item *item;
-@@ -167,7 +183,7 @@ drawmenu(void) {
+@@ -167,7 +183,7 @@
  	dc->x = 0;
  	dc->y = 0;
  	dc->h = bh;
@@ -109,7 +109,7 @@ diff -upr a/dmenu.c b/dmenu.c
  
  	if(prompt) {
  		dc->w = promptw;
-@@ -178,7 +194,7 @@ drawmenu(void) {
+@@ -178,7 +194,7 @@
  	dc->w = (lines > 0 || !matches) ? mw - dc->x : inputw;
  	drawtext(dc, text, normcol);
  	if((curpos = textnw(dc, text, cursor) + dc->h/2 - 2) < dc->w)
@@ -118,7 +118,7 @@ diff -upr a/dmenu.c b/dmenu.c
  
  	if(lines > 0) {
  		/* draw vertical list */
-@@ -321,7 +337,8 @@ keypress(XKeyEvent *ev) {
+@@ -321,7 +337,8 @@
  		sel = matchend;
  		break;
  	case XK_Escape:
@@ -128,7 +128,7 @@ diff -upr a/dmenu.c b/dmenu.c
  	case XK_Home:
  		if(sel == matches) {
  			cursor = 0;
-@@ -359,7 +376,8 @@ keypress(XKeyEvent *ev) {
+@@ -359,7 +376,8 @@
  	case XK_Return:
  	case XK_KP_Enter:
  		puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
@@ -138,7 +138,7 @@ diff -upr a/dmenu.c b/dmenu.c
  	case XK_Right:
  		if(text[cursor] != '\0') {
  			cursor = nextrune(+1);
-@@ -490,7 +508,7 @@ void
+@@ -490,7 +508,7 @@
  run(void) {
  	XEvent ev;
  
@@ -147,7 +147,7 @@ diff -upr a/dmenu.c b/dmenu.c
  		if(XFilterEvent(&ev, win))
  			continue;
  		switch(ev.type) {
-@@ -524,11 +542,6 @@ setup(void) {
+@@ -524,11 +542,6 @@
  	XineramaScreenInfo *info;
  #endif
  
@@ -159,7 +159,7 @@ diff -upr a/dmenu.c b/dmenu.c
  	clip = XInternAtom(dc->dpy, "CLIPBOARD",   False);
  	utf8 = XInternAtom(dc->dpy, "UTF8_STRING", False);
  
-@@ -582,7 +595,7 @@ setup(void) {
+@@ -582,7 +595,7 @@
  
  	/* create menu window */
  	swa.override_redirect = True;
@@ -168,9 +168,9 @@ diff -upr a/dmenu.c b/dmenu.c
  	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask;
  	win = XCreateWindow(dc->dpy, root, x, y, mw, mh, 0,
  	                    DefaultDepth(dc->dpy, screen), CopyFromParent,
-diff -upr a/draw.c b/draw.c
---- a/draw.c	2012-01-10 19:14:19.000000000 +0200
-+++ b/draw.c	2012-01-10 19:14:23.000000000 +0200
+diff -u dmenu/draw.c dmenu.xft/draw.c
+--- dmenu/draw.c	2013-05-11 19:27:24.015065763 +0530
++++ dmenu.xft/draw.c	2013-07-27 20:23:14.301709425 +0530
 @@ -9,9 +9,6 @@
  
  #define MAX(a, b)  ((a) > (b) ? (a) : (b))
@@ -181,7 +181,7 @@ diff -upr a/draw.c b/draw.c
  
  void
  drawrect(DC *dc, int x, int y, unsigned int w, unsigned int h, Bool fill, unsigned long color) {
-@@ -23,7 +20,7 @@ drawrect(DC *dc, int x, int y, unsigned 
+@@ -23,7 +20,7 @@
  }
  
  void
@@ -190,7 +190,7 @@ diff -upr a/draw.c b/draw.c
  	char buf[BUFSIZ];
  	size_t mn, n = strlen(text);
  
-@@ -35,19 +32,24 @@ drawtext(DC *dc, const char *text, unsig
+@@ -35,19 +32,24 @@
  	if(mn < n)
  		for(n = MAX(mn-3, 0); n < mn; buf[n++] = '.');
  
@@ -220,7 +220,7 @@ diff -upr a/draw.c b/draw.c
  		XSetFont(dc->dpy, dc->gc, dc->font.xfont->fid);
  		XDrawString(dc->dpy, dc->canvas, dc->gc, x, y, text, n);
  	}
-@@ -69,16 +71,33 @@ eprintf(const char *fmt, ...) {
+@@ -69,16 +71,33 @@
  }
  
  void
@@ -259,7 +259,7 @@ diff -upr a/draw.c b/draw.c
  }
  
  unsigned long
-@@ -91,6 +110,20 @@ getcolor(DC *dc, const char *colstr) {
+@@ -91,6 +110,20 @@
  	return color.pixel;
  }
  
@@ -280,7 +280,7 @@ diff -upr a/draw.c b/draw.c
  DC *
  initdc(void) {
  	DC *dc;
-@@ -109,39 +142,33 @@ initdc(void) {
+@@ -109,39 +142,33 @@
  
  void
  initfont(DC *dc, const char *fontstr) {
@@ -334,7 +334,7 @@ diff -upr a/draw.c b/draw.c
  }
  
  void
-@@ -151,20 +178,29 @@ mapdc(DC *dc, Window win, unsigned int w
+@@ -151,20 +178,29 @@
  
  void
  resizedc(DC *dc, unsigned int w, unsigned int h) {
@@ -367,9 +367,9 @@ diff -upr a/draw.c b/draw.c
  		XmbTextExtents(dc->font.set, text, len, NULL, &r);
  		return r.width;
  	}
-diff -upr a/draw.h b/draw.h
---- a/draw.h	2012-01-10 19:14:19.000000000 +0200
-+++ b/draw.h	2012-01-10 19:14:23.000000000 +0200
+diff -u dmenu/draw.h dmenu.xft/draw.h
+--- dmenu/draw.h	2013-05-11 19:27:24.015065763 +0530
++++ dmenu.xft/draw.h	2013-07-27 20:23:14.301709425 +0530
 @@ -1,9 +1,6 @@
  /* See LICENSE file for copyright and license details. */
  
@@ -381,7 +381,7 @@ diff -upr a/draw.h b/draw.h
  
  typedef struct {
  	int x, y, w, h;
-@@ -11,6 +8,7 @@ typedef struct {
+@@ -11,6 +8,7 @@
  	Display *dpy;
  	GC gc;
  	Pixmap canvas;
@@ -389,7 +389,7 @@ diff -upr a/draw.h b/draw.h
  	struct {
  		int ascent;
  		int descent;
-@@ -18,15 +16,24 @@ typedef struct {
+@@ -18,15 +16,24 @@
  		int width;
  		XFontSet set;
  		XFontStruct *xfont;
@@ -416,3 +416,46 @@ diff -upr a/draw.h b/draw.h
  DC *initdc(void);
  void initfont(DC *dc, const char *fontstr);
  void mapdc(DC *dc, Window win, unsigned int w, unsigned int h);
+diff -u dmenu/Makefile dmenu.xft/Makefile
+--- dmenu/Makefile	2013-07-27 20:23:08.149705887 +0530
++++ dmenu.xft/Makefile	2013-07-27 20:23:43.281726828 +0530
+@@ -6,7 +6,7 @@
+ SRC = dmenu.c draw.c stest.c
+ OBJ = ${SRC:.c=.o}
+ 
+-all: options dmenu.default stest
++all: options dmenu.xft
+ 
+ options:
+ 	@echo dmenu build options:
+@@ -19,7 +19,7 @@
+ 
+ ${OBJ}: config.mk draw.h
+ 
+-dmenu.default: dmenu.o draw.o
++dmenu.xft: dmenu.o draw.o
+ 	${CC} -o $@ dmenu.o draw.o ${LDFLAGS}
+ 
+ stest: stest.o
+@@ -40,16 +40,12 @@
+ install: all
+ 	@echo installing executables to ${DESTDIR}${PREFIX}/bin
+ 	mkdir -p ${DESTDIR}${PREFIX}/bin
+-	cp -f dmenu.default dmenu_run stest ${DESTDIR}${PREFIX}/bin
+-	chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu.default
+-	chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu_run
+-	chmod 755 ${DESTDIR}${PREFIX}/bin/stest
++	cp -f dmenu.xft ${DESTDIR}${PREFIX}/bin
++	chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu.xft
+ 	@echo installing manual pages to ${DESTDIR}${MANPREFIX}/man1
+ 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
+-	sed "s/VERSION/${VERSION}/g" < dmenu.1 > ${DESTDIR}${MANPREFIX}/man1/dmenu.default.1
+-	sed "s/VERSION/${VERSION}/g" < stest.1 > ${DESTDIR}${MANPREFIX}/man1/stest.1
+-	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dmenu.default.1
+-	chmod 644 ${DESTDIR}${MANPREFIX}/man1/stest.1
++	sed "s/VERSION/${VERSION}/g" < dmenu.1 > ${DESTDIR}${MANPREFIX}/man1/dmenu.xft.1
++	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dmenu.xft.1
+ 
+ uninstall:
+ 	@echo removing executables from ${DESTDIR}${PREFIX}/bin
+Only in dmenu.xft: Makefile~
