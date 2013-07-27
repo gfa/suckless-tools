@@ -166,6 +166,15 @@ Last-Update: 2012-07-29
  .PHONY: all options clean dist install uninstall
 --- a/tabbed/Makefile
 +++ b/tabbed/Makefile
+@@ -6,7 +6,7 @@ include config.mk
+ SRC = tabbed.c
+ OBJ = ${SRC:.c=.o}
+ 
+-all: options tabbed
++all: options tabbed.default
+ 
+ options:
+ 	@echo tabbed build options:
 @@ -15,46 +15,44 @@ options:
  	@echo "CC       = ${CC}"
  
@@ -181,9 +190,10 @@ Last-Update: 2012-07-29
 -	@cp config.def.h $@
 +	cp config.def.h $@
  
- tabbed: tabbed.o
+-tabbed: tabbed.o
 -	@echo CC -o $@
 -	@${CC} -o $@ tabbed.o ${LDFLAGS}
++tabbed.default: tabbed.o
 +	${CC} -o $@ tabbed.o ${LDFLAGS}
  
  clean:
@@ -215,12 +225,12 @@ Last-Update: 2012-07-29
 -	@sed "s/VERSION/${VERSION}/g" < tabbed.1 > ${DESTDIR}${MANPREFIX}/man1/tabbed.1
 -	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/tabbed.1
 +	mkdir -p ${DESTDIR}${PREFIX}/bin
-+	cp -f tabbed ${DESTDIR}${PREFIX}/bin
-+	chmod 755 ${DESTDIR}${PREFIX}/bin/tabbed
++	cp -f tabbed.default ${DESTDIR}${PREFIX}/bin
++	chmod 755 ${DESTDIR}${PREFIX}/bin/tabbed.default
 +	echo installing manual page to ${DESTDIR}${MANPREFIX}/man1
 +	mkdir -p ${DESTDIR}${MANPREFIX}/man1
-+	sed "s/VERSION/${VERSION}/g" < tabbed.1 > ${DESTDIR}${MANPREFIX}/man1/tabbed.1
-+	chmod 644 ${DESTDIR}${MANPREFIX}/man1/tabbed.1
++	sed "s/VERSION/${VERSION}/g" < tabbed.1 > ${DESTDIR}${MANPREFIX}/man1/tabbed.default.1
++	chmod 644 ${DESTDIR}${MANPREFIX}/man1/tabbed.default.1
  
  uninstall:
  	@echo removing executable file from ${DESTDIR}${PREFIX}/bin
@@ -347,6 +357,15 @@ Last-Update: 2012-07-29
  .PHONY: all options clean dist install uninstall
 --- a/dmenu/Makefile
 +++ b/dmenu/Makefile
+@@ -6,7 +6,7 @@ include config.mk
+ SRC = dmenu.c draw.c stest.c
+ OBJ = ${SRC:.c=.o}
+ 
+-all: options dmenu stest
++all: options dmenu.default stest
+ 
+ options:
+ 	@echo dmenu build options:
 @@ -15,52 +15,49 @@ options:
  	@echo "CC       = ${CC}"
  
@@ -357,9 +376,10 @@ Last-Update: 2012-07-29
  
  ${OBJ}: config.mk draw.h
  
- dmenu: dmenu.o draw.o
+-dmenu: dmenu.o draw.o
 -	@echo CC -o $@
 -	@${CC} -o $@ dmenu.o draw.o ${LDFLAGS}
++dmenu.default: dmenu.o draw.o
 +	${CC} -o $@ dmenu.o draw.o ${LDFLAGS}
  
  stest: stest.o
@@ -393,8 +413,8 @@ Last-Update: 2012-07-29
 -	@chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu_run
 -	@chmod 755 ${DESTDIR}${PREFIX}/bin/stest
 +	mkdir -p ${DESTDIR}${PREFIX}/bin
-+	cp -f dmenu dmenu_run stest ${DESTDIR}${PREFIX}/bin
-+	chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu
++	cp -f dmenu.default dmenu_run stest ${DESTDIR}${PREFIX}/bin
++	chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu.default
 +	chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu_run
 +	chmod 755 ${DESTDIR}${PREFIX}/bin/stest
  	@echo installing manual pages to ${DESTDIR}${MANPREFIX}/man1
@@ -404,9 +424,9 @@ Last-Update: 2012-07-29
 -	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/dmenu.1
 -	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/stest.1
 +	mkdir -p ${DESTDIR}${MANPREFIX}/man1
-+	sed "s/VERSION/${VERSION}/g" < dmenu.1 > ${DESTDIR}${MANPREFIX}/man1/dmenu.1
++	sed "s/VERSION/${VERSION}/g" < dmenu.1 > ${DESTDIR}${MANPREFIX}/man1/dmenu.default.1
 +	sed "s/VERSION/${VERSION}/g" < stest.1 > ${DESTDIR}${MANPREFIX}/man1/stest.1
-+	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dmenu.1
++	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dmenu.default.1
 +	chmod 644 ${DESTDIR}${MANPREFIX}/man1/stest.1
  
  uninstall:
@@ -461,7 +481,7 @@ Last-Update: 2012-07-29
  
  install: all
  	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
-@@ -45,6 +43,6 @@ install: all
+@@ -46,6 +44,6 @@ install: all
  
  uninstall:
  	@echo removing executable file from ${DESTDIR}${PREFIX}/bin
