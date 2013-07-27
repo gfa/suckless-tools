@@ -9,6 +9,18 @@ ALTERNATIVES := $(wildcard debian/local/*)
 %:
 	dh $@
 
+override_dh_auto_configure:
+	for ALTERNATIVE in $(ALTERNATIVES); \
+	do \
+		tool=`basename $${ALTERNATIVE} | perl -pe "s/.*\K\..*//g"`;\
+		extn=`basename $${ALTERNATIVE} | perl -pe "s/.*\.//g"`; \
+		newfork=$${tool}.$${extn}; \
+		cp -r $${tool} $${newfork}; \
+		patch -p1 < $${ALTERNATIVE} -d $${newfork}; \
+		TOOLS="$(TOOLS) $${newfork}"; \
+	done
+
+
 override_dh_auto_clean:
 	dh_auto_clean
 	for TOOL in $(TOOLS); \
@@ -27,20 +39,6 @@ override_dh_auto_install:
 	for TOOL in $(TOOLS); \
 	do \
 		$(MAKE) -C $${TOOL} DESTDIR=$(D) PREFIX=/usr install; \
-	done
-
-	for ALTERNATIVE in $(ALTERNATIVES); \
-	do \
-		tool=`basename $${ALTERNATIVE} | perl -pe "s/.*\K\..*//g"`;\
-		cp -r $${tool} $${tool}.orig; \
-		patch -p1 < $${ALTERNATIVE} -d $${tool}; \
-		make -C $${tool};\
-		cp -f $${tool}/$${tool} $(D)/usr/bin/$$(basename $${ALTERNATIVE}); \
-		chmod 0755 $(D)/usr/bin/$$(basename $${ALTERNATIVE}); \
-		cp -f $${tool}/$${tool}.1 $(D)/usr/share/man/man1/$$(basename $${ALTERNATIVE}).1; \
-		chmod 0644 $(D)/usr/share/man/man1/$$(basename $${ALTERNATIVE}).1;\
-		rm -rf $${tool};\
-		mv $${tool}.orig $${tool}; \
 	done
 
 override_dh_installdocs:
