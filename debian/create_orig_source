@@ -3,8 +3,9 @@ set -eu
 
 TMPDIR=$(mktemp --tmpdir=.. -d suckless-tools.XXXX)
 CURDIR=$(pwd)
+DEBIAN_DIR=$1
 
-. ${CURDIR}/debian/version_data
+. ${DEBIAN_DIR}version_data
 
 download_tarball(){
     tool=$1

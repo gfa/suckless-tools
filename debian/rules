@@ -5,6 +5,7 @@ SHELL := sh -e
 D := $(CURDIR)/debian/suckless-tools
 TOOLS := $(filter-out debian, $(wildcard *))
 ALTERNATIVES := $(wildcard debian/local/*)
+RULE_FILE_DIR := $(dir $(firstword $(MAKEFILE_LIST)))
 
 %:
 	dh $@
@@ -52,6 +53,6 @@ override_dh_fixperms:
 	dh_fixperms -Xusr/bin/slock
 
 get-orig-source:
-	$(dir $(firstword $(MAKEFILE_LIST)))create_orig_source
+	$(RULE_FILE_DIR)create_orig_source $(RULE_FILE_DIR)
 
 
