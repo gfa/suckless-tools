@@ -412,8 +412,8 @@ Last-Update: 2012-07-29
 +	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dmenu.1
 +	chmod 644 ${DESTDIR}${MANPREFIX}/man1/stest.1
 +	# debian specific
-+	mv ${DESTDIR}${PREFIX}/bin/dmenu ${DESTDIR}/${PREFIX}/dmenu.default
-+	mv ${DESTDIR}${MANPREFIX}/man1/dmenu.1 ${DESTDIR}/${MANPREFIX}/dmenu.default.1
++	mv ${DESTDIR}${PREFIX}/bin/dmenu ${DESTDIR}/${PREFIX}/bin/dmenu.default
++	mv ${DESTDIR}${MANPREFIX}/man1/dmenu.1 ${DESTDIR}/${MANPREFIX}/man1/dmenu.default.1
  
  uninstall:
  	@echo removing executables from ${DESTDIR}${PREFIX}/bin
