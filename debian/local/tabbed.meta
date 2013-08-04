@@ -1,6 +1,6 @@
 diff -u tabbed/config.def.h tabbed.meta/config.def.h
 --- tabbed/config.def.h	2013-05-12 11:32:24.551635511 +0530
-+++ tabbed.meta/config.def.h	2013-07-27 20:25:59.369824574 +0530
++++ tabbed.meta/config.def.h	2013-08-04 11:40:57.985448653 +0530
 @@ -19,7 +19,7 @@
  static int  newposition   = 0;
  static Bool npisrelative  = False;
@@ -11,43 +11,25 @@ diff -u tabbed/config.def.h tabbed.meta/config.def.h
  	/* modifier                     key        function        argument */
  	{ MODKEY|ShiftMask,             XK_Return, focusonce,      { 0 } },
 diff -u tabbed/Makefile tabbed.meta/Makefile
---- tabbed/Makefile	2013-07-27 20:25:39.217808453 +0530
-+++ tabbed.meta/Makefile	2013-07-27 20:26:22.369843664 +0530
-@@ -6,7 +6,7 @@
- SRC = tabbed.c
- OBJ = ${SRC:.c=.o}
- 
--all: options tabbed.default
-+all: options tabbed.meta
- 
- options:
- 	@echo tabbed build options:
-@@ -23,7 +23,7 @@
- 	@echo creating $@ from config.def.h
- 	cp config.def.h $@
- 
--tabbed.default: tabbed.o
-+tabbed.meta: tabbed.o
- 	${CC} -o $@ tabbed.o ${LDFLAGS}
- 
- clean:
-@@ -42,12 +42,12 @@
+--- tabbed/Makefile	2013-08-04 11:40:44.393417517 +0530
++++ tabbed.meta/Makefile	2013-08-04 11:42:38.669679807 +0530
+@@ -42,15 +42,12 @@
  install: all
  	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
  	mkdir -p ${DESTDIR}${PREFIX}/bin
--	cp -f tabbed.default ${DESTDIR}${PREFIX}/bin
--	chmod 755 ${DESTDIR}${PREFIX}/bin/tabbed.default
-+	cp -f tabbed.meta ${DESTDIR}${PREFIX}/bin
+-	cp -f tabbed ${DESTDIR}${PREFIX}/bin
+-	chmod 755 ${DESTDIR}${PREFIX}/bin/tabbed
++	cp -f tabbed ${DESTDIR}${PREFIX}/bin/tabbed.meta
 +	chmod 755 ${DESTDIR}${PREFIX}/bin/tabbed.meta
  	echo installing manual page to ${DESTDIR}${MANPREFIX}/man1
  	mkdir -p ${DESTDIR}${MANPREFIX}/man1
--	sed "s/VERSION/${VERSION}/g" < tabbed.1 > ${DESTDIR}${MANPREFIX}/man1/tabbed.default.1
--	chmod 644 ${DESTDIR}${MANPREFIX}/man1/tabbed.default.1
+-	sed "s/VERSION/${VERSION}/g" < tabbed.1 > ${DESTDIR}${MANPREFIX}/man1/tabbed.1
+-	chmod 644 ${DESTDIR}${MANPREFIX}/man1/tabbed.1
+-	#debian speific
+-	mv ${DESTDIR}${PREFIX}/bin/tabbed ${DESTDIR}${PREFIX}/bin/tabbed.default
+-	mv ${DESTDIR}${MANPREFIX}/man1/tabbed.1 ${DESTDIR}${MANPREFIX}/man1/tabbed.default.1
 +	sed "s/VERSION/${VERSION}/g" < tabbed.1 > ${DESTDIR}${MANPREFIX}/man1/tabbed.meta.1
 +	chmod 644 ${DESTDIR}${MANPREFIX}/man1/tabbed.meta.1
  
  uninstall:
  	@echo removing executable file from ${DESTDIR}${PREFIX}/bin
-Only in tabbed.meta: Makefile~
-Only in tabbed.meta: Makefile.orig
-Only in tabbed.meta: Makefile.rej

@@ -1,6 +1,6 @@
 diff -u dmenu/config.mk dmenu.xft/config.mk
---- dmenu/config.mk	2013-07-27 20:23:08.117705869 +0530
-+++ dmenu.xft/config.mk	2013-07-27 20:23:14.301709425 +0530
+--- dmenu/config.mk	2013-08-04 12:00:10.500080965 +0530
++++ dmenu.xft/config.mk	2013-08-04 12:00:19.852064618 +0530
 @@ -12,9 +12,13 @@
  XINERAMALIBS  = -lXinerama
  XINERAMAFLAGS = -DXINERAMA
@@ -19,7 +19,7 @@ diff -u dmenu/config.mk dmenu.xft/config.mk
  CPPFLAGS += -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
 diff -u dmenu/dmenu.1 dmenu.xft/dmenu.1
 --- dmenu/dmenu.1	2013-05-11 19:27:24.015065763 +0530
-+++ dmenu.xft/dmenu.1	2013-07-27 20:23:14.301709425 +0530
++++ dmenu.xft/dmenu.1	2013-08-04 12:00:19.852064618 +0530
 @@ -53,7 +53,7 @@
  defines the prompt to be displayed to the left of the input field.
  .TP
@@ -31,7 +31,7 @@ diff -u dmenu/dmenu.1 dmenu.xft/dmenu.1
  defines the normal background color.
 diff -u dmenu/dmenu.c dmenu.xft/dmenu.c
 --- dmenu/dmenu.c	2013-05-11 19:27:24.015065763 +0530
-+++ dmenu.xft/dmenu.c	2013-07-27 20:23:14.301709425 +0530
++++ dmenu.xft/dmenu.c	2013-08-04 12:00:19.852064618 +0530
 @@ -17,6 +17,7 @@
                               * MAX(0, MIN((y)+(h),(r).y_org+(r).height) - MAX((y),(r).y_org)))
  #define MIN(a,b)              ((a) < (b) ? (a) : (b))
@@ -170,7 +170,7 @@ diff -u dmenu/dmenu.c dmenu.xft/dmenu.c
  	                    DefaultDepth(dc->dpy, screen), CopyFromParent,
 diff -u dmenu/draw.c dmenu.xft/draw.c
 --- dmenu/draw.c	2013-05-11 19:27:24.015065763 +0530
-+++ dmenu.xft/draw.c	2013-07-27 20:23:14.301709425 +0530
++++ dmenu.xft/draw.c	2013-08-04 12:00:19.852064618 +0530
 @@ -9,9 +9,6 @@
  
  #define MAX(a, b)  ((a) > (b) ? (a) : (b))
@@ -369,7 +369,7 @@ diff -u dmenu/draw.c dmenu.xft/draw.c
  	}
 diff -u dmenu/draw.h dmenu.xft/draw.h
 --- dmenu/draw.h	2013-05-11 19:27:24.015065763 +0530
-+++ dmenu.xft/draw.h	2013-07-27 20:23:14.301709425 +0530
++++ dmenu.xft/draw.h	2013-08-04 12:00:19.852064618 +0530
 @@ -1,9 +1,6 @@
  /* See LICENSE file for copyright and license details. */
  
@@ -417,45 +417,29 @@ diff -u dmenu/draw.h dmenu.xft/draw.h
  void initfont(DC *dc, const char *fontstr);
  void mapdc(DC *dc, Window win, unsigned int w, unsigned int h);
 diff -u dmenu/Makefile dmenu.xft/Makefile
---- dmenu/Makefile	2013-07-27 20:23:08.149705887 +0530
-+++ dmenu.xft/Makefile	2013-07-27 20:23:43.281726828 +0530
-@@ -6,7 +6,7 @@
- SRC = dmenu.c draw.c stest.c
- OBJ = ${SRC:.c=.o}
- 
--all: options dmenu.default stest
-+all: options dmenu.xft
- 
- options:
- 	@echo dmenu build options:
-@@ -19,7 +19,7 @@
- 
- ${OBJ}: config.mk draw.h
- 
--dmenu.default: dmenu.o draw.o
-+dmenu.xft: dmenu.o draw.o
- 	${CC} -o $@ dmenu.o draw.o ${LDFLAGS}
- 
- stest: stest.o
-@@ -40,16 +40,12 @@
+--- dmenu/Makefile	2013-08-04 12:00:10.568080846 +0530
++++ dmenu.xft/Makefile	2013-08-04 12:01:00.327994926 +0530
+@@ -40,19 +40,12 @@
  install: all
  	@echo installing executables to ${DESTDIR}${PREFIX}/bin
  	mkdir -p ${DESTDIR}${PREFIX}/bin
--	cp -f dmenu.default dmenu_run stest ${DESTDIR}${PREFIX}/bin
--	chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu.default
+-	cp -f dmenu dmenu_run stest ${DESTDIR}${PREFIX}/bin
+-	chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu
 -	chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu_run
 -	chmod 755 ${DESTDIR}${PREFIX}/bin/stest
-+	cp -f dmenu.xft ${DESTDIR}${PREFIX}/bin
++	cp -f dmenu ${DESTDIR}${PREFIX}/bin/dmenu.xft
 +	chmod 755 ${DESTDIR}${PREFIX}/bin/dmenu.xft
  	@echo installing manual pages to ${DESTDIR}${MANPREFIX}/man1
  	mkdir -p ${DESTDIR}${MANPREFIX}/man1
--	sed "s/VERSION/${VERSION}/g" < dmenu.1 > ${DESTDIR}${MANPREFIX}/man1/dmenu.default.1
+-	sed "s/VERSION/${VERSION}/g" < dmenu.1 > ${DESTDIR}${MANPREFIX}/man1/dmenu.1
 -	sed "s/VERSION/${VERSION}/g" < stest.1 > ${DESTDIR}${MANPREFIX}/man1/stest.1
--	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dmenu.default.1
+-	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dmenu.1
 -	chmod 644 ${DESTDIR}${MANPREFIX}/man1/stest.1
+-	# debian specific
+-	mv ${DESTDIR}${PREFIX}/bin/dmenu ${DESTDIR}/${PREFIX}/bin/dmenu.default
+-	mv ${DESTDIR}${MANPREFIX}/man1/dmenu.1 ${DESTDIR}/${MANPREFIX}/man1/dmenu.default.1
 +	sed "s/VERSION/${VERSION}/g" < dmenu.1 > ${DESTDIR}${MANPREFIX}/man1/dmenu.xft.1
 +	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dmenu.xft.1
  
  uninstall:
  	@echo removing executables from ${DESTDIR}${PREFIX}/bin
-Only in dmenu.xft: Makefile~
