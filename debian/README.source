@@ -19,4 +19,40 @@ To get the new version of any tool, version information should be
 changed in debian/version_data file, also increment the
 CURRENT_VERSION string when doing new release.
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>, Sun,  4 Aug 2013 09:16:07 +0530
+Providing tools with alternative config
+=======================================
+
+If you want to provide alternative tools with customized configuration
+you should drop the patch containing difference with original tool
+into debian/local/ folder and also make sure you name the patch as
+tool.alternative.
+
+Two patches currently used to provide alternatvies are
+
+ 1. dmenu.xft : Provides xft support for dmenu
+ 2. tabbed.meta: use meta key as modifier key for tabbed
+
+This patches are borrowed from respective tools suckless page and
+modified later to rename the binaries to same as the patch name to
+avoid collision with original tool.
+
+Original source is also modified for above binaries to provide a
+prefix .default so that update-alternatives can install actual tool as
+a symlink to original binary or alternative binary.
+
+The code is forked under override_dh_auto_configure hook and then the
+patche (under debian/local) is applied to create new alternative which
+is installed under postinst script.
+
+So to add new patch make sure
+
+ 1. You name the patch in format tool.alternative as we use tool part
+    to fork the code to apply patch.
+ 2. Make sure you update patch 2003_transparent-makefiles.patch to
+    name the original binaries and manpages to have .default prefix
+ 3. Make sure you rename the alternative binaries and manpages to have
+    name tool.alternative.
+ 4. Insert new rules under postinst to install the alternatives and in
+    prerm to clean up these alternatives.
+
+ -- Vasudev Kamath <kamathvasudev@gmail.com>, Sun,  4 Aug 2013 11:00:10 +0530
