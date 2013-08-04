@@ -19,7 +19,7 @@ override_dh_auto_configure:
 		patch -p1 < $${ALTERNATIVE} -d $${newfork}; \
 		TOOLS="$(TOOLS) $${newfork}"; \
 	done
-
+	dh_auto_configure
 
 override_dh_auto_clean:
 	dh_auto_clean
