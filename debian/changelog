@@ -25,6 +25,7 @@ suckless-tools (40-1) unstable; urgency=low
     for the binaries to which upstream does not provide a manpage.
   * Renamed the patches to follow micro guidelines in
     debian/patches/README.
+  * Updated README.source file.
   * Upload to unstable.
 
  -- Vasudev Kamath <kamathvasudev@gmail.com>  Sat, 27 Jul 2013 21:55:49 +0530
