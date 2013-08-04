@@ -23,7 +23,7 @@ suckless-tools (40-1) unstable; urgency=low
   * Use canonical URL anonscm.d.o for Vcs-Git field.
   * Introduced suckless-tools.manpages to install manpages, previously
     upstream manpages were overwritten by maintainer shipped manpages
-    which were outdated this is now fixed.
+    which were outdated. This is now fixed.
   * Renamed the patches to follow micro guidelines in
     debian/patches/README.
   * Upload to unstable.
