@@ -21,9 +21,8 @@ suckless-tools (40-1) unstable; urgency=low
   * Removed TERMINFO environment setting during building of tools, we are
     no longer shipping st as part of this package which needed this.
   * Use canonical URL anonscm.d.o for Vcs-Git field.
-  * Introduced suckless-tools.manpages to install manpages, previously
-    upstream manpages were overwritten by maintainer shipped manpages
-    which were outdated. This is now fixed.
+  * Use suckless-tools.manpages to install debian shipped manpages only
+    for the binaries to which upstream does not provide a manpage.
   * Renamed the patches to follow micro guidelines in
     debian/patches/README.
   * Upload to unstable.
