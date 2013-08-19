@@ -1,9 +1,9 @@
 Description: Patch to allow injection of hardening flags
- This patch allows the hardening flags injection into all
- Makefile during build time. It also removes -Os from upstream
- config.mk to allow DEB_BUILD_OPTIONS=noopt. This patch also
- removes -s option to allow proper working of nostrip value
- for DEB_BUILD_OPTIONS.
+ This patch allows the hardening flags injection into all Makefile
+ during build time. It also removes -Os and -O0 from upstream
+ config.mk to allow DEB_BUILD_OPTIONS=noopt. This patch also removes
+ -s option to allow proper working of nostrip value for
+ DEB_BUILD_OPTIONS.
  .
 Author: Vasudev Kamath <kamathvasudev@gmail.com>
 Last-Update: 2012-11-15
