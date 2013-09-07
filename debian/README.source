@@ -32,9 +32,12 @@ Two patches currently used to provide alternatives are
  1. dmenu.xft : Provides xft support for dmenu
  2. tabbed.meta: use meta key as modifier key for tabbed
 
-These patches are borrowed from respective tools suckless page and
-modified later to rename the binaries to same as the patch name to
-avoid collision with original tool.
+These patches are borrowed from respective tools suckless web site
+page[1][2]  and modified later to rename the binaries to same as the
+patch name to avoid collision with original tool.
+
+[1] http://tools.suckless.org/dmenu/patches/
+[2] http://tools.suckless.org/tabbed/patches/
 
 Original source is also modified for above binaries to provide a
 suffix .default so that update-alternatives can install actual tool as
@@ -55,4 +58,4 @@ So to add new patch make sure
  4. Insert new rules under postinst to install the alternatives and in
     prerm to clean up these alternatives.
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>, Mon, 19 Aug 2013 20:51:45 +0530
+ -- Vasudev Kamath <kamathvasudev@gmail.com>, Sat,  7 Sep 2013 16:57:27 +0530
