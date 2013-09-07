@@ -5,25 +5,29 @@ TMPDIR=$(mktemp --tmpdir=.. -d suckless-tools.XXXX)
 CURDIR=$(pwd)
 DEBIAN_DIR=$1
 
-. ${DEBIAN_DIR}version_data
+. "${DEBIAN_DIR}"version_data
 
 download_tarball(){
-    tool=$1
-    version=$2
+    tool="$1"
+    version="$2"
 
-    echo Downloading $tool-$version...
-    wget -q http://dl.suckless.org/tools/$tool-$version.tar.gz -O $CURDIR/suckless-tools_$CURRENT_VERSION.orig-$tool.tar.gz
+    echo "Downloading $tool-$version..."
+    wget -q http://dl.suckless.org/tools/$tool-$version.tar.gz -O \
+	"$CURDIR"/suckless-tools_"$CURRENT_VERSION".orig-"$tool".tar.gz
 }
 
-for tool in dmenu lsx lsw slock sselp swarp ssid tabbed wmname sprop xssstate; do
-    download_tarball $tool $(eval echo "\$${tool}_VERSION")
+for tool in dmenu lsx lsw slock sselp swarp\
+ ssid tabbed wmname sprop xssstate; do
+    download_tarball "$tool" $(eval echo "\$${tool}_VERSION")
 done
 
-echo Creating empty suckless-tools_$CURRENT_VERSION.orig.tar.gz
-mkdir -p $TMPDIR/suckless-tools_$CURRENT_VERSION
-cd $TMPDIR
-tar --owner root --group root --mode a+rX -cvf - suckless-tools_$CURRENT_VERSION | gzip -9 > $CURDIR/suckless-tools_$CURRENT_VERSION.orig.tar.gz
-rm -rf $TMPDIR
+echo "Creating empty suckless-tools_$CURRENT_VERSION.orig.tar.gz"
+mkdir -p "$TMPDIR"/suckless-tools_"$CURRENT_VERSION"
+cd "$TMPDIR"
+tar --owner root --group root --mode a+rX -cvf - \
+    suckless-tools_"$CURRENT_VERSION" | gzip -9 \
+    > "$CURDIR"/suckless-tools_"$CURRENT_VERSION".orig.tar.gz
+rm -rf "$TMPDIR"
 
-echo Source tarballs are ready
+echo "Source tarballs are ready"
 
