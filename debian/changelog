@@ -26,6 +26,9 @@ suckless-tools (40-1) unstable; urgency=low
   * Renamed the patches to follow micro guidelines in
     debian/patches/README.
   * Updated README.source file.
+  * Add patch 2004, removes custom library and include search paths by
+    upstream, fixes FTBFS on mipsel*.
+    Closes: bug#722839. Thanks to YunQuian Su.
   * Upload to unstable.
 
  -- Vasudev Kamath <kamathvasudev@gmail.com>  Sat, 27 Jul 2013 21:55:49 +0530
