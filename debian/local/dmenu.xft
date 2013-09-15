@@ -1,25 +1,30 @@
 diff -u dmenu/config.mk dmenu.xft/config.mk
---- dmenu/config.mk	2013-08-04 12:00:10.500080965 +0530
-+++ dmenu.xft/config.mk	2013-08-04 12:00:19.852064618 +0530
-@@ -12,9 +12,13 @@
+--- dmenu/config.mk	2013-09-15 23:01:36.826549755 +0530
++++ dmenu.xft/config.mk	2013-09-15 23:01:58.554741868 +0530
+@@ -9,13 +9,16 @@
  XINERAMALIBS  = -lXinerama
  XINERAMAFLAGS = -DXINERAMA
  
-+# Xft, comment if you don't want it
 +XFTINC = -I/usr/include/freetype2
-+XFTLIBS  = -lXft -lXrender -lfreetype -lz -lfontconfig
++XFTLIBS = -lXft -lXrender -lfreetype -lz -lfontconfig
 +
  # includes and libs
--INCS = -I${X11INC}
--LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS}
-+INCS = -I${X11INC} ${XFTINC}
-+LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${XFTLIBS}
+-LIBS = -lX11 ${XINERAMALIBS}
++LIBS = -lX11 ${XINERAMALIBS} ${XFTLIBS}
  
  # flags
  CPPFLAGS += -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
+ #CFLAGS   = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
+-CFLAGS   += -std=c99 -pedantic -Wall ${CPPFLAGS}
++CFLAGS   += -std=c99 -pedantic -Wall ${XFTINC} ${CPPFLAGS}
+ LDFLAGS  += ${LIBS}
+ 
+ # compiler and linker
+Only in dmenu.xft: config.mk~
+Only in dmenu.xft: config.mk.orig
 diff -u dmenu/dmenu.1 dmenu.xft/dmenu.1
---- dmenu/dmenu.1	2013-05-11 19:27:24.015065763 +0530
-+++ dmenu.xft/dmenu.1	2013-08-04 12:00:19.852064618 +0530
+--- dmenu/dmenu.1	2013-09-15 22:49:15.299964601 +0530
++++ dmenu.xft/dmenu.1	2013-09-15 23:01:44.606618516 +0530
 @@ -53,7 +53,7 @@
  defines the prompt to be displayed to the left of the input field.
  .TP
@@ -30,8 +35,8 @@ diff -u dmenu/dmenu.1 dmenu.xft/dmenu.1
  .BI \-nb " color"
  defines the normal background color.
 diff -u dmenu/dmenu.c dmenu.xft/dmenu.c
---- dmenu/dmenu.c	2013-05-11 19:27:24.015065763 +0530
-+++ dmenu.xft/dmenu.c	2013-08-04 12:00:19.852064618 +0530
+--- dmenu/dmenu.c	2013-09-15 22:49:15.299964601 +0530
++++ dmenu.xft/dmenu.c	2013-09-15 23:01:44.606618516 +0530
 @@ -17,6 +17,7 @@
                               * MAX(0, MIN((y)+(h),(r).y_org+(r).height) - MAX((y),(r).y_org)))
  #define MIN(a,b)              ((a) < (b) ? (a) : (b))
@@ -169,8 +174,8 @@ diff -u dmenu/dmenu.c dmenu.xft/dmenu.c
  	win = XCreateWindow(dc->dpy, root, x, y, mw, mh, 0,
  	                    DefaultDepth(dc->dpy, screen), CopyFromParent,
 diff -u dmenu/draw.c dmenu.xft/draw.c
---- dmenu/draw.c	2013-05-11 19:27:24.015065763 +0530
-+++ dmenu.xft/draw.c	2013-08-04 12:00:19.852064618 +0530
+--- dmenu/draw.c	2013-09-15 22:49:15.299964601 +0530
++++ dmenu.xft/draw.c	2013-09-15 23:01:44.606618516 +0530
 @@ -9,9 +9,6 @@
  
  #define MAX(a, b)  ((a) > (b) ? (a) : (b))
@@ -368,8 +373,8 @@ diff -u dmenu/draw.c dmenu.xft/draw.c
  		return r.width;
  	}
 diff -u dmenu/draw.h dmenu.xft/draw.h
---- dmenu/draw.h	2013-05-11 19:27:24.015065763 +0530
-+++ dmenu.xft/draw.h	2013-08-04 12:00:19.852064618 +0530
+--- dmenu/draw.h	2013-09-15 22:49:15.303964679 +0530
++++ dmenu.xft/draw.h	2013-09-15 23:01:44.606618516 +0530
 @@ -1,9 +1,6 @@
  /* See LICENSE file for copyright and license details. */
  
@@ -417,8 +422,8 @@ diff -u dmenu/draw.h dmenu.xft/draw.h
  void initfont(DC *dc, const char *fontstr);
  void mapdc(DC *dc, Window win, unsigned int w, unsigned int h);
 diff -u dmenu/Makefile dmenu.xft/Makefile
---- dmenu/Makefile	2013-08-04 12:00:10.568080846 +0530
-+++ dmenu.xft/Makefile	2013-08-04 12:01:00.327994926 +0530
+--- dmenu/Makefile	2013-09-15 23:01:36.798549507 +0530
++++ dmenu.xft/Makefile	2013-09-15 23:01:44.606618516 +0530
 @@ -40,19 +40,12 @@
  install: all
  	@echo installing executables to ${DESTDIR}${PREFIX}/bin
