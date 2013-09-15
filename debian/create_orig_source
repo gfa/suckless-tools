@@ -13,7 +13,7 @@ download_tarball(){
 
     echo "Downloading ${tool}-${version}..."
     wget -q "http://dl.suckless.org/tools/${tool}-${version}.tar.gz" -O \
-	"${CURDIR}/suckless-tools_${CURRENT_VERSION}.orig-${tool}".tar.gz
+	"${CURDIR}/suckless-tools_${CURRENT_VERSION}.orig-${tool}.tar.gz"
 }
 
 for tool in dmenu lsx lsw slock sselp swarp\
@@ -26,7 +26,7 @@ mkdir -p "${TMPDIR}/suckless-tools_${CURRENT_VERSION}"
 cd "$TMPDIR"
 tar --owner root --group root --mode a+rX -cvf - \
     "suckless-tools_${CURRENT_VERSION}" | gzip -9 \
-    > "${CURDIR}/suckless-tools_${CURRENT_VERSION}".orig.tar.gz
+    > "${CURDIR}/suckless-tools_${CURRENT_VERSION}.orig.tar.gz"
 rm -rf "$TMPDIR"
 
 echo "Source tarballs are ready"
