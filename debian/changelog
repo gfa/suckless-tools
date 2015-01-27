@@ -1,3 +1,11 @@
+suckless-tools (40-2) experimental; urgency=medium
+
+  * Fix link for dmenu man page in dmenu_run.1.
+    Closes: bug#774955, Thanks to Jakub Wilk.
+  * Bump Standards-Version to 3.9.6, no change to source package.
+
+ -- Vasudev Kamath <kamathvasudev@gmail.com>  Sat, 24 Jan 2015 12:06:47 +0530
+
 suckless-tools (40-1) unstable; urgency=low
 
   * Suggest surf which can be used with tabbed.
