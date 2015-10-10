@@ -2,15 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <X11/Xatom.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
-static void getname(Window win, char *buf, size_t size);
-static void lsw(Window win);
+static const char *getname(Window);
+static void lsw(Window);
 
 static Atom netwmname;
-static Bool lflag = False;
 static Display *dpy;
 
 int
@@ -18,25 +16,15 @@ main(int argc, char *argv[]) {
 	int i;
 
 	if(!(dpy = XOpenDisplay(NULL))) {
-		fputs("lsw: cannot open display\n", stderr);
+		fprintf(stderr, "%s: cannot open display\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	netwmname = XInternAtom(dpy, "_NET_WM_NAME", False);
 
-	for(i = 1; i < argc; i++)
-		if(!strcmp(argv[i], "-v")) {
-			puts("lsw-"VERSION", © 2006-2011 lsw engineers, see LICENSE for details");
-			exit(EXIT_SUCCESS);
-		}
-		else if(!strcmp(argv[i], "-l"))
-			lflag = True;
-		else
-			break;
-
-	if(i == argc)
+	if(argc < 2)
 		lsw(DefaultRootWindow(dpy));
-	else while(i < argc)
-		lsw(strtol(argv[i++], NULL, 0));
+	else for(i = 1; i < argc; i++)
+		lsw(strtol(argv[i], NULL, 0));
 
 	XCloseDisplay(dpy);
 	return EXIT_SUCCESS;
@@ -44,40 +32,35 @@ main(int argc, char *argv[]) {
 
 void
 lsw(Window win) {
-	char buf[BUFSIZ];
-	unsigned int i, n;
-	Window *wins, dw;
+	unsigned int n;
+	Window *wins, *w, dw;
 	XWindowAttributes wa;
 
 	if(!XQueryTree(dpy, win, &dw, &dw, &wins, &n))
 		return;
-	for(i = 0; i < n; i++)
-		if(XGetWindowAttributes(dpy, win, &wa) && !wa.override_redirect) {
-			getname(wins[i], buf, sizeof buf);
-			if(lflag)
-				printf("0x%lx %s\n", wins[i], buf);
-			else if(*buf)
-				puts(buf);
-		}
+	for(w = &wins[n-1]; w >= &wins[0]; w--)
+		if(XGetWindowAttributes(dpy, *w, &wa)
+		&& !wa.override_redirect && wa.map_state == IsViewable)
+			printf("0x%07lx %s\n", *w, getname(*w));
 	XFree(wins);
 }
 
-void
-getname(Window win, char *buf, size_t size) {
-	char **list = NULL;
+const char *
+getname(Window win) {
+	static char buf[BUFSIZ];
+	char **list;
 	int n;
 	XTextProperty prop;
 
-	buf[0] = '\0';
 	if(!XGetTextProperty(dpy, win, &prop, netwmname) || prop.nitems == 0)
 		if(!XGetWMName(dpy, win, &prop) || prop.nitems == 0)
-			return;
-
-	if(prop.encoding == XA_STRING)
-		strncpy(buf, (char *)prop.value, size);
-	else if(!XmbTextPropertyToTextList(dpy, &prop, &list, &n) && n > 0) {
-		strncpy(buf, list[0], size);
+			return "";
+	if(!XmbTextPropertyToTextList(dpy, &prop, &list, &n) && n > 0) {
+		strncpy(buf, list[0], sizeof buf);
 		XFreeStringList(list);
 	}
+	else
+		strncpy(buf, (char *)prop.value, sizeof buf);
 	XFree(prop.value);
+	return buf;
 }

@@ -1,5 +1,5 @@
 # tabbed version
-VERSION = 0.5
+VERSION = 0.6
 
 # Customize below to fit your system
 
@@ -13,8 +13,8 @@ LIBS = -L/usr/lib -lc -lX11
 
 # flags
 CPPFLAGS = -DVERSION=\"${VERSION}\" -D_BSD_SOURCE
-CFLAGS = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
-LDFLAGS = -g ${LIBS}
+CFLAGS = -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
+LDFLAGS = -s ${LIBS}
 
 # Solaris
 #CFLAGS = -fast ${INCS} -DVERSION=\"${VERSION}\"

@@ -48,7 +48,7 @@
 
 enum { ColFG, ColBG, ColLast };                         /* color */
 enum { WMProtocols, WMDelete, WMName, WMState, WMFullscreen,
-	XEmbed, WMLast };                               /* default atoms */
+	XEmbed, WMSelectTab, WMLast };                      /* default atoms */
 
 typedef union {
 	int i;
@@ -103,6 +103,7 @@ static void focus(int c);
 static void focusin(const XEvent *e);
 static void focusonce(const Arg *arg);
 static void fullscreen(const Arg *arg);
+static char* getatom(int a);
 static int getclient(Window w);
 static unsigned long getcolor(const char *colstr);
 static int getfirsttab(void);
@@ -157,9 +158,11 @@ static Window root, win;
 static Client **clients = NULL;
 static int nclients = 0, sel = -1, lastsel = -1;
 static int (*xerrorxlib)(Display *, XErrorEvent *);
+static int cmd_append_pos = 0;
 static char winid[64];
 static char **cmd = NULL;
 static char *wmname = "tabbed";
+static const char *geometry = NULL;
 
 char *argv0;
 
@@ -170,12 +173,18 @@ void
 buttonpress(const XEvent *e) {
 	const XButtonPressedEvent *ev = &e->xbutton;
 	int i;
+	int fc;
 	Arg arg;
 
-	if(getfirsttab() != 0 && ev->x < TEXTW(before))
+	fc = getfirsttab();
+
+	if((fc > 0 && ev->x < TEXTW(before)) || ev->x < 0)
 		return;
 
-	for(i = 0; i < nclients; i++) {
+	if(ev->y < 0 || ev-> y > bh)
+		return;
+
+	for(i = (fc > 0) ? fc : 0; i < nclients; i++) {
 		if(clients[i]->tabx > ev->x) {
 			switch(ev->button) {
 			case Button1:
@@ -421,6 +430,7 @@ focus(int c) {
 
 	/* If c, sel and clients are -1, raise tabbed-win itself */
 	if(nclients == 0) {
+		cmd[cmd_append_pos] = NULL;
 		for(i = 0, n = strlen(buf); cmd[i] && n < sizeof(buf); i++)
 			n += snprintf(&buf[n], sizeof(buf) - n, " %s", cmd[i]);
 
@@ -480,6 +490,26 @@ fullscreen(const Arg *arg) {
 	e.xclient.data.l[1] = wmatom[WMFullscreen];
 	e.xclient.data.l[2] = 0;
 	XSendEvent(dpy, root, False, SubstructureNotifyMask, &e);
+}
+
+char *
+getatom(int a) {
+	static char buf[BUFSIZ];
+	Atom adummy;
+	int idummy;
+	unsigned long ldummy;
+	unsigned char *p = NULL;
+
+	XGetWindowProperty(dpy, win, wmatom[a], 0L, BUFSIZ, False, XA_STRING,
+			&adummy, &idummy, &ldummy, &ldummy, &p);
+	if(p) {
+		strncpy(buf, (char *)p, LENGTH(buf)-1);
+	} else {
+		buf[0] = '\0';
+	}
+	XFree(p);
+
+	return buf;
 }
 
 int
@@ -768,8 +798,20 @@ void
 propertynotify(const XEvent *e) {
 	const XPropertyEvent *ev = &e->xproperty;
 	int c;
+	char* selection = NULL;
+	Arg arg;
 
-	if(ev->state != PropertyDelete && ev->atom == XA_WM_NAME
+	if(ev->state == PropertyNewValue && ev->atom == wmatom[WMSelectTab]) {
+		selection = getatom(WMSelectTab);
+		if(!strncmp(selection, "0x", 2)) {
+			arg.i = getclient(strtoul(selection, NULL, 0));
+			move(&arg);
+		} else {
+			cmd[cmd_append_pos] = selection;
+			arg.v = cmd;
+			spawn(&arg);
+		}
+	} else if(ev->state != PropertyDelete && ev->atom == XA_WM_NAME
 			&& (c = getclient(ev->window)) > -1) {
 		updatetitle(c);
 	}
@@ -855,15 +897,22 @@ void
 setcmd(int argc, char *argv[], int replace) {
 	int i;
 
-	cmd = emallocz((argc+2) * sizeof(*cmd));
+	cmd = emallocz((argc+3) * sizeof(*cmd));
+	if (argc == 0)
+		return;
 	for(i = 0; i < argc; i++)
 		cmd[i] = argv[i];
 	cmd[(replace > 0)? replace : argc] = winid;
-	cmd[argc + !(replace > 0)] = NULL;
+	cmd_append_pos = argc + !replace;
+	cmd[cmd_append_pos] = cmd[cmd_append_pos+1] = NULL;
 }
 
 void
 setup(void) {
+	int bitm, tx, ty, tw, th, dh, dw, isfixed;
+	XClassHint class_hint;
+	XSizeHints *size_hint;
+
 	/* clean up any zombies immediately */
 	sigchld(0);
 
@@ -879,14 +928,42 @@ setup(void) {
 	wmatom[XEmbed] = XInternAtom(dpy, "_XEMBED", False);
 	wmatom[WMName] = XInternAtom(dpy, "_NET_WM_NAME", False);
 	wmatom[WMState] = XInternAtom(dpy, "_NET_WM_STATE", False);
-	wmatom[WMFullscreen] = XInternAtom(dpy, "_NET_WM_STATE_FULLSCREEN",
-			False);
+	wmatom[WMFullscreen] = XInternAtom(dpy, "_NET_WM_STATE_FULLSCREEN", False);
+	wmatom[WMSelectTab] = XInternAtom(dpy, "_TABBED_SELECT_TAB", False);
 
 	/* init appearance */
 	wx = 0;
 	wy = 0;
 	ww = 800;
 	wh = 600;
+	isfixed = 0;
+
+	if(geometry) {
+		tx = ty = tw = th = 0;
+		bitm = XParseGeometry(geometry, &tx, &ty, (unsigned *)&tw,
+				(unsigned *)&th);
+		if(bitm & XValue)
+			wx = tx;
+		if(bitm & YValue)
+			wy = ty;
+		if(bitm & WidthValue)
+			ww = tw;
+		if(bitm & HeightValue)
+			wh = th;
+		if(bitm & XNegative && wx == 0)
+			wx = -1;
+		if(bitm & YNegative && wy == 0)
+			wy = -1;
+		if(bitm & (HeightValue|WidthValue))
+			isfixed = 1;
+
+		dw = DisplayWidth(dpy, screen);
+		dh = DisplayHeight(dpy, screen);
+		if(wx < 0)
+			wx = dw + wx - ww - 1;
+		if(wy < 0)
+			wy = dh + wy - wh - 1;
+	}
 
 	dc.norm[ColBG] = getcolor(normbgcolor);
 	dc.norm[ColFG] = getcolor(normfgcolor);
@@ -902,14 +979,26 @@ setup(void) {
 			dc.norm[ColFG], dc.norm[ColBG]);
 	XMapRaised(dpy, win);
 	XSelectInput(dpy, win, SubstructureNotifyMask|FocusChangeMask|
-			ButtonPressMask|ExposureMask|KeyPressMask|
+			ButtonPressMask|ExposureMask|KeyPressMask|PropertyChangeMask|
 			StructureNotifyMask|SubstructureRedirectMask);
 	xerrorxlib = XSetErrorHandler(xerror);
 
-	XClassHint class_hint;
 	class_hint.res_name = wmname;
 	class_hint.res_class = "tabbed";
 	XSetClassHint(dpy, win, &class_hint);
+
+	size_hint = XAllocSizeHints();
+	if(!isfixed) {
+		size_hint->flags = PSize;
+		size_hint->height = wh;
+		size_hint->width = ww;
+	} else {
+		size_hint->flags = PMaxSize | PMinSize;
+		size_hint->min_width = size_hint->max_width = ww;
+		size_hint->min_height = size_hint->max_height = wh;
+	}
+	XSetWMProperties(dpy, win, NULL, NULL, NULL, 0, size_hint, NULL, NULL);
+	XFree(size_hint);
 
 	XSetWMProtocols(dpy, win, &wmatom[WMDelete], 1);
 
@@ -940,6 +1029,7 @@ spawn(const Arg *arg) {
 			fprintf(stderr, "tabbed: execvp %s",
 					((char **)arg->v)[0]);
 		} else {
+			cmd[cmd_append_pos] = NULL;
 			execvp(cmd[0], cmd);
 			fprintf(stderr, "tabbed: execvp %s", cmd[0]);
 		}
@@ -1004,12 +1094,18 @@ unmanage(int c) {
 		} else if(lastsel > c) {
 			lastsel--;
 		}
+		lastsel = MIN(lastsel, nclients - 1);
 
 		if(c == sel) {
-			if(lastsel > 0 && lastsel != sel) {
+			/* Note that focus() will never set lastsel == sel,
+			 * so if here lastsel == sel, it was decreased by above if() clause
+			 * and was actually (sel + 1) before.
+			 */
+			if(lastsel > 0) {
 				focus(lastsel);
 			} else {
 				focus(0);
+				lastsel = 1;
 			}
 		} else {
 			if(sel > c)
@@ -1102,8 +1198,8 @@ char *argv0;
 
 void
 usage(void) {
-	die("usage: %s [-dfhsv] [-n name] [-p [s+/-]pos] [-r narg]"
-		" command...\n", argv0);
+	die("usage: %s [-dfhsv] [-g geometry] [-n name] [-p [s+/-]pos] [-r narg] "
+		"[-u color] [-U color] [-t color] [-T color] command...\n", argv0);
 }
 
 int
@@ -1116,11 +1212,15 @@ main(int argc, char *argv[]) {
 	case 'c':
 		closelastclient = True;
 		fillagain = False;
+		break;
 	case 'd':
 		detach = True;
 		break;
 	case 'f':
 		fillagain = True;
+		break;
+	case 'g':
+		geometry = EARGF(usage());
 		break;
 	case 'n':
 		wmname = EARGF(usage());
@@ -1144,6 +1244,19 @@ main(int argc, char *argv[]) {
 		die("tabbed-"VERSION", © 2009-2012"
 			" tabbed engineers, see LICENSE"
 			" for details.\n");
+		break;
+	case 't':
+		selbgcolor = EARGF(usage());
+		break;
+	case 'T':
+		selfgcolor = EARGF(usage());
+		break;
+	case 'u':
+		normbgcolor = EARGF(usage());
+		break;
+	case 'U':
+		normfgcolor = EARGF(usage());
+		break;
 	default:
 	case 'h':
 		usage();
