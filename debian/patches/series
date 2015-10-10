@@ -1,3 +1,4 @@
+0001-segfault-avoidance.patch
 1001_tabbed_manpage_hyphen-fix.patch
 2001_fix_setuid_slock.patch
 2002_dpkg_buildflags.patch

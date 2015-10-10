@@ -1,0 +1,25 @@
+From: Anselm R Garbe <garbeam@gmail.com>
+Date: Mon, 22 Dec 2014 10:36:47 +0000
+Subject: segfault avoidance
+
+Origin: upstream, http://git.suckless.org/lsw/commit/?id=4d6e1b39e14666
+---
+ lsw/lsw.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lsw/lsw.c b/lsw/lsw.c
+index 9b01f6a..fc40fef 100644
+--- a/lsw/lsw.c
++++ b/lsw/lsw.c
+@@ -58,9 +58,9 @@ getname(Window win) {
+ 	if(!XmbTextPropertyToTextList(dpy, &prop, &list, &n) && n > 0) {
+ 		strncpy(buf, list[0], sizeof buf);
+ 		XFreeStringList(list);
+-	}
+-	else
++	} else
+ 		strncpy(buf, (char *)prop.value, sizeof buf);
+ 	XFree(prop.value);
++	buf[sizeof buf - 1] = '\0';
+ 	return buf;
+ }
