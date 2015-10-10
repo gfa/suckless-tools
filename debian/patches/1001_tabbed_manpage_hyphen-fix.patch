@@ -1,16 +1,24 @@
-Description: Escapes "-" symbol in manpage and use temp file in secure way
- Manpage for tabbed was using "-" symbol without escape which will
- be considered by groff as hyphen. This patch escapes the "-" in man-
- pages. This patch also replaces existing example given by upstream to embed
- an app into tabbed with a version which uses the secure temp files using
- mktemp.
- .
+From: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
+Date: Sat, 10 Oct 2015 19:54:16 +0300
+Subject: Escape '-' symbol in manpage
+
+Manpage for tabbed was using '-' symbol without escape which will be
+considered by groff as hyphen. This patch escapes the '-' in manpages.
+This patch also replaces existing example given by upstream to embed an
+app into tabbed with a version which uses the secure temp files using
+mktemp.
+
 Author: Vasudev Kamath <kamathvasudev@gmail.com>
 Forwarded: no
-Last-Update: 2012-07-29
+---
+ tabbed/tabbed.1 | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/tabbed/tabbed.1 b/tabbed/tabbed.1
+index 0ae29ce..9e3b6f8 100644
 --- a/tabbed/tabbed.1
 +++ b/tabbed/tabbed.1
-@@ -20,19 +20,19 @@ tabbed \- generic tabbed interface
+@@ -22,19 +22,19 @@ tabbed \- generic tabbed interface
  is a simple tabbed container for applications which support XEmbed. Tabbed
  will then run the provided command with the xid of tabbed as appended
  argument. (See EXAMPLES.) The automatic spawning of the command can be
@@ -33,7 +41,7 @@ Last-Update: 2012-07-29
  .TP
  .B \-h
  will print the usage of tabbed.
-@@ -45,7 +45,7 @@ will set the WM_CLASS attribute to
+@@ -54,7 +54,7 @@ will set the WM_CLASS attribute to
  will set the absolute or relative position of where to start a new tab. When
  .I pos
  is is given without 's' in front it is an absolute position. Then negative
@@ -42,7 +50,7 @@ Last-Update: 2012-07-29
  If 's' is given, then
  .I pos
  is a relative position to the current selected tab. If this reaches the limits
-@@ -92,15 +92,15 @@ jumps to nth tab
+@@ -120,15 +120,15 @@ jumps to nth tab
  .B F11
  Toggle fullscreen mode.
  .SH EXAMPLES

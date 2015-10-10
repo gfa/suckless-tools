@@ -1,24 +1,28 @@
-Description: Remove setsid bit on slock binary
- Upstream Makefile was installing slock with setsid bit
- on. This patch make slock to belong shadow group and sets
- sgid bit
-Author: Michael Stummvoll <michael@stummi.org>, Vasudev Kamath <kamathvasudev@gmail.com>
-Last-Update: 2012-07-25
+From: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
+Date: Sat, 10 Oct 2015 19:54:33 +0300
+Subject: Remove setsid bit on slock binary
+
+Upstream Makefile was installing slock with setsid bit on. This patch
+makes slock to belong to the shadow group and sets the sgid bit.
+
+Author: Michael Stummvoll <michael@stummi.org>,
+        Vasudev Kamath <kamathvasudev@gmail.com>
+Forwarded: no (Debian specific)
+---
+ slock/Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/slock/Makefile b/slock/Makefile
+index 1017ac2..e1409f9 100644
 --- a/slock/Makefile
 +++ b/slock/Makefile
-@@ -38,10 +38,11 @@
- 
- install: all
- 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
--	@mkdir -p ${DESTDIR}${PREFIX}/bin
--	@cp -f slock ${DESTDIR}${PREFIX}/bin
--	@chmod 755 ${DESTDIR}${PREFIX}/bin/slock
+@@ -45,7 +45,8 @@ install: all
+ 	@mkdir -p ${DESTDIR}${PREFIX}/bin
+ 	@cp -f slock ${DESTDIR}${PREFIX}/bin
+ 	@chmod 755 ${DESTDIR}${PREFIX}/bin/slock
 -	@chmod u+s ${DESTDIR}${PREFIX}/bin/slock
-+	mkdir -p ${DESTDIR}${PREFIX}/bin
-+	cp -f slock ${DESTDIR}${PREFIX}/bin
-+	chmod 755 ${DESTDIR}${PREFIX}/bin/slock
-+	chgrp shadow ${DESTDIR}${PREFIX}/bin/slock
-+	chmod g+s ${DESTDIR}${PREFIX}/bin/slock
++	@chgrp shadow ${DESTDIR}${PREFIX}/bin/slock
++	@chmod g+s ${DESTDIR}${PREFIX}/bin/slock
  
  uninstall:
  	@echo removing executable file from ${DESTDIR}${PREFIX}/bin

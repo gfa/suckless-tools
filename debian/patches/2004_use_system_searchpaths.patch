@@ -1,227 +1,194 @@
-Description: Fix FTBFS on mipsel* due to custom library search paths.
- This patch removes library search -L/usr/lib and include paths
- defined by upstream. Since all the libraries and headers needed are
- available in default path these flags are redundant also since
- /usr/lib may have different purpose on various architecture like
- mips* it causes FTBFS. Thanks to YunQiang Su for bringing this up.
+From: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
+Date: Sat, 10 Oct 2015 19:55:38 +0300
+Subject: Remove custom library search paths from Makefiles
+
+This patch removes library search and include paths (such as -L/usr/lib)
+defined by upstream. Since all the libraries and headers needed are
+available in the default path, these flags are redundant. In addition,
+since '/usr/lib' may have different purpose on various architectures,
+like mips*, it causes FTBFS.
+
+Thanks to YunQiang Su for bringing this up.
+
 Author: Vasudev Kamath <kamathvasudev@gmail.com>
-Last-Updated: 2013-09-15
-Bug-Debian: http://bugs.debian.org/722839
- 
+Bug-Debian: https://bugs.debian.org/722839
+Forwarded: no
+---
+ dmenu/config.mk    | 4 ++--
+ lsw/config.mk      | 4 ++--
+ lsx/config.mk      | 4 ++--
+ slock/config.mk    | 4 ++--
+ sprop/config.mk    | 4 ++--
+ sselp/config.mk    | 4 ++--
+ ssid/config.mk     | 4 ++--
+ swarp/config.mk    | 4 ++--
+ tabbed/config.mk   | 4 ++--
+ wmname/config.mk   | 4 ++--
+ xssstate/config.mk | 4 ++--
+ 11 files changed, 22 insertions(+), 22 deletions(-)
+
+diff --git a/dmenu/config.mk b/dmenu/config.mk
+index dfc6858..d3b8c9d 100644
 --- a/dmenu/config.mk
 +++ b/dmenu/config.mk
-@@ -5,21 +5,17 @@
- PREFIX = /usr/local
- MANPREFIX = ${PREFIX}/share/man
- 
--X11INC = /usr/X11R6/include
--X11LIB = /usr/X11R6/lib
--
- # Xinerama, comment if you don't want it
- XINERAMALIBS  = -lXinerama
- XINERAMAFLAGS = -DXINERAMA
+@@ -19,8 +19,8 @@ FREETYPEINC = /usr/include/freetype2
+ #FREETYPEINC = ${X11INC}/freetype2
  
  # includes and libs
--INCS = -I${X11INC}
--LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS}
-+LIBS = -lX11 ${XINERAMALIBS}
+-INCS = -I${X11INC} -I${FREETYPEINC}
+-LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
++INCS = $(shell pkg-config --cflags fontconfig xft)
++LIBS = -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
  
  # flags
- CPPFLAGS += -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
- #CFLAGS   = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
--CFLAGS   += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+CFLAGS   += -std=c99 -pedantic -Wall ${CPPFLAGS}
- LDFLAGS  += ${LIBS}
- 
- # compiler and linker
+ CPPFLAGS += -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
+diff --git a/lsw/config.mk b/lsw/config.mk
+index 400b2ca..186b93b 100644
 --- a/lsw/config.mk
 +++ b/lsw/config.mk
-@@ -5,16 +5,12 @@
- PREFIX = /usr/local
- MANPREFIX = ${PREFIX}/share/man
+@@ -9,8 +9,8 @@ X11INC = /usr/X11R6/include
+ X11LIB = /usr/X11R6/lib
  
--X11INC = /usr/X11R6/include
--X11LIB = /usr/X11R6/lib
--
  # includes and libs
 -INCS = -I${X11INC}
 -LIBS = -L${X11LIB} -lX11
++INCS =
 +LIBS = -lX11
  
  # flags
  CPPFLAGS += -DVERSION=\"${VERSION}\"
--CFLAGS   += -ansi -pedantic -Wall ${INCS} ${CPPFLAGS}
-+CFLAGS   += -ansi -pedantic -Wall ${CPPFLAGS}
- LDFLAGS  += ${LIBS}
- 
- # compiler and linker
+diff --git a/lsx/config.mk b/lsx/config.mk
+index de5cdae..04b58ea 100644
 --- a/lsx/config.mk
 +++ b/lsx/config.mk
-@@ -8,11 +8,10 @@
+@@ -8,8 +8,8 @@ PREFIX = /usr/local
  MANPREFIX = ${PREFIX}/share/man
  
  # includes and libs
 -INCS = -I/usr/lib
 -LIBS = -L/usr/lib -lc
-+LIBS =  -lc
++INCS =
++LIBS = -lc
  
  # flags
--CFLAGS += ${INCS} -DVERSION=\"${VERSION}\" ${CPPFLAGS}
-+CFLAGS += -DVERSION=\"${VERSION}\" ${CPPFLAGS}
- LDFLAGS += ${LIBS}
- #CFLAGS = -g -Wall -O2 ${INCS} -DVERSION=\"${VERSION}\"
- #LDFLAGS = -g ${LIBS}
+ CFLAGS += ${INCS} -DVERSION=\"${VERSION}\" ${CPPFLAGS}
+diff --git a/slock/config.mk b/slock/config.mk
+index 18fbcc0..4856f7b 100644
 --- a/slock/config.mk
 +++ b/slock/config.mk
-@@ -6,16 +6,12 @@
- # paths
- PREFIX = /usr/local
+@@ -10,8 +10,8 @@ X11INC = /usr/X11R6/include
+ X11LIB = /usr/X11R6/lib
  
--X11INC = /usr/X11R6/include
--X11LIB = /usr/X11R6/lib
--
  # includes and libs
 -INCS = -I. -I/usr/include -I${X11INC}
 -LIBS = -L/usr/lib -lc -lcrypt -L${X11LIB} -lX11 -lXext
++INCS =
 +LIBS = -lc -lcrypt -lX11 -lXext
  
  # flags
- CPPFLAGS += -DVERSION=\"${VERSION}\" -DHAVE_SHADOW_H -DCOLOR1=\"black\" -DCOLOR2=\"\#005577\"
--CFLAGS += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+CFLAGS += -std=c99 -pedantic -Wall ${CPPFLAGS}
- LDFLAGS += ${LIBS}
- 
- # On *BSD remove -DHAVE_SHADOW_H from CPPFLAGS and add -DHAVE_BSD_AUTH
+ CPPFLAGS += -DVERSION=\"${VERSION}\" -DHAVE_SHADOW_H
+diff --git a/sprop/config.mk b/sprop/config.mk
+index 7da5f46..e9fbd30 100644
 --- a/sprop/config.mk
 +++ b/sprop/config.mk
-@@ -7,16 +7,12 @@
- PREFIX = /usr/local
- MANPREFIX = ${PREFIX}/share/man
+@@ -11,8 +11,8 @@ X11INC = /usr/X11R6/include
+ X11LIB = /usr/X11R6/lib
  
--X11INC = /usr/X11R6/include
--X11LIB = /usr/X11R6/lib
--
  # includes and libs
 -INCS = -I. -I/usr/include -I${X11INC}
 -LIBS = -L/usr/lib -lc -L${X11LIB} -lX11
++INCS =
 +LIBS = -lc -lX11
  
  # flags
  CPPFLAGS += -DVERSION=\"${VERSION}\"
--CFLAGS += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+CFLAGS += -std=c99 -pedantic -Wall ${CPPFLAGS}
- LDFLAGS += ${LIBS}
- 
- # compiler and linker
+diff --git a/sselp/config.mk b/sselp/config.mk
+index aa54c7e..dc07e7a 100644
 --- a/sselp/config.mk
 +++ b/sselp/config.mk
-@@ -7,16 +7,12 @@
- PREFIX = /usr/local
- MANPREFIX = ${PREFIX}/share/man
+@@ -11,8 +11,8 @@ X11INC = /usr/X11R6/include
+ X11LIB = /usr/X11R6/lib
  
--X11INC = /usr/X11R6/include
--X11LIB = /usr/X11R6/lib
--
  # includes and libs
 -INCS = -I. -I/usr/include -I${X11INC}
 -LIBS = -L/usr/lib -lc -L${X11LIB} -lX11
++INCS =
 +LIBS = -lc -lX11
  
  # flags
  CPPFLAGS += -DVERSION=\"${VERSION}\"
--CFLAGS += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+CFLAGS += -std=c99 -pedantic -Wall ${CPPFLAGS}
- LDFLAGS += ${LIBS}
- 
- # compiler and linker
+diff --git a/ssid/config.mk b/ssid/config.mk
+index b675a4b..ff1c34b 100644
 --- a/ssid/config.mk
 +++ b/ssid/config.mk
-@@ -7,11 +7,10 @@
+@@ -7,8 +7,8 @@ VERSION = 0.1
  PREFIX = /usr/local
  
  # includes and libs
 -INCS = -I. -I/usr/include
 -LIBS = -L/usr/lib -lc
++INCS =
 +LIBS = -lc
  
  # flags
--CFLAGS += ${INCS} -DVERSION=\"${VERSION}\" ${CPPFLAGS}
-+CFLAGS += -DVERSION=\"${VERSION}\" ${CPPFLAGS}
- LDFLAGS += ${LIBS}
- #CFLAGS = -g -Wall -O2 ${INCS} -DVERSION=\"${VERSION}\"
- #LDFLAGS = -g ${LIBS}
+ CFLAGS += ${INCS} -DVERSION=\"${VERSION}\" ${CPPFLAGS}
+diff --git a/swarp/config.mk b/swarp/config.mk
+index b3bae48..5bfb74c 100644
 --- a/swarp/config.mk
 +++ b/swarp/config.mk
-@@ -7,15 +7,11 @@
- PREFIX = /usr/local
- MANPREFIX = ${PREFIX}/share/man
+@@ -11,8 +11,8 @@ X11INC = /usr/X11R6/include
+ X11LIB = /usr/X11R6/lib
  
--X11INC = /usr/X11R6/include
--X11LIB = /usr/X11R6/lib
--
  # includes and libs
 -INCS = -I. -I/usr/include -I${X11INC}
 -LIBS = -L/usr/lib -lc -L${X11LIB} -lX11
++INCS =
 +LIBS = -lc -lX11
  
  # flags
--CFLAGS += ${INCS} -DVERSION=\"${VERSION}\" ${CPPFLAGS}
-+CFLAGS += -DVERSION=\"${VERSION}\" ${CPPFLAGS}
- LDFLAGS += ${LIBS}
- #CFLAGS = -g -Wall -O2 ${INCS} -DVERSION=\"${VERSION}\"
- #LDFLAGS = -g ${LIBS}
+ CFLAGS += ${INCS} -DVERSION=\"${VERSION}\" ${CPPFLAGS}
+diff --git a/tabbed/config.mk b/tabbed/config.mk
+index 78ce088..59e6bc8 100644
 --- a/tabbed/config.mk
 +++ b/tabbed/config.mk
-@@ -8,12 +8,11 @@
+@@ -8,8 +8,8 @@ PREFIX = /usr/local
  MANPREFIX = ${PREFIX}/share/man
  
  # includes and libs
 -INCS = -I. -I/usr/include
 -LIBS = -L/usr/lib -lc -lX11
++INCS =
 +LIBS = -lc -lX11
  
  # flags
  CPPFLAGS += -DVERSION=\"${VERSION}\" -D_BSD_SOURCE
--CFLAGS += -g -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+CFLAGS += -g -std=c99 -pedantic -Wall ${CPPFLAGS}
- LDFLAGS += -g ${LIBS}
- 
- # Solaris
+diff --git a/wmname/config.mk b/wmname/config.mk
+index 034ead9..d3228b3 100644
 --- a/wmname/config.mk
 +++ b/wmname/config.mk
-@@ -7,16 +7,12 @@
- PREFIX = /usr/local
- MANPREFIX = ${PREFIX}/share/man
+@@ -11,8 +11,8 @@ X11INC = /usr/X11R6/include
+ X11LIB = /usr/X11R6/lib
  
--X11INC = /usr/X11R6/include
--X11LIB = /usr/X11R6/lib
--
  # includes and libs
 -INCS = -I. -I/usr/include -I${X11INC}
 -LIBS = -L/usr/lib -lc -L${X11LIB} -lX11
++INCS =
 +LIBS = -lc -lX11
  
  # flags
  CPPFLAGS += -DVERSION=\"${VERSION}\"
--CFLAGS += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+CFLAGS += -std=c99 -pedantic -Wall ${CPPFLAGS}
- LDFLAGS += ${LIBS}
- 
- # compiler and linker
+diff --git a/xssstate/config.mk b/xssstate/config.mk
+index e4a52b7..9f4cbc4 100644
 --- a/xssstate/config.mk
 +++ b/xssstate/config.mk
-@@ -8,12 +8,11 @@
+@@ -8,8 +8,8 @@ PREFIX = /usr/local
  MANPREFIX = ${PREFIX}/share/man
  
  # includes and libs
 -INCS = -I. -I/usr/include
 -LIBS = -L/usr/lib -lc -lX11 -lXss
++INCS =
 +LIBS = -lc -lX11 -lXss
  
  # flags
  CPPFLAGS += -DVERSION=\"${VERSION}\"
--CFLAGS += -g -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
-+CFLAGS += -g -std=c99 -pedantic -Wall ${CPPFLAGS}
- LDFLAGS += -g ${LIBS}
- 
- # Solaris
