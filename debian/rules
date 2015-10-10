@@ -23,55 +23,37 @@ TMPDIR := $(DEB_DIR)/tmp-dir
 # entire recipe to be executed, even for recipes that are normally silent
 MAKEFLAGS += --trace
 
-D := $(CURDIR)/debian/suckless-tools
+D := $(DEB_DIR)/suckless-tools
 TOOLS := $(filter-out debian, $(wildcard *))
-ALTERNATIVES := $(wildcard debian/local/*)
-RULE_FILE_DIR := $(dir $(firstword $(MAKEFILE_LIST)))
+
 
 %:
 	dh $@
 
-override_dh_auto_configure:
-	for ALTERNATIVE in $(ALTERNATIVES); \
-	do \
-		tool=`basename $${ALTERNATIVE} | perl -pe "s/.*\K\..*//g"`;\
-		extn=`basename $${ALTERNATIVE} | perl -pe "s/.*\.//g"`; \
-		newfork=$${tool}.$${extn}; \
-		cp -r $${tool} $${newfork}; \
-		patch -p1 < $${ALTERNATIVE} -d $${newfork}; \
-		TOOLS="$(TOOLS) $${newfork}"; \
-	done
-	dh_auto_configure
-
+.PHONY: override_dh_auto_clean
 override_dh_auto_clean:
-	dh_auto_clean
-	for TOOL in $(TOOLS); \
-	do \
-		make -C $${TOOL} clean; \
+	for TOOL in $(TOOLS); do \
+		dh_auto_clean --sourcedirectory=$${TOOL}; \
 	done
-	@diff -q tabbed/config.h tabbed/config.def.h && rm -f tabbed/config.h || true
 
+.PHONY: override_dh_auto_build
 override_dh_auto_build:
-	for TOOL in $(TOOLS);\
-	do \
-		make -C $${TOOL}; \
+	for TOOL in $(TOOLS); do \
+		dh_auto_build --sourcedirectory=$${TOOL}; \
 	done
 
+.PHONY: override_dh_auto_install
 override_dh_auto_install:
-	for TOOL in $(TOOLS); \
-	do \
-		$(MAKE) -C $${TOOL} DESTDIR=$(D) PREFIX=/usr install; \
+	for TOOL in $(TOOLS); do \
+		dh_auto_install --sourcedirectory=$${TOOL} -- PREFIX=/usr; \
 	done
 
+.PHONY: override_dh_installdocs
 override_dh_installdocs:
 	dh_installdocs
-	for TOOL in $(TOOLS); \
-	do \
+	for TOOL in $(TOOLS); do \
 		cp $${TOOL}/README $(D)/usr/share/doc/suckless-tools/README.$${TOOL}; \
 	done
-
-override_dh_fixperms:
-	dh_fixperms -Xusr/bin/slock
 
 
 # --------------------------------------------------------------------
