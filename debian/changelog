@@ -1,3 +1,15 @@
+suckless-tools (41-1~1.gbp4683b8) UNRELEASED; urgency=medium
+
+  ** SNAPSHOT build @4683b8906ed41fa34db98f1e724fc4c31a9152fd **
+
+  * New upstream release
+    - Import dmenu snapshot version 4.6 (git commit 09d0a36e0)
+    - Import lsw version 0.3
+    - Import slock version 1.2
+    - Import tabbed version 0.6
+
+ -- Ilias Tsitsimpis <i.tsitsimpis@gmail.com>  Sat, 10 Oct 2015 19:31:43 +0300
+
 suckless-tools (40-2) experimental; urgency=medium
 
   * Fix link for dmenu man page in dmenu_run.1.
