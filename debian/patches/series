@@ -1,5 +1,4 @@
 1001_tabbed_manpage_hyphen-fix.patch
 2001_fix_setuid_slock.patch
 2002_dpkg_buildflags.patch
-2003_transparent-makefiles.patch
 2004_use_system_searchpaths.patch
