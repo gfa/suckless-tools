@@ -1,1 +1,78 @@
 version=3
+
+# Download dmenu
+opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+http://dl.suckless.org/tools/ \
+dmenu-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+4.5
+
+# Download lsw
+opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+http://dl.suckless.org/tools/ \
+lsw-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+0.3
+
+# Download lsx
+opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+http://dl.suckless.org/tools/ \
+lsx-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+0.1
+
+# Download slock
+opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+http://dl.suckless.org/tools/ \
+slock-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+1.2
+
+# Download sprop
+opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+http://dl.suckless.org/tools/ \
+sprop-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+0.1
+
+# Download sselp
+opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+http://dl.suckless.org/tools/ \
+sselp-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+0.2
+
+# Download ssid
+opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+http://dl.suckless.org/tools/ \
+ssid-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+0.1
+
+# Download swarp
+opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+http://dl.suckless.org/tools/ \
+swarp-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+0.1
+
+# Download tabbed
+opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+http://dl.suckless.org/tools/ \
+tabbed-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+0.6
+
+# Download wmname
+opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+http://dl.suckless.org/tools/ \
+wmname-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+0.1
+
+# Download xssstate
+opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+http://dl.suckless.org/tools/ \
+xssstate-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+1.1
