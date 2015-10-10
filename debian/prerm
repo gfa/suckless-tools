@@ -3,8 +3,6 @@ set -e
 
 case "${1}" in
     remove|deconfigure)
-        update-alternatives --quiet --remove dmenu /usr/bin/dmenu.default
-        update-alternatives --quiet --remove dmenu /usr/bin/dmenu.xft
         update-alternatives --quiet --remove tabbed /usr/bin/tabbed.default
         update-alternatives --quiet --remove tabbed /usr/bin/tabbed.meta
         ;;
