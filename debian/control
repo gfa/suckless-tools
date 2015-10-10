@@ -1,8 +1,7 @@
 Source: suckless-tools
 Section: x11
 Priority: optional
-Maintainer: Vasudev Kamath <kamathvasudev@gmail.com>
-Uploaders: Michael Stummvoll <michael@stummi.org>
+Maintainer: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
 Build-Depends: debhelper (>= 9),
  libx11-dev,
  libxinerama-dev,
