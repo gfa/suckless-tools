@@ -16,6 +16,13 @@ include /usr/share/dpkg/default.mk
 # Temporary directory
 TMPDIR := $(DEB_DIR)/tmp-dir
 
+# The upstream Makefiles are written in a way that suppresses the recipe
+# echoing. This means that tools like 'blhc' cannot inspect the build logs.
+# Instead of maintaining a patch that will remove the preceding '@' symbol
+# from all recipes, we pass the '--trace' flag to make, which prints the
+# entire recipe to be executed, even for recipes that are normally silent
+MAKEFLAGS += --trace
+
 D := $(CURDIR)/debian/suckless-tools
 TOOLS := $(filter-out debian, $(wildcard *))
 ALTERNATIVES := $(wildcard debian/local/*)
