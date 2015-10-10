@@ -1,1 +1,5 @@
 suckless-tools: setgid-binary usr/bin/slock 2755 root/shadow
+
+# These files are alternatives for tabbed, which has a manpage
+suckless-tools: binary-without-manpage usr/bin/tabbed.default
+suckless-tools: binary-without-manpage usr/bin/tabbed.meta
