@@ -1,0 +1,161 @@
+From: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
+Date: Sat, 10 Oct 2015 19:57:37 +0300
+Subject: Change Mod key to the Windows key
+
+Provide 'tabbed.meta' alternative which uses the Windows key as Mod key.
+
+Forwarded: no (Debian specific)
+---
+ tabbed/Makefile     | 27 +++++++++++++++++----------
+ tabbed/config.def.h |  2 ++
+ tabbed/tabbed.1     | 27 ++++++++++++++++-----------
+ 3 files changed, 35 insertions(+), 21 deletions(-)
+
+diff --git a/tabbed/Makefile b/tabbed/Makefile
+index 32cc25b..619ba8f 100644
+--- a/tabbed/Makefile
++++ b/tabbed/Makefile
+@@ -4,9 +4,9 @@
+ include config.mk
+ 
+ SRC = tabbed.c
+-OBJ = ${SRC:.c=.o}
++OBJ = tabbed.default.o tabbed.meta.o
+ 
+-all: options tabbed
++all: options tabbed.default tabbed.meta
+ 
+ options:
+ 	@echo tabbed build options:
+@@ -14,9 +14,13 @@ options:
+ 	@echo "LDFLAGS  = ${LDFLAGS}"
+ 	@echo "CC       = ${CC}"
+ 
+-.c.o:
++%.default.o: %.c
+ 	@echo CC $<
+-	@${CC} -c ${CFLAGS} $<
++	@${CC} -o $@ -c ${CFLAGS} $<
++
++%.meta.o: %.c
++	@echo CC $<
++	@${CC} -o $@ -c -DMODKEY=Mod4Mask ${CFLAGS} $<
+ 
+ ${OBJ}: config.h config.mk
+ 
+@@ -24,13 +28,13 @@ config.h:
+ 	@echo creating $@ from config.def.h
+ 	@cp config.def.h $@
+ 
+-tabbed: tabbed.o
++tabbed.%: tabbed.%.o
+ 	@echo CC -o $@
+-	@${CC} -o $@ tabbed.o ${LDFLAGS}
++	@${CC} -o $@ $< ${LDFLAGS}
+ 
+ clean:
+ 	@echo cleaning
+-	@rm -f tabbed ${OBJ} tabbed-${VERSION}.tar.gz
++	@rm -f tabbed.default tabbed.meta ${OBJ} tabbed-${VERSION}.tar.gz
+ 
+ dist: clean
+ 	@echo creating dist tarball
+@@ -44,8 +48,10 @@ dist: clean
+ install: all
+ 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
+ 	@mkdir -p ${DESTDIR}${PREFIX}/bin
+-	@cp -f tabbed ${DESTDIR}${PREFIX}/bin
+-	@chmod 755 ${DESTDIR}${PREFIX}/bin/tabbed
++	@cp -f tabbed.default ${DESTDIR}${PREFIX}/bin
++	@chmod 755 ${DESTDIR}${PREFIX}/bin/tabbed.default
++	@cp -f tabbed.meta ${DESTDIR}${PREFIX}/bin
++	@chmod 755 ${DESTDIR}${PREFIX}/bin/tabbed.meta
+ 	@echo installing manual page to ${DESTDIR}${MANPREFIX}/man1
+ 	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
+ 	@sed "s/VERSION/${VERSION}/g" < tabbed.1 > ${DESTDIR}${MANPREFIX}/man1/tabbed.1
+@@ -53,7 +59,8 @@ install: all
+ 
+ uninstall:
+ 	@echo removing executable file from ${DESTDIR}${PREFIX}/bin
+-	@rm -f ${DESTDIR}${PREFIX}/bin/tabbed
++	@rm -f ${DESTDIR}${PREFIX}/bin/tabbed.default
++	@rm -f ${DESTDIR}${PREFIX}/bin/tabbed.meta
+ 	@echo removing manual page from ${DESTDIR}${MANPREFIX}/man1
+ 	@rm -f ${DESTDIR}${MANPREFIX}/man1/tabbed.1
+ 
+diff --git a/tabbed/config.def.h b/tabbed/config.def.h
+index ceda9f7..351c378 100644
+--- a/tabbed/config.def.h
++++ b/tabbed/config.def.h
+@@ -27,7 +27,9 @@ static Bool npisrelative  = False;
+ 	} \
+ }
+ 
++#ifndef MODKEY
+ #define MODKEY ControlMask
++#endif
+ static Key keys[] = { \
+ 	/* modifier                     key        function        argument */
+ 	{ MODKEY|ShiftMask,             XK_Return, focusonce,      { 0 } },
+diff --git a/tabbed/tabbed.1 b/tabbed/tabbed.1
+index 9e3b6f8..45c9ff8 100644
+--- a/tabbed/tabbed.1
++++ b/tabbed/tabbed.1
+@@ -89,32 +89,32 @@ defines the normal foreground color.
+ prints version information to stderr, then exits.
+ .SH USAGE
+ .TP
+-.B Ctrl\-Shift\-Return
++.B Mod\-Shift\-Return
+ open new tab
+ .TP
+-.B Ctrl\-Shift\-h
++.B Mod\-Shift\-h
+ previous tab
+ .TP
+-.B Ctrl\-Shift\-l
++.B Mod\-Shift\-l
+ next tab
+ .TP
+-.B Ctrl\-Shift\-j
++.B Mod\-Shift\-j
+ move selected tab one to the left
+ .TP
+-.B Ctrl\-Shift\-k
++.B Mod\-Shift\-k
+ move selected tab one to the right
+ .TP
+-.B Ctrl\-Tab
++.B Mod\-Tab
+ toggle between the selected and last selected tab
+ .TP
+-.B Ctrl\-t
++.B Mod\-t
+ open dmenu to either create a new tab appending the entered string or select
+ an already existing tab.
+ .TP
+-.B Ctrl\-q
++.B Mod\-q
+ close tab
+ .TP
+-.B Ctrl\-[0..9]
++.B Mod\-[0..9]
+ jumps to nth tab
+ .TP
+ .B F11
+@@ -131,8 +131,13 @@ $ xid=$(tabbed \-d);urxvt \-embed $xid
+ $ tabbed \-r 2 st \-w '' \-e tmux
+ .SH CUSTOMIZATION
+ .B tabbed
+-can be customized by creating a custom config.h and (re)compiling the source
+-code. This keeps it fast, secure and simple.
++by default uses Ctrl as Mod key and can be customized by creating a custom
++config.h and (re)compiling the source code. This keeps it fast, secure and
++simple.
++
++Debian also provides the
++.B tabbed.meta
++alternative which uses the Windows key as Mod key.
+ .SH AUTHORS
+ See the LICENSE file for the authors.
+ .SH LICENSE
