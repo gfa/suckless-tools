@@ -4,26 +4,27 @@ Source: http://dl.suckless.org/tools
 
 Files: dmenu/*
 Copyright:
+ (C) 2006-2014 Anselm R Garbe <anselm@garbe.us>
  (C) 2010-2012 Connor Lane Smith <cls@lubutu.com>
- (C) 2006-2012 Anselm R Garbe <anselm@garbe.us>
  (C) 2009 Gottox <gottox@s01.de>
  (C) 2009 Markus Schnalke <meillo@marmaro.de>
  (C) 2009 Evan Gates <evan.gates@gmail.com>
  (C) 2006-2008 Sander van Dijk <a dot h dot vandijk at gmail dot com>
  (C) 2006-2007 Michał Janeczek <janeczek at gmail dot com>
+ (C) 2014-2015 Hiltjo Posthuma <hiltjo@codemadness.org>
 License: Expat
 
 Files: tabbed/*
 Copyright:
- (C) 2009-2011 Enno Boland <g@s01.de>
+ (C) 2009-2011 Enno Boland <g s01 de>
  (C) 2011 Connor Lane Smith <cls@lubutu.com>
  (C) 2012 Christoph Lohmann <20h@r-36.net>
 License: Expat
 
 Files: lsw/*
 Copyright:
+ (C) 2006-2014 Anselm R Garbe <anselm@garbe.us>
  (C) 2011 Connor Lane Smith <cls@lubutu.com>
- (C) 2006-2011 Anselm R Garbe <anselm@garbe.us>
 License: Expat
 
 Files: sprop/*
@@ -36,31 +37,47 @@ Copyright:
  (C) 2006-2008 Anselm R Garbe <garbeam at gmail dot com>
 License: Expat
 
-Files: swarp/* lsx/*
+Files: swarp/*
 Copyright:
- (C) 2006-2008 Anselm R. Garbe <garbeam@gmail.com>
- (C) 2006-2008 Sander van Dijk <a.h.vandijk@gmail.com>
+ (C) 2004-2006 Anselm R. Garbe <garbeam at gmail dot com>
+ (C) 2006 Sander van Dijk <a dot h dot vandijk at gmail dot com>
 License: Expat
 
-Files: ssid/* wmname/*
-Copyright: (C) 2005-2008 Anselm R. Garbe <garbeam@gmail.com>
+Files: lsx/*
+Copyright:
+ (C) 2006 Anselm R. Garbe <garbeam at gmail dot com>
+ (C) 2006 Sander van Dijk <a dot h dot vandijk at gmail dot com>
+License: Expat
+
+Files: ssid/*
+Copyright:
+ (C) 2005-2006 Anselm R. Garbe <garbeam@gmail.com>
+License: Expat
+
+Files: wmname/*
+Copyright:
+ (C) 2008 Anselm R Garbe <garbeam at gmail dot com>
 License: Expat
 
 Files: slock/*
-Copyright: (C) 2006-2012 Anselm R. Garbe <anselm@garbe.us>
+Copyright:
+ (C) 2014 Dimitris Papastamos <sin@2f30.org>
+ (C) 2006-2014 Anselm R Garbe <anselm@garbe.us>
 License: Expat
 
 Files: xssstate/*
-Copyright: (C) 2008, Kai Hendry <hendry@webconverger.com>
- (C) 2012, Christoph Lohmann <20h@r-36.net>
+Copyright:
+ (C) 2008 Kai Hendry <hendry@webconverger.com>
+ (C) 2012 Christoph Lohmann <20h@r-36.net>
 License: Expat
 
 Files: debian/*
 Copyright:
-  (C) 2006-2010 Daniel Baumann <daniel@debian.org>
-  (C) 2010 Kai Hendry <hendry@iki.fi>
-  (C) 2012 Michael Stummvoll <michael@stummi.org>
-  (C) 2012-2013 Vasudev Kamath <kamathvasudev@gmail.com>
+ (C) 2006-2010 Daniel Baumann <daniel@debian.org>
+ (C) 2010 Kai Hendry <hendry@iki.fi>
+ (C) 2012 Michael Stummvoll <michael@stummi.org>
+ (C) 2012-2013 Vasudev Kamath <kamathvasudev@gmail.com>
+ (C) 2015 Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
 License: Expat
 
 License: Expat
