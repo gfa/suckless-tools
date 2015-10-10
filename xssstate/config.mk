@@ -1,5 +1,5 @@
-# tabbed version
-VERSION = 0.6
+# xssstate version
+VERSION = 1.1
 
 # Customize below to fit your system
 
@@ -9,12 +9,12 @@ MANPREFIX = ${PREFIX}/share/man
 
 # includes and libs
 INCS = -I. -I/usr/include
-LIBS = -L/usr/lib -lc -lX11
+LIBS = -L/usr/lib -lc -lX11 -lXss
 
 # flags
-CPPFLAGS = -DVERSION=\"${VERSION}\" -D_BSD_SOURCE
-CFLAGS = -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
-LDFLAGS = -s ${LIBS}
+CPPFLAGS = -DVERSION=\"${VERSION}\"
+CFLAGS = -g -std=c99 -pedantic -Wall -O0 ${INCS} ${CPPFLAGS}
+LDFLAGS = -g ${LIBS}
 
 # Solaris
 #CFLAGS = -fast ${INCS} -DVERSION=\"${VERSION}\"
