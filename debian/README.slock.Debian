@@ -5,10 +5,12 @@ unlocked.
 
 Please Note:
 Slock checks the password against shadow, so it needs at least read 
-permissions for the /etc/shadow file.
+permissions for the /etc/shadow file. It also tries to disable the oom killer
+by adjusting the '/proc/PID/oom_score_adj'.
 
-On Debian this is done by setgid slock to shadow. After getting the password
-entry, slock drops rights. However, assuming that there is any security issue
-with slock, an attacker maybe could read the shadow-file.
+On Debian this is done by setgid slock to shadow and setting the
+CAP_SYS_RESOURCE capability. If this doesn't work, then we fall back to setuid.
+Assuming that there is any security issue with slock, an attacker may be able
+to read the shadow-file.
 
- -- Vasudev Kamath <kamathvasudev@gmail.com>, Sat, 10 Nov 2012 10:42:12 +0530
+ -- Ilias Tsitsimpis <i.tsitsimpis@gmail.com>  Sat, 10 Oct 2015 19:31:43 +0300
