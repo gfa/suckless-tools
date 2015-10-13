@@ -1,14 +1,60 @@
-suckless-tools (41-1~1.gbp4683b8) UNRELEASED; urgency=medium
-
-  ** SNAPSHOT build @4683b8906ed41fa34db98f1e724fc4c31a9152fd **
+suckless-tools (41-1) unstable; urgency=medium
 
   * New upstream release
     - Import dmenu snapshot version 4.6 (git commit 09d0a36e0)
     - Import lsw version 0.3
     - Import slock version 1.2
     - Import tabbed version 0.6
+    (Closes: #783621, #766258, #746605, #611535, #703025)
+  * Propagate the changes from experimental (40-2) to unstable
+  * Build depend on a newer version of dpkg-dev.
+    Version (>= 1.17) of dpkg-dev is needed in order to use
+    the -S option of dpkg-parsechangelog.
+  * Use d/watch file to track newer versions
+  * Provide a 'get-orig-source' rule based on uscan
+  * Use --trace option to print recipes to be executed
+  * Use alioth's cgit interface in the Vcs-Browser field
+  * New maintainer (Closes: #776482)
+  * Update d/copyright entries
+  * Remove unused lsw.1 manpage
+  * Update version number in sselp.1 manpage
+  * Update version number in slock.1 manpage
+  * Remove ncurses-bin from build dependencies
+  * Add pkg-config to build dependencies
+  * Remove 2003_transparent-makefiles patch.
+    Instead, use Makefile's '--trace' option
+  * Update d/patches
+    - Use gbp-pq patch format
+    - Fix patches to apply cleanly on newer versions
+    - Update patches to contain embedded index information
+  * Drop d/local/dmenu.xft patch, fixed upstream
+  * Move d/local/tabbed.meta under d/patches.
+    Use d/patches instead of custom rules in order to build
+    alternative version of tabbed with Windows key as Mod key.
+  * Remove dmenu alternatives.
+    Use 'preinst upgrade', 'postrm abort-upgrade' to remove dmenu
+    alternatives during upgrade to newer version.
+  * Update d/rules to build newer version
+  * Override debian-watch-file-specifies-old-upstream-version warning
+  * Remove README.source since it's not relevant anymore
+  * lsw: Apply 'segfault avoidance' patch from upstream
+  * Override 'binary-without-manpage' for alternatives
+  * Add manpage for dmenu_path executable
+  * Add libcap2-bin to package dependencies
+  * Set CAP_SYS_RESOURCE for the slock binary.
+    Update d/README.slock.Debian to state the above change.
+  * Override 'no-upstream-changelog' lintian warning
+  * Drop 'fix_setuid_slock' patch.
+    Slock will use PAM, so it doesn't need setuid.
+  * slock: Don't exit if failed to adjust OOM score
+  * Add libpam0g-dev to build dependencies
+  * slock: Use PAM for authentication.
+    Thanks to Brad Jorsch for the patch (Closes: #739629)
+  * Ship PAM configuration file under '/etc/pam.d/slock'
+  * Remove obsolete 'setgid-binary' lintian override
+  * Document PAM authentication for slock in d/NEWS
 
- -- Ilias Tsitsimpis <i.tsitsimpis@gmail.com>  Sat, 10 Oct 2015 19:31:43 +0300
+ -- Ilias Tsitsimpis <i.tsitsimpis@gmail.com>  Thu, 15 Oct 2015 11:50:24 +0300
 
 suckless-tools (40-2) experimental; urgency=medium
 
