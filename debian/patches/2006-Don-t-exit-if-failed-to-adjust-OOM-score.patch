@@ -1,0 +1,28 @@
+From: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
+Date: Tue, 13 Oct 2015 15:27:46 +0300
+Subject: Don't exit if failed to adjust OOM score
+
+Adjusting the OOM score needs CAP_SYS_RESOURCE capabilities or the
+setuid bit. But we don't want to setuid our binary and not all
+filesystems support setting capabilities to executables. Modify slock
+to not fail if it cannot adjust the OOM score.
+
+Forwarded: no (Debian specific)
+---
+ slock/slock.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/slock/slock.c b/slock/slock.c
+index face75e..685a58e 100644
+--- a/slock/slock.c
++++ b/slock/slock.c
+@@ -57,7 +57,8 @@ dontkillme(void) {
+ 	if (fd < 0 && errno == ENOENT)
+ 		return;
+ 	if (fd < 0 || write(fd, "-1000\n", 6) != 6 || close(fd) != 0)
+-		die("cannot disable the out-of-memory killer for this process\n");
++		fprintf(stderr, "cannot disable the out-of-memory"
++			" killer for this process\n");
+ }
+ #endif
+ 
