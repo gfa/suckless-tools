@@ -1,6 +1,5 @@
 0001-segfault-avoidance.patch
 1001_tabbed_manpage_hyphen-fix.patch
-2001_fix_setuid_slock.patch
 2002_dpkg_buildflags.patch
 2004_use_system_searchpaths.patch
 2005-Change-Mod-key-to-the-Windows-key.patch
