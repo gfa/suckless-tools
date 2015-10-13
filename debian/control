@@ -10,6 +10,7 @@ Build-Depends:
  libxss-dev,
  libxft-dev,
  pkg-config,
+ libpam0g-dev,
  libfreetype6-dev
 Standards-Version: 3.9.6
 Homepage: http://www.suckless.org
