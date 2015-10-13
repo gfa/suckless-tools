@@ -1,16 +1,16 @@
-slock is a very simple screen locker. After locking the screen you have to
+Slock is a very simple screen locker. After locking the screen you have to
 type your password, when you press a key if slock is active the screen color
 will turn to blue. After entering password hit enter and the screen will be
 unlocked.
 
 Please Note:
-Slock checks the password against shadow, so it needs at least read 
-permissions for the /etc/shadow file. It also tries to disable the oom killer
-by adjusting the '/proc/PID/oom_score_adj'.
+Debian provides a patched version of slock which uses PAM for authentication.
+This means that slock can authenticate the user using some other mechanism for
+login (i.e., NIS passwords, fingerprint readers, etc). In addition, we avoid
+installing slock with setuid-root or setgid-shadow permissions.
 
-On Debian this is done by setgid slock to shadow and setting the
-CAP_SYS_RESOURCE capability. If this doesn't work, then we fall back to setuid.
-Assuming that there is any security issue with slock, an attacker may be able
-to read the shadow-file.
+Slock also tries to disable the OOM killer by adjusting the
+'/proc/PID/oom_score_adj'. In order for this to work, we set the
+CAP_SYS_RESOURCE capability on filesystems that support this operation.
 
  -- Ilias Tsitsimpis <i.tsitsimpis@gmail.com>  Sat, 10 Oct 2015 19:31:43 +0300
