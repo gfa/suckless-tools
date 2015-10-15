@@ -1,0 +1,9 @@
+suckless-tools (41-1) unstable; urgency=medium
+
+  The slock screen locker has been patched in Debian and is now using
+  PAM for authentication, instead of reading the shadow file. This means
+  that slock can authenticate the user using some other mechanism for
+  login (i.e., NIS passwords, fingerprint readers, etc). In addition,
+  we avoid installing slock with setuid-root or setgid-shadow permissions.
+
+ -- Ilias Tsitsimpis <i.tsitsimpis@gmail.com>  Thu, 15 Oct 2015 11:45:14 +0300
