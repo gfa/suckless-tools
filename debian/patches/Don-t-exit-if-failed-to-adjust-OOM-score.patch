@@ -13,14 +13,14 @@ Forwarded: no (Debian specific)
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/slock/slock.c b/slock/slock.c
-index face75e..685a58e 100644
+index cf49555..de0cd72 100644
 --- a/slock/slock.c
 +++ b/slock/slock.c
-@@ -57,7 +57,8 @@ dontkillme(void) {
- 	if (fd < 0 && errno == ENOENT)
- 		return;
- 	if (fd < 0 || write(fd, "-1000\n", 6) != 6 || close(fd) != 0)
--		die("cannot disable the out-of-memory killer for this process\n");
+@@ -81,7 +81,8 @@ dontkillme(void)
+ 		die("buffer too small\n");
+ 
+ 	if (fd < 0 || write(fd, value, length) != length || close(fd) != 0)
+-		die("cannot disable the out-of-memory killer for this process (make sure to suid or sgid slock)\n");
 +		fprintf(stderr, "cannot disable the out-of-memory"
 +			" killer for this process\n");
  }

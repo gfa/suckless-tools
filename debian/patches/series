@@ -1,7 +1,7 @@
-0001-segfault-avoidance.patch
-1001_tabbed_manpage_hyphen-fix.patch
-2002_dpkg_buildflags.patch
-2004_use_system_searchpaths.patch
-2005-Change-Mod-key-to-the-Windows-key.patch
-2006-Don-t-exit-if-failed-to-adjust-OOM-score.patch
-2007-Use-PAM-for-authentication.patch
+segfault-avoidance.patch
+Escape-symbol-in-manpage.patch
+Patch-Makefiles-to-honor-CFLAGS-and-LDFLAGS.patch
+Remove-custom-library-search-paths-from-Makefiles.patch
+Change-Mod-key-to-the-Windows-key.patch
+Don-t-exit-if-failed-to-adjust-OOM-score.patch
+Use-PAM-for-authentication.patch

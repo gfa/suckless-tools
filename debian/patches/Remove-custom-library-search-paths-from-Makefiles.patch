@@ -28,11 +28,11 @@ Forwarded: no
  11 files changed, 22 insertions(+), 22 deletions(-)
 
 diff --git a/dmenu/config.mk b/dmenu/config.mk
-index dfc6858..d3b8c9d 100644
+index c11ddf7..7a90ee8 100644
 --- a/dmenu/config.mk
 +++ b/dmenu/config.mk
 @@ -19,8 +19,8 @@ FREETYPEINC = /usr/include/freetype2
- #FREETYPEINC = ${X11INC}/freetype2
+ FREETYPEINC = ${X11INC}/freetype2
  
  # includes and libs
 -INCS = -I${X11INC} -I${FREETYPEINC}
@@ -73,17 +73,17 @@ index de5cdae..04b58ea 100644
  # flags
  CFLAGS += ${INCS} -DVERSION=\"${VERSION}\" ${CPPFLAGS}
 diff --git a/slock/config.mk b/slock/config.mk
-index 18fbcc0..4856f7b 100644
+index 776bd98..4fda095 100644
 --- a/slock/config.mk
 +++ b/slock/config.mk
-@@ -10,8 +10,8 @@ X11INC = /usr/X11R6/include
+@@ -11,8 +11,8 @@ X11INC = /usr/X11R6/include
  X11LIB = /usr/X11R6/lib
  
  # includes and libs
 -INCS = -I. -I/usr/include -I${X11INC}
--LIBS = -L/usr/lib -lc -lcrypt -L${X11LIB} -lX11 -lXext
+-LIBS = -L/usr/lib -lc -lcrypt -L${X11LIB} -lX11 -lXext -lXrandr
 +INCS =
-+LIBS = -lc -lcrypt -lX11 -lXext
++LIBS = -lc -lcrypt -lX11 -lXext -lXrandr
  
  # flags
  CPPFLAGS += -DVERSION=\"${VERSION}\" -DHAVE_SHADOW_H
