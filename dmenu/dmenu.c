@@ -1,7 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 #include <ctype.h>
 #include <locale.h>
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -32,7 +31,7 @@ enum { SchemeNorm, SchemeSel, SchemeOut, SchemeLast }; /* color schemes */
 struct item {
 	char *text;
 	struct item *left, *right;
-	bool out;
+	int out;
 };
 
 static char text[BUFSIZ] = "";
@@ -92,13 +91,13 @@ calcoffsets(void)
 static void
 cleanup(void)
 {
+	size_t i;
+
 	XUngrabKey(dpy, AnyKey, AnyModifier, root);
-	drw_clr_free(scheme[SchemeNorm].bg);
-	drw_clr_free(scheme[SchemeNorm].fg);
-	drw_clr_free(scheme[SchemeSel].fg);
-	drw_clr_free(scheme[SchemeSel].bg);
-	drw_clr_free(scheme[SchemeOut].fg);
-	drw_clr_free(scheme[SchemeOut].bg);
+	for (i = 0; i < SchemeLast; i++) {
+		drw_clr_free(scheme[i].bg);
+		drw_clr_free(scheme[i].fg);
+	}
 	drw_free(drw);
 	XSync(dpy, False);
 	XCloseDisplay(dpy);
@@ -421,7 +420,7 @@ keypress(XKeyEvent *ev)
 			exit(0);
 		}
 		if (sel)
-			sel->out = true;
+			sel->out = 1;
 		break;
 	case XK_Right:
 		if (text[cursor] != '\0') {
@@ -480,7 +479,7 @@ readstdin(void)
 			*p = '\0';
 		if (!(items[i].text = strdup(buf)))
 			die("cannot strdup %u bytes:", strlen(buf) + 1);
-		items[i].out = false;
+		items[i].out = 0;
 		if (strlen(items[i].text) > max)
 			max = strlen(maxstr = items[i].text);
 	}
@@ -552,7 +551,7 @@ setup(void)
 		XGetInputFocus(dpy, &w, &di);
 		if (mon != -1 && mon < n)
 			i = mon;
-		if (!i && w != root && w != PointerRoot && w != None) {
+		else if (w != root && w != PointerRoot && w != None) {
 			/* find top-level window containing current input focus */
 			do {
 				if (XQueryTree(dpy, (pw = w), &dw, &w, &dws, &du) && dws)
@@ -617,8 +616,7 @@ usage(void)
 int
 main(int argc, char *argv[])
 {
-	bool fast = false;
-	int i;
+	int i, fast = 0;
 
 	for (i = 1; i < argc; i++)
 		/* these options take no arguments */
@@ -626,9 +624,9 @@ main(int argc, char *argv[])
 			puts("dmenu-"VERSION);
 			exit(0);
 		} else if (!strcmp(argv[i], "-b")) /* appears at the bottom of the screen */
-			topbar = false;
+			topbar = 0;
 		else if (!strcmp(argv[i], "-f"))   /* grabs keyboard before reading stdin */
-			fast = true;
+			fast = 1;
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;
