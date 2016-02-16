@@ -1,2 +1,6 @@
 unapply-patches
 abort-on-upstream-changes
+
+# Since suckless-tools is just a bundle of multiple upstream software
+# and there is no `main' software, we should create an empty one.
+create-empty-orig
