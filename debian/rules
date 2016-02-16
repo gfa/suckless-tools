@@ -9,6 +9,9 @@ SHELL := sh -e
 # Path of 'debian' directory
 DEB_DIR := $(abspath $(dir $(MAKEFILE_LIST)))
 
+# Enable all hardening flags
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
 # Use Makefile snippets provided by dpkg-dev (>= 1.16)
 DPKG_EXPORT_BUILDFLAGS = 1
 include /usr/share/dpkg/default.mk
