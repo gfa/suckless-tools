@@ -1,78 +1,90 @@
-version=3
+version=4
 
 # Download dmenu
 opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
-uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\
+oversionmangle=s/.*/42/,\
+component=dmenu \
 http://dl.suckless.org/tools/ \
-dmenu-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
-4.5
+dmenu@ANY_VERSION@@ARCHIVE_EXT@ \
+4.6
 
 # Download lsw
 opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
-uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\
+component=lsw \
 http://dl.suckless.org/tools/ \
-lsw-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+lsw@ANY_VERSION@@ARCHIVE_EXT@ \
 0.3
 
 # Download lsx
 opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
-uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\
+component=lsx \
 http://dl.suckless.org/tools/ \
-lsx-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+lsx@ANY_VERSION@@ARCHIVE_EXT@ \
 0.1
 
 # Download slock
 opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
-uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\
+component=slock \
 http://dl.suckless.org/tools/ \
-slock-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
-1.2
+slock@ANY_VERSION@@ARCHIVE_EXT@ \
+1.3
 
 # Download sprop
 opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
-uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\
+component=sprop \
 http://dl.suckless.org/tools/ \
-sprop-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+sprop@ANY_VERSION@@ARCHIVE_EXT@ \
 0.1
 
 # Download sselp
 opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
-uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\
+component=sselp \
 http://dl.suckless.org/tools/ \
-sselp-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+sselp@ANY_VERSION@@ARCHIVE_EXT@ \
 0.2
 
 # Download ssid
 opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
-uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\
+component=ssid \
 http://dl.suckless.org/tools/ \
-ssid-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+ssid@ANY_VERSION@@ARCHIVE_EXT@ \
 0.1
 
 # Download swarp
 opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
-uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\
+component=swarp \
 http://dl.suckless.org/tools/ \
-swarp-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+swarp@ANY_VERSION@@ARCHIVE_EXT@ \
 0.1
 
 # Download tabbed
 opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
-uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\
+component=tabbed \
 http://dl.suckless.org/tools/ \
-tabbed-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+tabbed@ANY_VERSION@@ARCHIVE_EXT@ \
 0.6
 
 # Download wmname
 opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
-uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\
+component=wmname \
 http://dl.suckless.org/tools/ \
-wmname-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+wmname@ANY_VERSION@@ARCHIVE_EXT@ \
 0.1
 
 # Download xssstate
 opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
-uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/ \
+uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\
+component=xssstate \
 http://dl.suckless.org/tools/ \
-xssstate-(\d\S*)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz))) \
+xssstate@ANY_VERSION@@ARCHIVE_EXT@ \
 1.1
