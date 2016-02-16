@@ -5,3 +5,4 @@ Remove-custom-library-search-paths-from-Makefiles.patch
 Change-Mod-key-to-the-Windows-key.patch
 Don-t-exit-if-failed-to-adjust-OOM-score.patch
 Use-PAM-for-authentication.patch
+Remove-useless-dependency-against-Xext-library.patch
