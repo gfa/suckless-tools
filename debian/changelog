@@ -1,12 +1,35 @@
-suckless-tools (42-1~1.gbpd42ea6) UNRELEASED; urgency=medium
-
-  ** SNAPSHOT build @d42ea6f551c6ceadfb2a96db964c5a92198e4fef **
+suckless-tools (42-1) unstable; urgency=medium
 
   * New upstream release
     - Update dmenu to version 4.6
     - Update slock to version 1.3
+  * Update d/watch file to use the version 4 format.
+    The new version=4 enables handling of multiple upstream tarball
+    (MUT) packages.
+  * Simplify get-orig-source rule.
+    Let the new version 4 format of d/watch do the hard work.
+  * Add libxrandr-dev to build dependencies.
+    The new version of slock needs to be linked against the Xrandr library
+    in order to resize the cover window when new screens are added.
+  * Pass create-empty-orig to d/source/local-options
+  * Update d/patches to apply cleanly.
+    Also, rename the patch files in order to not be prefixed with a number.
+  * Update d/copyright file.
+    Bump copyright years for slock/* and debian/* files.
+  * Bump Standards-Version to 3.9.7, no changes needed
+  * Remove d/manpages/slock.1.
+    A manpage for slock is now provided by upstream.
+  * d/patches: Remove useless dependency against Xext library
+  * Enable all hardening options.
+    Fix hardening-no-pie and hardening-no-bindnow lintian messages.
+  * Do not include '/usr/share/dpkg/default.mk' in d/rules.
+    Since we are using debhelper v9 format, there is no need to include the
+    'buildflags.mk' or export the buildflags because they are automatically
+    passed during calls to dh_auto_* programs.
+  * Use 'https://' instead of 'git://' in Vcs-Git field.
+    Fix vcs-field-uses-insecure-uri lintian warning.
 
- -- Ilias Tsitsimpis <i.tsitsimpis@gmail.com>  Tue, 16 Feb 2016 14:35:59 +0200
+ -- Ilias Tsitsimpis <i.tsitsimpis@gmail.com>  Wed, 17 Feb 2016 15:06:25 +0200
 
 suckless-tools (41-1) unstable; urgency=medium
 
