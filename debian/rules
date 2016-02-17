@@ -12,10 +12,6 @@ DEB_DIR := $(abspath $(dir $(MAKEFILE_LIST)))
 # Enable all hardening flags
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-# Use Makefile snippets provided by dpkg-dev (>= 1.16)
-DPKG_EXPORT_BUILDFLAGS = 1
-include /usr/share/dpkg/default.mk
-
 # The upstream Makefiles are written in a way that suppresses the recipe
 # echoing. This means that tools like 'blhc' cannot inspect the build logs.
 # Instead of maintaining a patch that will remove the preceding '@' symbol
