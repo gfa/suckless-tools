@@ -13,7 +13,7 @@ Build-Depends:
  libpam0g-dev,
  libxrandr-dev,
  libfreetype6-dev
-Standards-Version: 3.9.7
+Standards-Version: 3.9.8
 Homepage: http://www.suckless.org
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/suckless-tools.git
 Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/suckless-tools.git
