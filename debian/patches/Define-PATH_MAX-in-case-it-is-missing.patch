@@ -1,0 +1,36 @@
+From: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
+Date: Sun, 19 Jun 2016 13:16:49 +0300
+Subject: Define PATH_MAX in case it is missing
+
+dmenu FTBFS on hurd because the PATH_MAX macro is not defined.
+According to POSIX, this macro may not be defined, so fix the code to
+not assume otherwise.
+
+For more information, see:
+https://www.gnu.org/software/hurd/community/gsoc/project_ideas/maxpath.html
+
+Bug-Debian: https://bugs.debian.org/815357
+Forwarded: no
+---
+ dmenu/stest.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/dmenu/stest.c b/dmenu/stest.c
+index 7a7b0bc..3940c97 100644
+--- a/dmenu/stest.c
++++ b/dmenu/stest.c
+@@ -13,6 +13,14 @@ char *argv0;
+ 
+ #define FLAG(x)  (flag[(x)-'a'])
+ 
++/*
++ * PATH_MAX may not be defined.
++ * See https://www.gnu.org/software/hurd/community/gsoc/project_ideas/maxpath.html
++ */
++#ifndef PATH_MAX
++#define PATH_MAX 4096
++#endif
++
+ static void test(const char *, const char *);
+ static void usage(void);
+ 
