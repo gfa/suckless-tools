@@ -1,3 +1,12 @@
+suckless-tools (42-2) unstable; urgency=medium
+
+  * Bump Standards-Version to 3.9.8, no changes needed
+  * Fix FTBFS on hurd-i386.
+    Add patch to define the PATH_MAX macro in case it is missing.
+    (Closes: #815357)
+
+ -- Ilias Tsitsimpis <i.tsitsimpis@gmail.com>  Sun, 19 Jun 2016 13:33:12 +0300
+
 suckless-tools (42-1) unstable; urgency=medium
 
   * New upstream release
