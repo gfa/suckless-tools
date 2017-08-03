@@ -1,3 +1,13 @@
+suckless-tools (43-1~1.gbp3e1f80) UNRELEASED; urgency=medium
+
+  ** SNAPSHOT build @3e1f8020f922bd51f0cc29075ea27359e5145014 **
+
+  * New upstream release
+    - Update dmenu to version 4.7
+    - Update slock to version 1.4
+
+ -- Ilias Tsitsimpis <iliastsi@debian.org>  Thu, 03 Aug 2017 19:59:45 +0300
+
 suckless-tools (42-2) unstable; urgency=medium
 
   * Bump Standards-Version to 3.9.8, no changes needed
