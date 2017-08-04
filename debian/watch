@@ -17,14 +17,6 @@ http://dl.suckless.org/tools/ \
 lsw@ANY_VERSION@@ARCHIVE_EXT@ \
 0.3
 
-# Download lsx
-opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
-uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\
-component=lsx \
-http://dl.suckless.org/tools/ \
-lsx@ANY_VERSION@@ARCHIVE_EXT@ \
-0.1
-
 # Download slock
 opts=dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
 uversionmangle=s/(\d)[_\.\-\+]?((RC|rc|pre|dev|beta|alpha)\d*)$/$1~$2/,\

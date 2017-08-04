@@ -22,7 +22,7 @@ Package: suckless-tools
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}, libcap2-bin
 Suggests: dwm, stterm, surf
-Provides: dmenu, lsw, lsx, slock, sprop, sselp, ssid, swarp, tabbed, wmname, xssstate
+Provides: dmenu, lsw, slock, sprop, sselp, ssid, swarp, tabbed, wmname, xssstate
 Description: simple commands for minimalistic window managers
  This package provides simple commands designed to be used with a minimalistic
  window manager like dwm but they can be useful in scripts regardless of the
@@ -30,7 +30,6 @@ Description: simple commands for minimalistic window managers
  .
   * dmenu: Dynamic menu is a generic menu for X.
   * lsw: Lists the titles of all running X windows to stdout, similar to ls(1).
-  * lsx: Lists executables in a directory.
   * slock: Simple X display locker that locks the X session.
   * sprop: Sets or gets X window properties.
   * sselp: Simple X selection printer that prints the X selection to stdout.

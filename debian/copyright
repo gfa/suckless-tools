@@ -43,12 +43,6 @@ Copyright:
  (C) 2006 Sander van Dijk <a dot h dot vandijk at gmail dot com>
 License: Expat
 
-Files: lsx/*
-Copyright:
- (C) 2006 Anselm R. Garbe <garbeam at gmail dot com>
- (C) 2006 Sander van Dijk <a dot h dot vandijk at gmail dot com>
-License: Expat
-
 Files: ssid/*
 Copyright:
  (C) 2005-2006 Anselm R. Garbe <garbeam@gmail.com>
