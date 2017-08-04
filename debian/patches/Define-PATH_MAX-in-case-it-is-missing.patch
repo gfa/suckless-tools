@@ -1,6 +1,6 @@
 From: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
 Date: Sun, 19 Jun 2016 13:16:49 +0300
-Subject: Define PATH_MAX in case it is missing
+Subject: dmenu: Define PATH_MAX in case it is missing
 
 dmenu FTBFS on hurd because the PATH_MAX macro is not defined.
 According to POSIX, this macro may not be defined, so fix the code to

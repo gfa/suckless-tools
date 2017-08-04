@@ -1,6 +1,6 @@
 From: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
 Date: Sat, 10 Oct 2015 19:57:37 +0300
-Subject: Change Mod key to the Windows key
+Subject: tabbed: Change Mod key to the Windows key
 
 Provide 'tabbed.meta' alternative which uses the Windows key as Mod key.
 

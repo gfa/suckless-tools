@@ -3,7 +3,11 @@ Escape-symbol-in-manpage.patch
 Patch-Makefiles-to-honor-CFLAGS-and-LDFLAGS.patch
 Remove-custom-library-search-paths-from-Makefiles.patch
 Change-Mod-key-to-the-Windows-key.patch
+Define-PATH_MAX-in-case-it-is-missing.patch
+slock-Fix-resize-with-multiple-monitors-and-portrait-mode.patch
+slock-there-can-only-be-one-window-in-the-event.patch
+slock-Properly-clear-the-last-entered-character.patch
 Don-t-exit-if-failed-to-adjust-OOM-score.patch
+slock-Do-not-drop-privileges.patch
 Use-PAM-for-authentication.patch
 Remove-useless-dependency-against-Xext-library.patch
-Define-PATH_MAX-in-case-it-is-missing.patch

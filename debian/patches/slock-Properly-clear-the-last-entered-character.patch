@@ -1,0 +1,33 @@
+From: Tobias Stoeckmann <tobias@stoeckmann.org>
+Date: Sat, 25 Mar 2017 21:16:01 +0100
+Subject: slock: Properly clear the last entered character
+
+When enter is pressed, passwd[len] will be set to '\0'. Pressing
+backspace is supposed to remove the last entered character.
+
+But currently, the clearing has an off-by-one, as in setting
+passwd[len] to '\0' just like enter would do.
+
+You can also verify it by imagining len=1 and that it's impossible to
+clear passwd[0] by pressing backspace with the current code.
+
+Signed-off-by: Tobias Stoeckmann <tobias@stoeckmann.org>
+
+Origin: upstream, http://git.suckless.org/slock/commit/?id=35633d45672
+---
+ slock/slock.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/slock/slock.c b/slock/slock.c
+index 700acfb..e9d5fba 100644
+--- a/slock/slock.c
++++ b/slock/slock.c
+@@ -177,7 +177,7 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
+ 				break;
+ 			case XK_BackSpace:
+ 				if (len)
+-					passwd[len--] = '\0';
++					passwd[--len] = '\0';
+ 				break;
+ 			default:
+ 				if (num && !iscntrl((int)buf[0]) &&

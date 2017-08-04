@@ -12,7 +12,6 @@ Forwarded: no
 ---
  dmenu/config.mk    | 6 +++---
  lsw/config.mk      | 6 +++---
- lsx/config.mk      | 4 ++--
  slock/config.mk    | 6 +++---
  sprop/config.mk    | 6 +++---
  sselp/config.mk    | 6 +++---
@@ -21,20 +20,20 @@ Forwarded: no
  tabbed/config.mk   | 6 +++---
  wmname/config.mk   | 6 +++---
  xssstate/config.mk | 6 +++---
- 11 files changed, 30 insertions(+), 30 deletions(-)
+ 10 files changed, 28 insertions(+), 28 deletions(-)
 
 diff --git a/dmenu/config.mk b/dmenu/config.mk
-index 365d3d6..c11ddf7 100644
+index de3f1d9..f816817 100644
 --- a/dmenu/config.mk
 +++ b/dmenu/config.mk
 @@ -23,9 +23,9 @@ INCS = -I${X11INC} -I${FREETYPEINC}
  LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
  
  # flags
--CPPFLAGS = -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
+-CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
 -CFLAGS   = -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
 -LDFLAGS  = -s ${LIBS}
-+CPPFLAGS += -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
++CPPFLAGS += -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
 +CFLAGS   += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
 +LDFLAGS  += ${LIBS}
  
@@ -57,37 +56,22 @@ index 1d32307..400b2ca 100644
  
  # compiler and linker
  CC = cc
-diff --git a/lsx/config.mk b/lsx/config.mk
-index f526b22..de5cdae 100644
---- a/lsx/config.mk
-+++ b/lsx/config.mk
-@@ -12,8 +12,8 @@ INCS = -I/usr/lib
- LIBS = -L/usr/lib -lc
- 
- # flags
--CFLAGS = -Os ${INCS} -DVERSION=\"${VERSION}\"
--LDFLAGS = ${LIBS}
-+CFLAGS += ${INCS} -DVERSION=\"${VERSION}\" ${CPPFLAGS}
-+LDFLAGS += ${LIBS}
- #CFLAGS = -g -Wall -O2 ${INCS} -DVERSION=\"${VERSION}\"
- #LDFLAGS = -g ${LIBS}
- 
 diff --git a/slock/config.mk b/slock/config.mk
-index f93879e..776bd98 100644
+index 74429ae..1c1374a 100644
 --- a/slock/config.mk
 +++ b/slock/config.mk
 @@ -15,9 +15,9 @@ INCS = -I. -I/usr/include -I${X11INC}
  LIBS = -L/usr/lib -lc -lcrypt -L${X11LIB} -lX11 -lXext -lXrandr
  
  # flags
--CPPFLAGS = -DVERSION=\"${VERSION}\" -DHAVE_SHADOW_H
+-CPPFLAGS = -DVERSION=\"${VERSION}\" -D_DEFAULT_SOURCE -DHAVE_SHADOW_H
 -CFLAGS = -std=c99 -pedantic -Wall -Os ${INCS} ${CPPFLAGS}
 -LDFLAGS = -s ${LIBS}
-+CPPFLAGS += -DVERSION=\"${VERSION}\" -DHAVE_SHADOW_H
++CPPFLAGS += -DVERSION=\"${VERSION}\" -D_DEFAULT_SOURCE -DHAVE_SHADOW_H
 +CFLAGS += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
 +LDFLAGS += ${LIBS}
+ COMPATSRC = explicit_bzero.c
  
- # On *BSD remove -DHAVE_SHADOW_H from CPPFLAGS and add -DHAVE_BSD_AUTH
  # On OpenBSD and Darwin remove -lcrypt from LIBS
 diff --git a/sprop/config.mk b/sprop/config.mk
 index 826cdcb..7da5f46 100644

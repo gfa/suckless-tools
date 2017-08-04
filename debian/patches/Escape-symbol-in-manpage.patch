@@ -1,6 +1,6 @@
 From: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
 Date: Sat, 10 Oct 2015 19:54:16 +0300
-Subject: Escape '-' symbol in manpage
+Subject: tabbed: Escape '-' symbol in manpage
 
 Manpage for tabbed was using '-' symbol without escape which will be
 considered by groff as hyphen. This patch escapes the '-' in manpages.

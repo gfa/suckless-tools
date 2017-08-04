@@ -1,6 +1,6 @@
 From: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
 Date: Tue, 13 Oct 2015 20:24:46 +0300
-Subject: Use PAM for authentication
+Subject: slock: Use PAM for authentication
 
 Patch slock to use PAM for authentication instead of querying the shadow
 file. This means that slock can authenticate the user using some other
@@ -16,11 +16,11 @@ Bug-Debian: https://bugs.debian.org/739629
 Forwarded: http://lists.suckless.org/dev/1011/6405.html
 ---
  slock/config.mk |  4 +--
- slock/slock.c   | 92 ++++++++++++++++++++++++++++++++++++++++++++++++++++++---
- 2 files changed, 90 insertions(+), 6 deletions(-)
+ slock/slock.c   | 90 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 92 insertions(+), 2 deletions(-)
 
 diff --git a/slock/config.mk b/slock/config.mk
-index 4fda095..26a437d 100644
+index 061810b..d148027 100644
 --- a/slock/config.mk
 +++ b/slock/config.mk
 @@ -12,10 +12,10 @@ X11LIB = /usr/X11R6/lib
@@ -31,18 +31,18 @@ index 4fda095..26a437d 100644
 +LIBS = -lc -lpam -lX11 -lXext -lXrandr
  
  # flags
--CPPFLAGS += -DVERSION=\"${VERSION}\" -DHAVE_SHADOW_H
-+CPPFLAGS += -DVERSION=\"${VERSION}\" -DHAVE_PAM
+-CPPFLAGS += -DVERSION=\"${VERSION}\" -D_DEFAULT_SOURCE -DHAVE_SHADOW_H
++CPPFLAGS += -DVERSION=\"${VERSION}\" -D_DEFAULT_SOURCE -DHAVE_PAM
  CFLAGS += -std=c99 -pedantic -Wall ${INCS} ${CPPFLAGS}
  LDFLAGS += ${LIBS}
- 
+ COMPATSRC = explicit_bzero.c
 diff --git a/slock/slock.c b/slock/slock.c
-index de0cd72..3e15ecd 100644
+index 83365f2..473c896 100644
 --- a/slock/slock.c
 +++ b/slock/slock.c
-@@ -23,6 +23,18 @@
- #include <bsd_auth.h>
- #endif
+@@ -24,6 +24,18 @@
+ 
+ char *argv0;
  
 +#ifdef HAVE_PAM
 +#include <security/pam_appl.h>
@@ -59,64 +59,44 @@ index de0cd72..3e15ecd 100644
  enum {
  	INIT,
  	INPUT,
-@@ -86,7 +98,7 @@ dontkillme(void)
- }
- #endif
- 
--#ifndef HAVE_BSD_AUTH
-+#if !defined(HAVE_BSD_AUTH) && !defined(HAVE_PAM)
- /* only run as root */
- static const char *
- getpw(void)
-@@ -121,7 +133,7 @@ getpw(void)
- #endif
- 
- static void
--#ifdef HAVE_BSD_AUTH
-+#if defined(HAVE_BSD_AUTH) || defined(HAVE_PAM)
- readpw(Display *dpy)
- #else
- readpw(Display *dpy, const char *pws)
-@@ -162,6 +174,8 @@ readpw(Display *dpy, const char *pws)
- 				passwd[len] = 0;
- #ifdef HAVE_BSD_AUTH
- 				running = !auth_userokay(getlogin(), NULL, "auth-xlock", passwd);
-+#elif defined(HAVE_PAM)
+@@ -163,10 +175,14 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
+ 			case XK_Return:
+ 				passwd[len] = '\0';
+ 				errno = 0;
++#ifdef HAVE_PAM
 +				running = !!pam_auth(passwd);
- #else
- 				running = !!strcmp(crypt(passwd, pws), pws);
- #endif
-@@ -290,7 +304,7 @@ usage(void)
- 
- int
- main(int argc, char **argv) {
--#ifndef HAVE_BSD_AUTH
-+#if !defined(HAVE_BSD_AUTH) && !defined(HAVE_PAM)
- 	const char *pws;
- #endif
- 	Display *dpy;
-@@ -309,7 +323,7 @@ main(int argc, char **argv) {
- 	if (!getpwuid(getuid()))
- 		die("slock: no passwd entry for you\n");
- 
--#ifndef HAVE_BSD_AUTH
-+#if !defined(HAVE_BSD_AUTH) && !defined(HAVE_PAM)
- 	pws = getpw();
++#else
+ 				if (!(inputhash = crypt(passwd, hash)))
+ 					fprintf(stderr, "slock: crypt: %s\n", strerror(errno));
+ 				else
+ 					running = !!strcmp(inputhash, hash);
++#endif
+ 				if (running) {
+ 					XBell(dpy, 100);
+ 					failure = 1;
+@@ -325,10 +341,14 @@ main(int argc, char **argv) {
+ 	dontkillme();
  #endif
  
-@@ -344,6 +358,10 @@ main(int argc, char **argv) {
- 	/* Everything is now blank. Now wait for the correct password. */
- #ifdef HAVE_BSD_AUTH
- 	readpw(dpy);
-+#elif defined(HAVE_PAM)
++#ifdef HAVE_PAM
 +	pam_init();
-+	readpw(dpy);
-+	pam_destroy();
- #else
- 	readpw(dpy, pws);
- #endif
-@@ -357,3 +375,69 @@ main(int argc, char **argv) {
++#else
+ 	hash = gethash();
+ 	errno = 0;
+ 	if (!crypt("", hash))
+ 		die("slock: crypt: %s\n", strerror(errno));
++#endif
  
+ 	if (!(dpy = XOpenDisplay(NULL)))
+ 		die("slock: cannot open display\n");
+@@ -370,5 +390,75 @@ main(int argc, char **argv) {
+ 	/* everything is now blank. Wait for the correct password */
+ 	readpw(dpy, &rr, locks, nscreens, hash);
+ 
++#ifdef HAVE_PAM
++	pam_destroy();
++#endif
++
  	return 0;
  }
 +

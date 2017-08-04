@@ -1,6 +1,6 @@
 From: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
 Date: Tue, 16 Feb 2016 16:10:31 +0200
-Subject: Remove useless dependency against Xext library
+Subject: slock: Remove useless dependency against Xext library
 
 Slock is linked against libXext.so.6 but uses none of the library's
 symbols.
@@ -11,7 +11,7 @@ Forwarded: no
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/slock/config.mk b/slock/config.mk
-index 26a437d..43c7005 100644
+index d148027..7073961 100644
 --- a/slock/config.mk
 +++ b/slock/config.mk
 @@ -12,7 +12,7 @@ X11LIB = /usr/X11R6/lib
@@ -22,4 +22,4 @@ index 26a437d..43c7005 100644
 +LIBS = -lc -lpam -lX11 -lXrandr
  
  # flags
- CPPFLAGS += -DVERSION=\"${VERSION}\" -DHAVE_PAM
+ CPPFLAGS += -DVERSION=\"${VERSION}\" -D_DEFAULT_SOURCE -DHAVE_PAM

@@ -1,0 +1,21 @@
+From: Markus Teich <teichm@fs.tum.de>
+Date: Wed, 23 Nov 2016 00:28:25 +0100
+Subject: slock: there can only be one window in the event
+
+Origin: upstream, http://git.suckless.org/slock/commit/?id=0ff0d9f7a71
+---
+ slock/slock.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/slock/slock.c b/slock/slock.c
+index 61fe9ee..700acfb 100644
+--- a/slock/slock.c
++++ b/slock/slock.c
+@@ -209,6 +209,7 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
+ 						XResizeWindow(dpy, locks[screen]->win,
+ 						              rre->width, rre->height);
+ 					XClearWindow(dpy, locks[screen]->win);
++					break;
+ 				}
+ 			}
+ 		} else for (screen = 0; screen < nscreens; screen++)

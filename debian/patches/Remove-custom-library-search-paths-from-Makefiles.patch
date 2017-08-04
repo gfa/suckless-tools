@@ -16,7 +16,6 @@ Forwarded: no
 ---
  dmenu/config.mk    | 4 ++--
  lsw/config.mk      | 4 ++--
- lsx/config.mk      | 4 ++--
  slock/config.mk    | 4 ++--
  sprop/config.mk    | 4 ++--
  sselp/config.mk    | 4 ++--
@@ -25,14 +24,14 @@ Forwarded: no
  tabbed/config.mk   | 4 ++--
  wmname/config.mk   | 4 ++--
  xssstate/config.mk | 4 ++--
- 11 files changed, 22 insertions(+), 22 deletions(-)
+ 10 files changed, 20 insertions(+), 20 deletions(-)
 
 diff --git a/dmenu/config.mk b/dmenu/config.mk
-index c11ddf7..7a90ee8 100644
+index f816817..935c663 100644
 --- a/dmenu/config.mk
 +++ b/dmenu/config.mk
 @@ -19,8 +19,8 @@ FREETYPEINC = /usr/include/freetype2
- FREETYPEINC = ${X11INC}/freetype2
+ #FREETYPEINC = ${X11INC}/freetype2
  
  # includes and libs
 -INCS = -I${X11INC} -I${FREETYPEINC}
@@ -41,7 +40,7 @@ index c11ddf7..7a90ee8 100644
 +LIBS = -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
  
  # flags
- CPPFLAGS += -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
+ CPPFLAGS += -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700 -D_POSIX_C_SOURCE=200809L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
 diff --git a/lsw/config.mk b/lsw/config.mk
 index 400b2ca..186b93b 100644
 --- a/lsw/config.mk
@@ -57,23 +56,8 @@ index 400b2ca..186b93b 100644
  
  # flags
  CPPFLAGS += -DVERSION=\"${VERSION}\"
-diff --git a/lsx/config.mk b/lsx/config.mk
-index de5cdae..04b58ea 100644
---- a/lsx/config.mk
-+++ b/lsx/config.mk
-@@ -8,8 +8,8 @@ PREFIX = /usr/local
- MANPREFIX = ${PREFIX}/share/man
- 
- # includes and libs
--INCS = -I/usr/lib
--LIBS = -L/usr/lib -lc
-+INCS =
-+LIBS = -lc
- 
- # flags
- CFLAGS += ${INCS} -DVERSION=\"${VERSION}\" ${CPPFLAGS}
 diff --git a/slock/config.mk b/slock/config.mk
-index 776bd98..4fda095 100644
+index 1c1374a..061810b 100644
 --- a/slock/config.mk
 +++ b/slock/config.mk
 @@ -11,8 +11,8 @@ X11INC = /usr/X11R6/include
@@ -86,7 +70,7 @@ index 776bd98..4fda095 100644
 +LIBS = -lc -lcrypt -lX11 -lXext -lXrandr
  
  # flags
- CPPFLAGS += -DVERSION=\"${VERSION}\" -DHAVE_SHADOW_H
+ CPPFLAGS += -DVERSION=\"${VERSION}\" -D_DEFAULT_SOURCE -DHAVE_SHADOW_H
 diff --git a/sprop/config.mk b/sprop/config.mk
 index 7da5f46..e9fbd30 100644
 --- a/sprop/config.mk
