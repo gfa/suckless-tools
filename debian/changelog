@@ -1,12 +1,34 @@
-suckless-tools (43-1~1.gbp3e1f80) UNRELEASED; urgency=medium
+suckless-tools (43-1) unstable; urgency=low
 
-  ** SNAPSHOT build @3e1f8020f922bd51f0cc29075ea27359e5145014 **
-
+  [ Ilias Tsitsimpis ]
   * New upstream release
     - Update dmenu to version 4.7
     - Update slock to version 1.4
+  * Remove lsx.
+    The lsx tool has been removed from the upstream repo and is not
+    supported anymore.
+  * Update my email address
+  * Bump Standards-Version to 4.0.0, no changes needed
+  * Bump dependency on debhelper to >= 10
+  * Bump debhelper compat level to 10
+  * Update d/copyright file.
+    Add slock/explicit_bzero.c and bump copyright years.
+  * Update d/patches
+    - Use the following patches for slock, from upstream's git repo:
+        (7a604ec1f) Fix resize with multiple monitors and portrait mode
+        (35633d456) Properly clear the last entered character
+        (0ff0d9f7a) there can only be one window in the event
+    - Remove `drop privileges` code from slock, since it runs without setuid
+    - Update rest of the patches to apply cleanly
+  * Fix FTCBFS.
+    Remove explicit invocation of `strip` and `pkg-config`.
+    Thanks to Helmut Grohne for providing the patch (Closes: #861341)
+  * Fix typo in ssid(1) manpage
 
- -- Ilias Tsitsimpis <iliastsi@debian.org>  Thu, 03 Aug 2017 19:59:45 +0300
+  [ Barak A. Pearlmutter ]
+  * Fix typo in package description, missing s in similar (Closes: #857254)
+
+ -- Ilias Tsitsimpis <iliastsi@debian.org>  Fri, 04 Aug 2017 20:05:33 +0300
 
 suckless-tools (42-2) unstable; urgency=medium
 
