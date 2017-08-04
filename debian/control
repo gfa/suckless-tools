@@ -1,7 +1,7 @@
 Source: suckless-tools
 Section: x11
 Priority: optional
-Maintainer: Ilias Tsitsimpis <i.tsitsimpis@gmail.com>
+Maintainer: Ilias Tsitsimpis <iliastsi@debian.org>
 Build-Depends:
  debhelper (>= 9),
  libx11-dev,
