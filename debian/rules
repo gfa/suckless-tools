@@ -9,6 +9,10 @@ SHELL := sh -e
 # Path of 'debian' directory
 DEB_DIR := $(abspath $(dir $(MAKEFILE_LIST)))
 
+# Provide the correct pkg-config for cross-building
+include /usr/share/dpkg/architecture.mk
+export PKG_CONFIG := $(DEB_HOST_GNU_TYPE)-pkg-config
+
 # Enable all hardening flags
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 

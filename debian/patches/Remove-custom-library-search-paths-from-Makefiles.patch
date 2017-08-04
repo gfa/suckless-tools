@@ -27,7 +27,7 @@ Forwarded: no
  10 files changed, 20 insertions(+), 20 deletions(-)
 
 diff --git a/dmenu/config.mk b/dmenu/config.mk
-index f816817..935c663 100644
+index f816817..394f672 100644
 --- a/dmenu/config.mk
 +++ b/dmenu/config.mk
 @@ -19,8 +19,8 @@ FREETYPEINC = /usr/include/freetype2
@@ -36,7 +36,7 @@ index f816817..935c663 100644
  # includes and libs
 -INCS = -I${X11INC} -I${FREETYPEINC}
 -LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
-+INCS = $(shell pkg-config --cflags fontconfig xft)
++INCS = $(shell $(PKG_CONFIG) --cflags fontconfig xft)
 +LIBS = -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
  
  # flags

@@ -4,8 +4,11 @@ Subject: Patch Makefiles to honor CFLAGS and LDFLAGS
 
 This patch allows the hardening flags injection into all Makefiles
 during build time. It also removes -Os and -O0 from upstream config.mk
-to allow DEB_BUILD_OPTIONS=noopt. This patch also removes -s option to
-allow proper working of nostrip value for DEB_BUILD_OPTIONS.
+to allow DEB_BUILD_OPTIONS=noopt.
+
+Also, remove the -s linker option, as well as any explicit strip
+invocation to allow proper working of nostrip value for
+DEB_BUILD_OPTIONS.
 
 Author: Vasudev Kamath <kamathvasudev@gmail.com>
 Forwarded: no
@@ -15,12 +18,15 @@ Forwarded: no
  slock/config.mk    | 6 +++---
  sprop/config.mk    | 6 +++---
  sselp/config.mk    | 6 +++---
+ ssid/Makefile      | 1 -
  ssid/config.mk     | 4 ++--
+ swarp/Makefile     | 1 -
  swarp/config.mk    | 4 ++--
  tabbed/config.mk   | 6 +++---
+ wmname/Makefile    | 1 -
  wmname/config.mk   | 6 +++---
  xssstate/config.mk | 6 +++---
- 10 files changed, 28 insertions(+), 28 deletions(-)
+ 13 files changed, 28 insertions(+), 31 deletions(-)
 
 diff --git a/dmenu/config.mk b/dmenu/config.mk
 index de3f1d9..f816817 100644
@@ -107,6 +113,18 @@ index ede4ad1..aa54c7e 100644
  
  # compiler and linker
  CC = cc
+diff --git a/ssid/Makefile b/ssid/Makefile
+index 3cfd520..8039ab1 100644
+--- a/ssid/Makefile
++++ b/ssid/Makefile
+@@ -24,7 +24,6 @@ ${OBJ}: config.mk
+ ssid: ${OBJ}
+ 	@echo LD $@
+ 	@${LD} -o $@ ${OBJ} ${LDFLAGS}
+-	@strip $@
+ 
+ clean:
+ 	@echo cleaning
 diff --git a/ssid/config.mk b/ssid/config.mk
 index 0b020f2..b675a4b 100644
 --- a/ssid/config.mk
@@ -122,6 +140,18 @@ index 0b020f2..b675a4b 100644
  #CFLAGS = -g -Wall -O2 ${INCS} -DVERSION=\"${VERSION}\"
  #LDFLAGS = -g ${LIBS}
  
+diff --git a/swarp/Makefile b/swarp/Makefile
+index 8e1c848..514855b 100644
+--- a/swarp/Makefile
++++ b/swarp/Makefile
+@@ -24,7 +24,6 @@ ${OBJ}: config.mk
+ swarp: ${OBJ}
+ 	@echo LD $@
+ 	@${LD} -o $@ ${OBJ} ${LDFLAGS}
+-	@strip $@
+ 
+ clean:
+ 	@echo cleaning
 diff --git a/swarp/config.mk b/swarp/config.mk
 index f6d6fd5..b3bae48 100644
 --- a/swarp/config.mk
@@ -154,6 +184,18 @@ index 5279711..78ce088 100644
  
  # Solaris
  #CFLAGS = -fast ${INCS} -DVERSION=\"${VERSION}\"
+diff --git a/wmname/Makefile b/wmname/Makefile
+index fc14296..d902583 100644
+--- a/wmname/Makefile
++++ b/wmname/Makefile
+@@ -23,7 +23,6 @@ ${OBJ}: config.mk
+ wmname: ${OBJ}
+ 	@echo LD $@
+ 	@${LD} -o $@ ${OBJ} ${LDFLAGS}
+-	@strip $@
+ 
+ clean:
+ 	@echo cleaning
 diff --git a/wmname/config.mk b/wmname/config.mk
 index ca6d6c4..034ead9 100644
 --- a/wmname/config.mk
