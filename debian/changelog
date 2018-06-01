@@ -1,11 +1,15 @@
-suckless-tools (44-1~1.gbpd99306) UNRELEASED; urgency=low
-
-  ** SNAPSHOT build @d99306c8b5db9b20407480f770deeca372b50821 **
+suckless-tools (44-1) unstable; urgency=low
 
   * New upstream release
     - Update dmenu to version 4.8
+  * Bump debhelper compat level to 11
+  * Modify d/control and d/copyright to use HTTPS
+  * Update Vcs-* to point to salsa.debian.org
+  * Update d/copyright file (bump Copyright years)
+  * Remove obsolete get-orig-source rules target
+  * Bump Standards-Version to 4.1.4
 
- -- Ilias Tsitsimpis <iliastsi@debian.org>  Fri, 01 Jun 2018 12:23:43 +0300
+ -- Ilias Tsitsimpis <iliastsi@debian.org>  Fri, 01 Jun 2018 13:16:24 +0300
 
 suckless-tools (43-1) unstable; urgency=low
 
