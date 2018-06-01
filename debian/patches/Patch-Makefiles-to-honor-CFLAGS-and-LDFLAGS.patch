@@ -29,7 +29,7 @@ Forwarded: no
  13 files changed, 28 insertions(+), 31 deletions(-)
 
 diff --git a/dmenu/config.mk b/dmenu/config.mk
-index de3f1d9..f816817 100644
+index 50fe52c..a6984f3 100644
 --- a/dmenu/config.mk
 +++ b/dmenu/config.mk
 @@ -23,9 +23,9 @@ INCS = -I${X11INC} -I${FREETYPEINC}
