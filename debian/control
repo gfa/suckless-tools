@@ -13,7 +13,7 @@ Build-Depends:
  libpam0g-dev,
  libxrandr-dev,
  libfreetype6-dev
-Standards-Version: 4.0.0
+Standards-Version: 4.1.4
 Homepage: https://www.suckless.org
 Vcs-Git: https://salsa.debian.org/debian/suckless-tools.git
 Vcs-Browser: https://salsa.debian.org/debian/suckless-tools
