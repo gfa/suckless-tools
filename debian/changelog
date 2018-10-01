@@ -1,3 +1,9 @@
+suckless-tools (44-2) UNRELEASED; urgency=medium
+
+  * d/changelog: Remove trailing whitespaces
+
+ -- Ondřej Nový <onovy@debian.org>  Mon, 01 Oct 2018 09:50:03 +0200
+
 suckless-tools (44-1) unstable; urgency=low
 
   * New upstream release
@@ -164,11 +170,11 @@ suckless-tools (40-1) unstable; urgency=low
   * Updated Provides and long description in debian/control to reflect
     inclussion of xssstate utility.
   * Updated debian/copyright file to include copyright statement for
-    xssstate utility.    
+    xssstate utility.
   * Added Xft alternative for dmenu, thanks to Javier P.L.
     Closes: bug#696703.
   * New build-dependency on libxft-dev, libfreetype6-dev is added for
-    allowing dmenu.xft alternative.    
+    allowing dmenu.xft alternative.
   * Provided meta key alternative for tabbed, thanks to Vincent Lefevre.
     Closes: bug#703027.
   * Removed TERMINFO environment setting during building of tools, we are
@@ -213,7 +219,7 @@ suckless-tools (39-1) experimental; urgency=low
     + Added sprop and lsx (Closes: #627662)
     + Imported new version of slock. This resolves CVE-2012-1620
       (Closes: #667796, #692737)
-    + Imported new version of tabbed    
+    + Imported new version of tabbed
   * debian/rules:
     + Added get-orig-source target to get upstream source tarball for included
       package
@@ -256,7 +262,7 @@ suckless-tools (38-2) unstable; urgency=low
       and sselp
 
  -- Vasudev Kamath <kamathvasudev@gmail.com>  Sun, 14 Oct 2012 16:04:43 +0530
- 
+
 suckless-tools (38-1) unstable; urgency=low
 
   * Fix "FTBFS: /home/buildd/.terminfo: permission denied (errno 2)"
