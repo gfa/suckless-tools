@@ -11,3 +11,4 @@ Don-t-exit-if-failed-to-adjust-OOM-score.patch
 slock-Do-not-drop-privileges.patch
 Use-PAM-for-authentication.patch
 Remove-useless-dependency-against-Xext-library.patch
+Tabbed-My-Configuration

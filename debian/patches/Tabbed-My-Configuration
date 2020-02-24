@@ -1,0 +1,95 @@
+--- a/tabbed/config.def.h
++++ b/tabbed/config.def.h
+@@ -1,7 +1,7 @@
+ /* See LICENSE file for copyright and license details. */
+ 
+ /* appearance */
+-static const char font[]        = "-*-*-medium-*-*-*-14-*-*-*-*-*-*-*";
++static const char font[]        = "Inconsolata-zi4:size=14;";
+ static const char* normbgcolor  = "#222222";
+ static const char* normfgcolor  = "#cccccc";
+ static const char* selbgcolor   = "#555555";
+@@ -32,15 +32,17 @@ static Bool npisrelative  = False;
+ #endif
+ static Key keys[] = { \
+ 	/* modifier                     key        function        argument */
+-	{ MODKEY|ShiftMask,             XK_Return, focusonce,      { 0 } },
+-	{ MODKEY|ShiftMask,             XK_Return, spawn,          { 0 } },
+-	{ MODKEY,                       XK_t,      spawn,          SETPROP("_TABBED_SELECT_TAB") },
+-
+-	{ MODKEY|ShiftMask,             XK_l,      rotate,         { .i = +1 } },
+-	{ MODKEY|ShiftMask,             XK_h,      rotate,         { .i = -1 } },
+-	{ MODKEY|ShiftMask,             XK_j,      movetab,        { .i = -1 } },
+-	{ MODKEY|ShiftMask,             XK_k,      movetab,        { .i = +1 } },
+-	{ MODKEY,                       XK_Tab,    rotate,         { .i = 0 } },
++	{ MODKEY|ShiftMask,             XK_n,      focusonce,      { 0 } },
++	{ MODKEY|ShiftMask,             XK_n,      spawn,          { 0 } },
++	{ MODKEY,                       XK_t,      spawn,          { 0 } },
++// 	{ MODKEY,                       XK_t,      spawn,          SETPROP("_TABBED_SELECT_TAB") },
++
++	{ ShiftMask,                    XK_Right,  rotate,         { .i = +1 } },
++	{ ShiftMask,                    XK_Left,   rotate,         { .i = -1 } },
++	{ MODKEY,                       XK_Left,   movetab,        { .i = -1 } },
++	{ MODKEY,                       XK_Right,  movetab,        { .i = +1 } },
++/*
++// 	{ MODKEY,                       XK_Tab,    rotate,         { .i = 0 } },
+ 
+ 	{ MODKEY,                       XK_1,      move,           { .i = 0 } },
+ 	{ MODKEY,                       XK_2,      move,           { .i = 1 } },
+@@ -56,5 +58,5 @@ static Key keys[] = { \
+ 	{ MODKEY,                       XK_q,      killclient,     { 0 } },
+ 
+ 	{ 0,                            XK_F11,    fullscreen,     { 0 } },
++*/
+ };
+-
+--- a/tabbed/tabbed.1
++++ b/tabbed/tabbed.1
+@@ -89,36 +89,22 @@ defines the normal foreground color.
+ prints version information to stderr, then exits.
+ .SH USAGE
+ .TP
+-.B Mod\-Shift\-Return
++.B Mod\-t
++.B Mod\-Shift\-N
+ open new tab
+ .TP
+-.B Mod\-Shift\-h
++.B Shift\-Left
+ previous tab
+ .TP
+-.B Mod\-Shift\-l
++.B Shift\-Right
+ next tab
+ .TP
+-.B Mod\-Shift\-j
++.B Mod\-Left
+ move selected tab one to the left
+ .TP
+-.B Mod\-Shift\-k
++.B Mod\-Right
+ move selected tab one to the right
+ .TP
+-.B Mod\-Tab
+-toggle between the selected and last selected tab
+-.TP
+-.B Mod\-t
+-open dmenu to either create a new tab appending the entered string or select
+-an already existing tab.
+-.TP
+-.B Mod\-q
+-close tab
+-.TP
+-.B Mod\-[0..9]
+-jumps to nth tab
+-.TP
+-.B F11
+-Toggle fullscreen mode.
+ .SH EXAMPLES
+ $ tabbed surf \-e
+ .TP
+@@ -146,4 +132,3 @@ See the LICENSE file for the terms of re
+ .BR st (1)
+ .SH BUGS
+ Please report them.
+-
