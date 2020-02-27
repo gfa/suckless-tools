@@ -1,3 +1,10 @@
+suckless-tools (44-2gfa2) UNRELEASED; urgency=medium
+
+  * Add new tabs to the right of the current tab
+  https://src.adamsgaard.dk/tabbed/commit/fab5b428c27100a7138dc3bf4ce9bc0562e113e8.html
+
+ -- gustavo panizzo <gfa@zumbi.com.ar>  Thu, 27 Feb 2020 17:01:14 +0000
+
 suckless-tools (44-2gfa1) UNRELEASED; urgency=medium
 
   [ Ondřej Nový ]
