@@ -20,7 +20,7 @@
  
  #define SETPROP(p) { \
  	.v = (char *[]){ "/bin/sh", "-c", \
-@@ -32,15 +32,17 @@ static Bool npisrelative  = False;
+@@ -32,15 +32,16 @@ static Bool npisrelative  = False;
  #endif
  static Key keys[] = { \
  	/* modifier                     key        function        argument */
@@ -35,7 +35,6 @@
 -	{ MODKEY,                       XK_Tab,    rotate,         { .i = 0 } },
 +	{ MODKEY|ShiftMask,             XK_n,      focusonce,      { 0 } },
 +	{ MODKEY|ShiftMask,             XK_n,      spawn,          { 0 } },
-+	{ MODKEY,                       XK_t,      spawn,          { 0 } },
 +// 	{ MODKEY,                       XK_t,      spawn,          SETPROP("_TABBED_SELECT_TAB") },
 +
 +	{ ShiftMask,                    XK_Right,  rotate,         { .i = +1 } },
@@ -47,7 +46,7 @@
  
  	{ MODKEY,                       XK_1,      move,           { .i = 0 } },
  	{ MODKEY,                       XK_2,      move,           { .i = 1 } },
-@@ -56,5 +58,5 @@ static Key keys[] = { \
+@@ -56,5 +57,5 @@ static Key keys[] = { \
  	{ MODKEY,                       XK_q,      killclient,     { 0 } },
  
  	{ 0,                            XK_F11,    fullscreen,     { 0 } },
